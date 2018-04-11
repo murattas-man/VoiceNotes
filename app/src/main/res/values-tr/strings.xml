@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sesli Not</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Sesli Notlar</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Ayarlar</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_create_note">Not Oluştur</string>
+    <string name="title">Test</string>
+    <string name="detail">Small Text</string>
+    <string-array name="note_type">
+        <item>Normal</item>
+        <item>Önemli</item>
+        <item>Alarm</item>
+    </string-array>
+    <string name="title_activity_information">Bilgi</string>
+    <string name="title_activity_edit__note">Notu Düzenle</string>
+    <string name="New">Yeni Not Oluştur</string>
+    <string name="back">Anasayfaya Dön</string>
+    <string name="save">Notu Kaydet</string>
+    <string name="edit">Notu Düzenle</string>
+    <string name="discard">Notu Sil</string>
+    <string name="note_type_text">Not Tipi:</string>
+    <string name="title_activity_alert">Alarm</string>
+    <string name="Not_Set">Ayarlanmadı</string>
+    <string name="hour_minutes">HH:mm</string>
+    <string name="alert_title">title</string>
+    <string name="added_alert">Bir Uyarı eklenebilir</string>
+    <string name="rodId">rowID</string>
+    <string name="Alertnotifty">"Alarm: "</string>
+    <string name="alerttitle">title</string>
+    <string name="delete_title">Seçilen Notu Sil</string>
+    <string name="delete_message">Emin misiniz?</string>
+    <string name="yes">Evet</string>
+    <string name="no">Hayır</string>
+    <string name="rodID">rowID</string>
+    <string name="rowID">rowID</string>
+    <string name="row_id">rowID</string>
+    <string name="intent_row_id">rowID</string>
+    <string name="row_id_long">rowID</string>
+    <string name="alarm_active">Bir Uyarı eklenebilir!</string>
+    <string name="row_id_log">rowID</string>
+    <string name="title_hint">Başlığı Girin</string>
+    <string name="hint_description">Açıklama Gir</string>
+    <string name="set_alert">Alarm ayarla</string>
+    <string name="textview_date">Tarih Seç</string>
+    <string name="txt_time">Saati Girin:</string>
+    <string name="txt_edit_hint">Başlığı Girin</string>
+    <string name="detail_hint">Açıklama Gir</string>
+    <string name="type_note">Not Tipi:</string>
+    <string name="view_title">Large Text</string>
+    <string name="view_detail">Medium Text</string>
+    <string name="note_type">Medium Text</string>
+    <string name="type_list_entry">Small Text</string>
+    <string name="time_vie">testZamanı</string>
+    <string name="alarmtext">Alarm: </string>
+    <string name="dateformate">dd/MM/yyyy</string>
+    <string name="Not_Set_Alert">Ayarlanmadı</string>
+    <string name="ok">Tamam</string>
+    <string name="title_msg">title</string>
+    <string name="titttle">title</string>
+    <string name="sesKontrol">Üzgünüz Telefonunuz bu sistemi desteklemiyor!!!</string>
+    <string name="paylasSesim">Paylaşmak için birini seçiniz</string>
+    <string name="onemliNot">Önemli Notlar</string>
+    <string name="alarmnotes">Hatırlatmalar</string>
+    <string name="allNotes">Tüm Notlar</string>
+    <string name="hangiTarih">Geçersiz bir tarih girdiniz</string>
+    <string name="aciklama">Lütfen açıklama giriniz</string>
+    <string name="notKaydet">Kaydedildi</string>
+
+</resources>
