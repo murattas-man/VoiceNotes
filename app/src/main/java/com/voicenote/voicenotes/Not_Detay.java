@@ -7,13 +7,18 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class Not_Detay extends AppCompatActivity {
@@ -21,37 +26,190 @@ public class Not_Detay extends AppCompatActivity {
     SQLiteDatabase db;
     Veritabani mVeritabani;
     String saat,tarih;
+    private int shepArka;
+    private int shepYazi;
+
+    TextView txt_title;
+    TextView txt_detail;
+    TextView txt_type;
+    ImageView ımageView;
+    TextView txt_Time;
+    TextView txt_Date;
+
+    RelativeLayout relativeLayout;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detay_not);
-        final long id = getIntent().getExtras().getLong(getString(R.string.row_id));
+         relativeLayout=findViewById(R.id.relativelayout);
 
+        Bundle bundle = getIntent().getExtras();
+        final long id=bundle.getInt("idNot");
+       // final long id = getIntent().getExtras().getLong(getString(R.string.row_id));
 
         mVeritabani = new Veritabani(this);
         db = mVeritabani.getWritableDatabase();
 
         Cursor cursor = db.rawQuery("select * from " + mVeritabani.TABLE_NAME + " where " + mVeritabani.C_ID + "=" + id, null);
-        TextView title = (TextView) findViewById(R.id.title);
-        TextView detail = (TextView) findViewById(R.id.detail);
-        TextView notetype = (TextView) findViewById(R.id.note_type_ans);
-        TextView time = (TextView) findViewById(R.id.alertvalue);
-        TextView date = (TextView) findViewById(R.id.datevalue);
+         txt_title = (TextView) findViewById(R.id.title);
+         txt_detail = (TextView) findViewById(R.id.detail);
+         txt_type = (TextView) findViewById(R.id.note_type_ans);
+         txt_Time = (TextView) findViewById(R.id.alertvalue);
+         txt_Date = (TextView) findViewById(R.id.datevalue);
+
+
         if (cursor != null) {
             if (cursor.moveToFirst()) {
-                title.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.TITLE)));
-                detail.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.DETAIL)));
-                notetype.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.TYPE)));
-                time.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.TIME)));
-                date.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.DATE)));
+                txt_title.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.TITLE)));
+                txt_detail.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.DETAIL)));
+                txt_type.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.TYPE)));
+                txt_Time.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.TIME)));
+                txt_Date.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.DATE)));
                 saat=cursor.getString(cursor.getColumnIndex(mVeritabani.TIME));
                 tarih=cursor.getString(cursor.getColumnIndex(mVeritabani.DATE));
-
+                shepArka=cursor.getInt(cursor.getColumnIndex(mVeritabani.ARKAPLAN));
+                shepYazi=cursor.getInt(cursor.getColumnIndex(mVeritabani.RENKKODU));
+                arkaPlan(shepArka);
+                renkYazi(shepYazi);
             }
             cursor.close();
         }
+    }
+
+    private void renkYazi(int shepYazi) {
+        switch (shepYazi){
+
+            case 0:
+                txt_detail.setTextColor(Color.WHITE);
+                txt_type.setTextColor(Color.WHITE);
+                txt_Time.setTextColor(Color.WHITE);
+                txt_Date.setTextColor(Color.WHITE);
+                txt_title.setTextColor(Color.WHITE);
+                break;
+            case 1:
+                txt_detail.setTextColor(Color.parseColor("#FFEB3B"));
+                txt_title.setTextColor(Color.parseColor("#FFEB3B"));
+                txt_Date.setTextColor(Color.parseColor("#FFEB3B"));
+                txt_Time.setTextColor(Color.parseColor("#FFEB3B"));
+                txt_type.setTextColor(Color.parseColor("#FFEB3B"));
+                break;
+            case 2:
+                txt_detail.setTextColor(Color.parseColor("#FF5722"));
+                txt_Time.setTextColor(Color.parseColor("#FF5722"));
+                txt_type.setTextColor(Color.parseColor("#FF5722"));
+                txt_Date.setTextColor(Color.parseColor("#FF5722"));
+                txt_title.setTextColor(Color.parseColor("#FF5722"));
+                break;
+            case 3:
+                txt_detail.setTextColor(Color.parseColor("#FF3D00"));
+                txt_Date.setTextColor(Color.parseColor("#FF3D00"));
+                txt_title.setTextColor(Color.parseColor("#FF3D00"));
+                txt_type.setTextColor(Color.parseColor("#FF3D00"));
+                txt_Time.setTextColor(Color.parseColor("#FF3D00"));
+                break;
+            case 4:
+                txt_detail.setTextColor(Color.parseColor("#DD2C00"));
+                txt_type.setTextColor(Color.parseColor("#DD2C00"));
+                txt_Time.setTextColor(Color.parseColor("#DD2C00"));
+                txt_title.setTextColor(Color.parseColor("#DD2C00"));
+                txt_Date.setTextColor(Color.parseColor("#DD2C00"));
+                break;
+            case 5:
+                txt_detail.setTextColor(Color.parseColor("#7C4DFF"));
+                txt_title.setTextColor(Color.parseColor("#7C4DFF"));
+                txt_Date.setTextColor(Color.parseColor("#7C4DFF"));
+                txt_Time.setTextColor(Color.parseColor("#7C4DFF"));
+                txt_type.setTextColor(Color.parseColor("#7C4DFF"));
+                break;
+            case 6:
+                txt_detail.setTextColor(Color.parseColor("#3F51B5"));
+                txt_Time.setTextColor(Color.parseColor("#3F51B5"));
+                txt_type.setTextColor(Color.parseColor("#3F51B5"));
+                txt_Date.setTextColor(Color.parseColor("#3F51B5"));
+                txt_title.setTextColor(Color.parseColor("#3F51B5"));
+                break;
+            case 7:
+                txt_detail.setTextColor(Color.parseColor("#2196F3"));
+                txt_Date.setTextColor(Color.parseColor("#2196F3"));
+                txt_title.setTextColor(Color.parseColor("#2196F3"));
+                txt_Time.setTextColor(Color.parseColor("#2196F3"));
+                txt_type.setTextColor(Color.parseColor("#2196F3"));
+                break;
+            case 8:
+                txt_detail.setTextColor(Color.parseColor("#000000"));
+                txt_type.setTextColor(Color.parseColor("#000000"));
+                txt_Time.setTextColor(Color.parseColor("#000000"));
+                txt_title.setTextColor(Color.parseColor("#000000"));
+                txt_Date.setTextColor(Color.parseColor("#000000"));
+                break;
+            case 9:
+                txt_detail.setTextColor(Color.parseColor("#4E342E"));
+                txt_Time.setTextColor(Color.parseColor("#4E342E"));
+                txt_Date.setTextColor(Color.parseColor("#4E342E"));
+                txt_title.setTextColor(Color.parseColor("#4E342E"));
+                txt_type.setTextColor(Color.parseColor("#4E342E"));
+                break;
+            case 10:
+                txt_detail.setTextColor(Color.parseColor("#616161"));
+                txt_type.setTextColor(Color.parseColor("#616161"));
+                txt_Time.setTextColor(Color.parseColor("#616161"));
+                txt_title.setTextColor(Color.parseColor("#616161"));
+                txt_Date.setTextColor(Color.parseColor("#616161"));
+                break;
+            case 11:
+                txt_detail.setTextColor(Color.parseColor("#C6FF00"));
+                txt_Time.setTextColor(Color.parseColor("#C6FF00"));
+                txt_Date.setTextColor(Color.parseColor("#C6FF00"));
+                txt_title.setTextColor(Color.parseColor("#C6FF00"));
+                txt_type.setTextColor(Color.parseColor("#C6FF00"));
+                break;
+
+        }
+    }
+
+    private void arkaPlan(int shepArka) {
+        switch (shepArka)
+        {
+            case 0:
+                relativeLayout.setBackgroundColor(Color.WHITE);
+                break;
+            case 1:
+                relativeLayout.setBackgroundColor(Color.parseColor("#FFEB3B"));
+                break;
+            case 2:
+                relativeLayout.setBackgroundColor(Color.parseColor("#FF5722"));
+                break;
+            case 3:
+                relativeLayout.setBackgroundColor(Color.parseColor("#FF3D00"));
+                break;
+            case 4:
+                relativeLayout.setBackgroundColor(Color.parseColor("#DD2C00"));
+                break;
+            case 5:
+                relativeLayout.setBackgroundColor(Color.parseColor("#7C4DFF"));
+                break;
+            case 6:
+                relativeLayout.setBackgroundColor(Color.parseColor("#3F51B5"));
+                break;
+            case 7:
+                relativeLayout.setBackgroundColor(Color.parseColor("#2196F3"));
+                break;
+            case 8:
+                relativeLayout.setBackgroundColor(Color.parseColor("#000000"));
+                break;
+            case 9:
+                relativeLayout.setBackgroundColor(Color.parseColor("#4E342E"));
+                break;
+            case 10:
+                relativeLayout.setBackgroundColor(Color.parseColor("#616161"));
+                break;
+            case 11:
+                relativeLayout.setBackgroundColor(Color.parseColor("#C6FF00"));
+                break;
+        }
+
     }
 
     @Override
@@ -69,7 +227,9 @@ public class Not_Detay extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        final long id = getIntent().getExtras().getLong(getString(R.string.rowID));
+
+        Bundle bundle = getIntent().getExtras();
+        final long id=bundle.getInt("idNot");
 
         switch (item.getItemId()) {
             case R.id.action_back:
@@ -115,6 +275,9 @@ public class Not_Detay extends AppCompatActivity {
                         })
                         .setNegativeButton(getString(R.string.no), null)                        //Do nothing on no
                         .show();
+                return true;
+
+            case R.id.action_settings:
                 return true;
 
             default:

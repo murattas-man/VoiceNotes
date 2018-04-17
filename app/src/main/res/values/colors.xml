@@ -50,4 +50,27 @@
     <!--Undo bar-->
     <color name="card_undobar_material_text_color">#4CAF50</color>
     <color name="card_undobar_material_background_color">#323232</color>
+    <!-- arkapaln ve yazı renkleri-->
+    <color name="renk1">#FFFFFF</color>
+    <color name="renk2">#FFEB3B</color>
+    <color name="renk3">#FF5722</color>
+    <color name="renk4">#FF3D00</color>
+    <color name="renk5">#DD2C00</color>
+    <color name="renk6">#7C4DFF</color>
+    <color name="renk7">#3F51B5</color>
+    <color name="renk8">#2196F3</color>
+    <color name="renk9">#000000</color>
+    <color name="renk10">#4E342E</color>
+    <color name="renk11">#616161</color>
+    <color name="renk12">#C6FF00</color>
+
+    <color name="brown">#795548</color>
+    <color name="grey">#9E9E9E</color>
+    <color name="bluegray">#607D8B</color>
+    <color name="amber">#FFC107</color>
+    <color name="green">#66BB6A</color>
+    <color name="lightgreen">#8BC34A</color>
+    <color name="lime">#CDDC39</color>
+    <color name="tight_Blue">#29B6F6</color>
+    <color name="teal">#009688</color>
 </resources>

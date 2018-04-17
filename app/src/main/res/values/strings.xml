@@ -5,7 +5,7 @@
     <string name="nav_header_title">Voice Notes</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Background and Fond Color</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_create_note">Create Note</string>
     <string name="title">Test</string>
@@ -69,4 +69,6 @@
     <string name="hangiTarih">You entered an invalid date</string>
     <string name="aciklama">Please enter description</string>
     <string name="notKaydet">Saved</string>
+    <string name="arkaPlan">Background Color</string>
+    <string name="textcolor">Font color</string>
 </resources>

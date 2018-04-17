@@ -4,6 +4,7 @@ package com.voicenote.voicenotes;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.ActivityNotFoundException;
@@ -11,8 +12,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.FloatingActionButton;
@@ -23,10 +26,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -61,6 +66,21 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
      int ID;
      String baslik;
 
+    private SharedPreferences sharedpreferences;
+    private SharedPreferences.Editor editor;
+    private int shepArka;
+    private int shepYazi;
+
+    int arkaPlan=0;
+    int yaziRengi=8;
+    int arkaPlan1=0;
+    int yaziRengi1=8;
+
+
+    ImageView img1,img2,img3,img4;
+    ImageView img5,img6,img7,img8;
+    ImageView img9,img10,img11,img12;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +98,10 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
         txtTarih=(TextView)findViewById(R.id.txtTarihd);
 
         final long id = getIntent().getExtras().getLong(getString(R.string.row_id_log));
+
+        sharedpreferences = getSharedPreferences("Mresim", Context.MODE_PRIVATE);
+        shepArka=sharedpreferences.getInt("arkaplan",0);
+        shepYazi=sharedpreferences.getInt("shepyazi",8);
 
 
         ArrayAdapter adapter = ArrayAdapter.createFromResource(
@@ -110,6 +134,8 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 mNotAciklamaText.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.DETAIL)));
+                arkaPlan1=cursor.getInt(cursor.getColumnIndex(mVeritabani.ARKAPLAN));
+                yaziRengi1=cursor.getInt(cursor.getColumnIndex(mVeritabani.RENKKODU));
                 if (cursor.getString(cursor.getColumnIndex(mVeritabani.TYPE)).equals(mSpinner.getItemAtPosition(0))){
                     mSpinner.setSelection(0);
                     checkBoxAlarm.setChecked(false);
@@ -151,6 +177,9 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
             }
             cursor.close();
         }
+
+        txtArkaPlan(arkaPlan1);
+        txtYaziRengi(yaziRengi1);
 
 
 
@@ -223,6 +252,113 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
         });
     }
 
+    private void txtYaziRengi(int shepYazi) {
+        switch (shepYazi){
+            case 0:
+                mNotAciklamaText.setTextColor(Color.WHITE);
+                yaziRengi=0;
+                break;
+            case 1:
+                mNotAciklamaText.setTextColor(Color.parseColor("#FFEB3B"));
+                yaziRengi=1;
+                break;
+            case 2:
+                mNotAciklamaText.setTextColor(Color.parseColor("#FF5722"));
+                yaziRengi=2;
+                break;
+            case 3:
+                mNotAciklamaText.setTextColor(Color.parseColor("#FF3D00"));
+                yaziRengi=3;
+                break;
+            case 4:
+                mNotAciklamaText.setTextColor(Color.parseColor("#DD2C00"));
+                yaziRengi=4;
+                break;
+            case 5:
+                mNotAciklamaText.setTextColor(Color.parseColor("#7C4DFF"));
+                yaziRengi=5;
+                break;
+            case 6:
+                mNotAciklamaText.setTextColor(Color.parseColor("#3F51B5"));
+                yaziRengi=6;
+                break;
+            case 7:
+                mNotAciklamaText.setTextColor(Color.parseColor("#2196F3"));
+                yaziRengi=7;
+                break;
+            case 8:
+                mNotAciklamaText.setTextColor(Color.parseColor("#000000"));
+                yaziRengi=8;
+                break;
+            case 9:
+                mNotAciklamaText.setTextColor(Color.parseColor("#4E342E"));
+                yaziRengi=9;
+                break;
+            case 10:
+                mNotAciklamaText.setTextColor(Color.parseColor("#616161"));
+                yaziRengi=10;
+                break;
+            case 11:
+                mNotAciklamaText.setTextColor(Color.parseColor("#C6FF00"));
+                yaziRengi=11;
+                break;
+        }
+    }
+
+    private void txtArkaPlan(int shepArka) {
+
+        switch (shepArka){
+            case 0:
+                mNotAciklamaText.setBackgroundColor(Color.WHITE);
+                arkaPlan=0;
+                break;
+            case 1:
+                mNotAciklamaText.setBackgroundColor(Color.parseColor("#FFEB3B"));
+                arkaPlan=1;
+                break;
+            case 2:
+                mNotAciklamaText.setBackgroundColor(Color.parseColor("#FF5722"));
+                arkaPlan=2;
+                break;
+            case 3:
+                mNotAciklamaText.setBackgroundColor(Color.parseColor("#FF3D00"));
+                arkaPlan=3;
+                break;
+            case 4:
+                mNotAciklamaText.setBackgroundColor(Color.parseColor("#DD2C00"));
+                arkaPlan=4;
+                break;
+            case 5:
+                mNotAciklamaText.setBackgroundColor(Color.parseColor("#7C4DFF"));
+                arkaPlan=5;
+                break;
+            case 6:
+                mNotAciklamaText.setBackgroundColor(Color.parseColor("#3F51B5"));
+                arkaPlan=6;
+                break;
+            case 7:
+                mNotAciklamaText.setBackgroundColor(Color.parseColor("#2196F3"));
+                arkaPlan=7;
+                break;
+            case 8:
+                mNotAciklamaText.setBackgroundColor(Color.parseColor("#000000"));
+                arkaPlan=8;
+                break;
+            case 9:
+                mNotAciklamaText.setBackgroundColor(Color.parseColor("#4E342E"));
+                arkaPlan=9;
+                break;
+            case 10:
+                mNotAciklamaText.setBackgroundColor(Color.parseColor("#616161"));
+                arkaPlan=10;
+                break;
+            case 11:
+                mNotAciklamaText.setBackgroundColor(Color.parseColor("#C6FF00"));
+                arkaPlan=11;
+                break;
+        }
+    }
+
     @Override
     public void onBackPressed() {
         Intent setIntent = new Intent(this, MainActivity.class);
@@ -269,6 +405,9 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
                     cv.put(mVeritabani.TYPE, type);
                     cv.put(mVeritabani.TIME, getString(R.string.Not_Set));
                     cv.putNull(mVeritabani.DATE);
+                    cv.put(mVeritabani.RENKKODU,yaziRengi1);
+                    cv.put(mVeritabani.ARKAPLAN,arkaPlan1);
+
                     if (checkBoxAlarm.isChecked()) {
                         Calendar calender = Calendar.getInstance();
                         calender.clear();
@@ -320,11 +459,228 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
                     startActivity(openMainScreen);
                 }
                 return true;
+            case R.id.action_settings:
+                arkaRenk();
+                return true;
+
+            case R.id.action_renk:
+                renkSec();
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    private void renkSec() {
+        final Dialog dialog = new Dialog(Duzenle_Not.this);
+        dialog.setContentView(R.layout.renk_layout);
+        dialog.setTitle(getString(R.string.arkaPlan));
+        final int arkSecilen;
+        editor = sharedpreferences.edit();
+        final Button btnIptal=(Button) dialog.findViewById(R.id.btnNo);
+        final Button btnTamam=(Button) dialog.findViewById(R.id.btnTamam);
+
+        img1=(ImageView) dialog.findViewById(R.id.img1);
+        img2=(ImageView) dialog.findViewById(R.id.img2);
+        img3=(ImageView) dialog.findViewById(R.id.img3);
+        img4=(ImageView) dialog.findViewById(R.id.img4);
+        img5=(ImageView) dialog.findViewById(R.id.img5);
+        img6=(ImageView) dialog.findViewById(R.id.img6);
+        img7=(ImageView) dialog.findViewById(R.id.img7);
+        img8=(ImageView) dialog.findViewById(R.id.img8);
+        img9=(ImageView) dialog.findViewById(R.id.img9);
+        img10=(ImageView) dialog.findViewById(R.id.img10);
+        img11=(ImageView) dialog.findViewById(R.id.img11);
+        img12=(ImageView) dialog.findViewById(R.id.img12);
+        int width = (int) (Duzenle_Not.this.getResources().getDisplayMetrics().widthPixels * 0.85);
+        // set height for dialog
+        int height = (int) (Duzenle_Not.this.getResources().getDisplayMetrics().heightPixels * 0.5);
+        dialog.getWindow().setLayout(width, height);
+        dialog.show();
+        int shepArka=sharedpreferences.getInt("arkaplan",0);
+
+        int  shepYazi=sharedpreferences.getInt("shepyazi",0);
+
+        btnTamam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (yaziRengi){
+                    case 0:
+                        mNotAciklamaText.setTextColor(Color.WHITE);
+                        editor.putInt("shepyazi",0);
+                        break;
+                    case 1:
+                        mNotAciklamaText.setTextColor(Color.parseColor("#FFEB3B"));
+                        editor.putInt("shepyazi",1);
+                        break;
+                    case 2:
+                        mNotAciklamaText.setTextColor(Color.parseColor("#FF5722"));
+                        editor.putInt("shepyazi",2);
+                        break;
+                    case 3:
+                        mNotAciklamaText.setTextColor(Color.parseColor("#FF3D00"));
+                        editor.putInt("shepyazi",3);
+                        break;
+                    case 4:
+                        mNotAciklamaText.setTextColor(Color.parseColor("#DD2C00"));
+                        editor.putInt("shepyazi",4);
+                        break;
+                    case 5:
+                        mNotAciklamaText.setTextColor(Color.parseColor("#7C4DFF"));
+                        editor.putInt("shepyazi",5);
+                        break;
+                    case 6:
+                        mNotAciklamaText.setTextColor(Color.parseColor("#3F51B5"));
+                        editor.putInt("shepyazi",6);
+                        break;
+                    case 7:
+                        mNotAciklamaText.setTextColor(Color.parseColor("#2196F3"));
+                        editor.putInt("shepyazi",7);
+                        break;
+                    case 8:
+                        mNotAciklamaText.setTextColor(Color.parseColor("#000000"));
+                        editor.putInt("shepyazi",8);
+                        break;
+                    case 9:
+                        mNotAciklamaText.setTextColor(Color.parseColor("#4E342E"));
+                        editor.putInt("shepyazi",9);
+                        break;
+                    case 10:
+                        mNotAciklamaText.setTextColor(Color.parseColor("#616161"));
+                        editor.putInt("shepyazi",10);
+                        break;
+                    case 11:
+                        mNotAciklamaText.setTextColor(Color.parseColor("#C6FF00"));
+                        editor.putInt("shepyazi",11);
+                        break;
+                }
+                yaziRengi1=yaziRengi;
+
+                editor.commit();
+                dialog.dismiss();
+            }
+        });
+
+        //iptal
+        btnIptal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                yaziRengi=sharedpreferences.getInt("shepyazi",0);
+                arkaPlan=sharedpreferences.getInt("arkaplan",0);
+                dialog.dismiss();
+            }
+        });
+
+    }
+
+    private void arkaRenk() {
+        final Dialog dialog = new Dialog(Duzenle_Not.this);
+        dialog.setContentView(R.layout.renk_layout);
+        dialog.setTitle(getString(R.string.arkaPlan));
+        final int arkSecilen;
+        editor = sharedpreferences.edit();
+        final Button btnIptal=(Button) dialog.findViewById(R.id.btnNo);
+        final Button btnTamam=(Button) dialog.findViewById(R.id.btnTamam);
+
+        img1=(ImageView) dialog.findViewById(R.id.img1);
+        img2=(ImageView) dialog.findViewById(R.id.img2);
+        img3=(ImageView) dialog.findViewById(R.id.img3);
+        img4=(ImageView) dialog.findViewById(R.id.img4);
+        img5=(ImageView) dialog.findViewById(R.id.img5);
+        img6=(ImageView) dialog.findViewById(R.id.img6);
+        img7=(ImageView) dialog.findViewById(R.id.img7);
+        img8=(ImageView) dialog.findViewById(R.id.img8);
+        img9=(ImageView) dialog.findViewById(R.id.img9);
+        img10=(ImageView) dialog.findViewById(R.id.img10);
+        img11=(ImageView) dialog.findViewById(R.id.img11);
+        img12=(ImageView) dialog.findViewById(R.id.img12);
+
+        int width = (int) (Duzenle_Not.this.getResources().getDisplayMetrics().widthPixels * 0.85);
+        // set height for dialog
+        int height = (int) (Duzenle_Not.this.getResources().getDisplayMetrics().heightPixels * 0.5);
+        dialog.getWindow().setLayout(width, height);
+        dialog.show();
+        int shepArka=sharedpreferences.getInt("arkaplan",0);
+
+        int  shepYazi=sharedpreferences.getInt("shepyazi",0);
+        //tamam
+        btnTamam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (arkaPlan){
+                    case 0:
+                        mNotAciklamaText.setBackgroundColor(Color.WHITE);
+                        editor.putInt("arkaplan",0);
+                        break;
+                    case 1:
+                        mNotAciklamaText.setBackgroundColor(Color.parseColor("#FFEB3B"));
+                        editor.putInt("arkaplan",1);
+                        break;
+                    case 2:
+                        mNotAciklamaText.setBackgroundColor(Color.parseColor("#FF5722"));
+                        editor.putInt("arkaplan",2);
+                        break;
+                    case 3:
+                        mNotAciklamaText.setBackgroundColor(Color.parseColor("#FF3D00"));
+                        editor.putInt("arkaplan",3);
+                        break;
+                    case 4:
+                        mNotAciklamaText.setBackgroundColor(Color.parseColor("#DD2C00"));
+                        editor.putInt("arkaplan",4);
+                        break;
+                    case 5:
+                        mNotAciklamaText.setBackgroundColor(Color.parseColor("#7C4DFF"));
+                        editor.putInt("arkaplan",5);
+                        break;
+                    case 6:
+                        mNotAciklamaText.setBackgroundColor(Color.parseColor("#3F51B5"));
+                        editor.putInt("arkaplan",6);
+                        break;
+                    case 7:
+                        mNotAciklamaText.setBackgroundColor(Color.parseColor("#2196F3"));
+                        editor.putInt("arkaplan",7);
+                        break;
+                    case 8:
+                        mNotAciklamaText.setBackgroundColor(Color.parseColor("#000000"));
+                        editor.putInt("arkaplan",8);
+                        break;
+                    case 9:
+                        mNotAciklamaText.setBackgroundColor(Color.parseColor("#4E342E"));
+                        editor.putInt("arkaplan",9);
+                        break;
+                    case 10:
+                        mNotAciklamaText.setBackgroundColor(Color.parseColor("#616161"));
+                        editor.putInt("arkaplan",10);
+                        break;
+                    case 11:
+                        mNotAciklamaText.setBackgroundColor(Color.parseColor("#C6FF00"));
+                        editor.putInt("arkaplan",11);
+                        break;
+                }
+                arkaPlan1=arkaPlan;
+
+                editor.commit();
+                dialog.dismiss();
+            }
+        });
+
+        //iptal
+        btnIptal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                yaziRengi=sharedpreferences.getInt("shepyazi",0);
+                arkaPlan=sharedpreferences.getInt("arkaplan",0);
+                dialog.dismiss();
+            }
+        });
+
+
+    }
+
+
+
+
 
     @Override
     public void onDateSet(DatePicker view, int yil, int ay, int gun) {
@@ -398,6 +754,264 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
                 break;
             }
 
+        }
+    }
+
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((ImageView) view).hasOnClickListeners();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.img1:
+                if (checked){
+
+                    img1.setImageResource(R.drawable.ic_action_checked);
+                    img2.setImageResource(R.color.renk2);
+                    img3.setImageResource(R.color.renk3);
+                    img4.setImageResource(R.color.renk4);
+                    img5.setImageResource(R.color.renk5);
+                    img6.setImageResource(R.color.renk6);
+                    img7.setImageResource(R.color.renk7);
+                    img8.setImageResource(R.color.renk8);
+                    img9.setImageResource(R.color.renk9);
+                    img10.setImageResource(R.color.renk10);
+                    img11.setImageResource(R.color.renk11);
+                    img12.setImageResource(R.color.renk12);
+                    arkaPlan=0;
+                    yaziRengi=0;
+
+                }
+                break;
+            case R.id.img2:
+                if (checked){
+
+                    img2.setImageResource(R.drawable.ic_action_checked);
+                    img1.setImageResource(R.color.renk1);
+                    img3.setImageResource(R.color.renk3);
+                    img4.setImageResource(R.color.renk4);
+                    img5.setImageResource(R.color.renk5);
+                    img6.setImageResource(R.color.renk6);
+                    img7.setImageResource(R.color.renk7);
+                    img8.setImageResource(R.color.renk8);
+                    img9.setImageResource(R.color.renk9);
+                    img10.setImageResource(R.color.renk10);
+                    img11.setImageResource(R.color.renk11);
+                    img12.setImageResource(R.color.renk12);
+
+                    arkaPlan=1;
+                    yaziRengi=1;
+
+                }
+                break;
+            case R.id.img3:
+                if (checked){
+
+                    img3.setImageResource(R.drawable.ic_action_checked);
+                    img2.setImageResource(R.color.renk2);
+                    img1.setImageResource(R.color.renk1);
+                    img4.setImageResource(R.color.renk4);
+                    img5.setImageResource(R.color.renk5);
+                    img6.setImageResource(R.color.renk6);
+                    img7.setImageResource(R.color.renk7);
+                    img8.setImageResource(R.color.renk8);
+                    img9.setImageResource(R.color.renk9);
+                    img10.setImageResource(R.color.renk10);
+                    img11.setImageResource(R.color.renk11);
+                    img12.setImageResource(R.color.renk12);
+
+                    arkaPlan=2;
+                    yaziRengi=2;
+
+                }
+                break;
+            case R.id.img4:
+                if (checked){
+
+                    img4.setImageResource(R.drawable.ic_action_checked);
+                    img2.setImageResource(R.color.renk2);
+                    img3.setImageResource(R.color.renk3);
+                    img1.setImageResource(R.color.renk1);
+                    img5.setImageResource(R.color.renk5);
+                    img6.setImageResource(R.color.renk6);
+                    img7.setImageResource(R.color.renk7);
+                    img8.setImageResource(R.color.renk8);
+                    img9.setImageResource(R.color.renk9);
+                    img10.setImageResource(R.color.renk10);
+                    img11.setImageResource(R.color.renk11);
+                    img12.setImageResource(R.color.renk12);
+
+                    arkaPlan=3;
+                    yaziRengi=3;
+
+                }
+                break;
+            case R.id.img5:
+                if (checked){
+
+                    img5.setImageResource(R.drawable.ic_action_checked);
+                    img2.setImageResource(R.color.renk2);
+                    img3.setImageResource(R.color.renk3);
+                    img4.setImageResource(R.color.renk4);
+                    img1.setImageResource(R.color.renk1);
+                    img6.setImageResource(R.color.renk6);
+                    img7.setImageResource(R.color.renk7);
+                    img8.setImageResource(R.color.renk8);
+                    img9.setImageResource(R.color.renk9);
+                    img10.setImageResource(R.color.renk10);
+                    img11.setImageResource(R.color.renk11);
+                    img12.setImageResource(R.color.renk12);
+
+                    arkaPlan=4;
+                    yaziRengi=4;
+
+                }
+                break;
+            case R.id.img6:
+                if (checked){
+
+                    img6.setImageResource(R.drawable.ic_action_checked);
+                    img2.setImageResource(R.color.renk2);
+                    img3.setImageResource(R.color.renk3);
+                    img4.setImageResource(R.color.renk4);
+                    img5.setImageResource(R.color.renk5);
+                    img1.setImageResource(R.color.renk1);
+                    img7.setImageResource(R.color.renk7);
+                    img8.setImageResource(R.color.renk8);
+                    img9.setImageResource(R.color.renk9);
+                    img10.setImageResource(R.color.renk10);
+                    img11.setImageResource(R.color.renk11);
+                    img12.setImageResource(R.color.renk12);
+
+                    arkaPlan=5;
+                    yaziRengi=5;
+
+                }
+                break;
+            case R.id.img7:
+                if (checked){
+
+                    img7.setImageResource(R.drawable.ic_action_checked);
+                    img2.setImageResource(R.color.renk2);
+                    img3.setImageResource(R.color.renk3);
+                    img4.setImageResource(R.color.renk4);
+                    img5.setImageResource(R.color.renk5);
+                    img6.setImageResource(R.color.renk6);
+                    img1.setImageResource(R.color.renk1);
+                    img8.setImageResource(R.color.renk8);
+                    img9.setImageResource(R.color.renk9);
+                    img10.setImageResource(R.color.renk10);
+                    img11.setImageResource(R.color.renk11);
+                    img12.setImageResource(R.color.renk12);
+
+                    arkaPlan=6;
+                    yaziRengi=6;
+
+                }
+                break;
+            case R.id.img8:
+                if (checked){
+
+                    img8.setImageResource(R.drawable.ic_action_checked);
+                    img2.setImageResource(R.color.renk2);
+                    img3.setImageResource(R.color.renk3);
+                    img4.setImageResource(R.color.renk4);
+                    img5.setImageResource(R.color.renk5);
+                    img6.setImageResource(R.color.renk6);
+                    img7.setImageResource(R.color.renk7);
+                    img1.setImageResource(R.color.renk1);
+                    img9.setImageResource(R.color.renk9);
+                    img10.setImageResource(R.color.renk10);
+                    img11.setImageResource(R.color.renk11);
+                    img12.setImageResource(R.color.renk12);
+
+                    arkaPlan=7;
+                    yaziRengi=7;
+
+                }
+                break;
+            case R.id.img9:
+                if (checked){
+
+                    img9.setImageResource(R.drawable.ic_action_checked);
+                    img2.setImageResource(R.color.renk2);
+                    img3.setImageResource(R.color.renk3);
+                    img4.setImageResource(R.color.renk4);
+                    img5.setImageResource(R.color.renk5);
+                    img6.setImageResource(R.color.renk6);
+                    img7.setImageResource(R.color.renk7);
+                    img8.setImageResource(R.color.renk8);
+                    img1.setImageResource(R.color.renk1);
+                    img10.setImageResource(R.color.renk10);
+                    img11.setImageResource(R.color.renk11);
+                    img12.setImageResource(R.color.renk12);
+                    arkaPlan=8;
+                    yaziRengi=8;
+
+                }
+                break;
+            case R.id.img10:
+                if (checked){
+
+                    img10.setImageResource(R.drawable.ic_action_checked);
+                    img2.setImageResource(R.color.renk2);
+                    img3.setImageResource(R.color.renk3);
+                    img4.setImageResource(R.color.renk4);
+                    img5.setImageResource(R.color.renk5);
+                    img6.setImageResource(R.color.renk6);
+                    img7.setImageResource(R.color.renk7);
+                    img8.setImageResource(R.color.renk8);
+                    img9.setImageResource(R.color.renk9);
+                    img1.setImageResource(R.color.renk1);
+                    img11.setImageResource(R.color.renk11);
+                    img12.setImageResource(R.color.renk12);
+
+                    arkaPlan=9;
+                    yaziRengi=9;
+
+                }
+                break;
+            case R.id.img11:
+                if (checked){
+
+                    img11.setImageResource(R.drawable.ic_action_checked);
+                    img2.setImageResource(R.color.renk2);
+                    img3.setImageResource(R.color.renk3);
+                    img4.setImageResource(R.color.renk4);
+                    img5.setImageResource(R.color.renk5);
+                    img6.setImageResource(R.color.renk6);
+                    img7.setImageResource(R.color.renk7);
+                    img8.setImageResource(R.color.renk8);
+                    img9.setImageResource(R.color.renk9);
+                    img10.setImageResource(R.color.renk10);
+                    img1.setImageResource(R.color.renk1);
+                    img12.setImageResource(R.color.renk12);
+
+                    arkaPlan=10;
+                    yaziRengi=10;
+
+                }
+                break;
+            case R.id.img12:
+                if (checked){
+
+                    img12.setImageResource(R.drawable.ic_action_checked);
+                    img2.setImageResource(R.color.renk2);
+                    img3.setImageResource(R.color.renk3);
+                    img4.setImageResource(R.color.renk4);
+                    img5.setImageResource(R.color.renk5);
+                    img6.setImageResource(R.color.renk6);
+                    img7.setImageResource(R.color.renk7);
+                    img8.setImageResource(R.color.renk8);
+                    img9.setImageResource(R.color.renk9);
+                    img10.setImageResource(R.color.renk10);
+                    img11.setImageResource(R.color.renk11);
+                    img1.setImageResource(R.color.renk1);
+                    arkaPlan=11;
+                    yaziRengi=11;
+
+                }
+                break;
         }
     }
 

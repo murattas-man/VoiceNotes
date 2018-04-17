@@ -11,20 +11,24 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".MainActivity"
+         android:id="@+id/listReletive"
+        android:background="@color/white_pressed"
         tools:showIn="@layout/app_bar_main">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             >
 
             <ListView
                 android:layout_width="match_parent"
                 android:id="@+id/commentslist"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:divider="@color/white_pressed"
+                android:dividerHeight="5dp"
+                android:nextFocusLeft="@color/renk6"
+                />
         </LinearLayout>
 
     </RelativeLayout>

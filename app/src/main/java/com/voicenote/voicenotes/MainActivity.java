@@ -27,6 +27,9 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,10 +40,14 @@ public class MainActivity extends AppCompatActivity
     String orderBy = "_id DESC";
     String alrmlar="type='Alert' or type='Alarm'";
     String onemli="type='Important' or type='Önemli'";
+    String deger=" type is not null ";
     private SharedPreferences sharedpreferences;
-    private SharedPreferences.Editor editor;
-    private Boolean ilkGiris;
+    private SharedPreferences.Editor editorNot;
+    private String ilkGiris;
     ImageView imageNot;
+
+    private List<Items> listItem = new ArrayList<Items>();
+    private CustomAdapter customAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +56,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         sharedpreferences = getSharedPreferences("Mymain", Context.MODE_PRIVATE);
-        ilkGiris = sharedpreferences.getBoolean("ilkmi", Boolean.parseBoolean(null));
-        if(ilkGiris.equals(false)){
-
-            editor = sharedpreferences.edit();
-            editor.putBoolean("ilkmi", true);
-            editor.commit();
-        }
+        ilkGiris = sharedpreferences.getString("deger",deger);
 
 
 
@@ -83,26 +84,28 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        String[] from = {mVeritabani.TITLE, mVeritabani.DETAIL, mVeritabani.TYPE, mVeritabani.TIME, mVeritabani.DATE};
-        final String[] column = {mVeritabani.C_ID, mVeritabani.TITLE, mVeritabani.DETAIL, mVeritabani.TYPE, mVeritabani.TIME,
-                mVeritabani.DATE,mVeritabani.ALARMKON,mVeritabani.RENKKODU,mVeritabani.ARKAPLAN};
-        int[] to = {R.id.title, R.id.Detail, R.id.type, R.id.time, R.id.date};
+        yukleListe(ilkGiris);
 
-        final Cursor cursor = db.query(mVeritabani.TABLE_NAME, column, null, null ,null, null, orderBy);
-        final SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.list_entry, cursor, from, to, 0);
-        list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> listView, View view, int position,
                                     long id){
+                final String whereKontol = sharedpreferences.getString("deger",deger);
+                Cursor c = db.rawQuery("select "+ mVeritabani.C_ID +" from " + mVeritabani.TABLE_NAME + " WHERE "+whereKontol+" ORDER BY " + orderBy ,
+                        null);
+                ArrayList<Integer> arrID = new ArrayList<Integer>();
+                while (c.moveToNext()){
+                    arrID.add(c.getInt(0));
+                }
+
                 Intent intent = new Intent(MainActivity.this, Not_Detay.class);
-                intent.putExtra(getString(R.string.rodId), id);
+                intent.putExtra("idNot", arrID.get(position));
                 startActivity(intent);
             }
 
         });
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view,  int position, final long pos) {
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, final long pos) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder
                         .setTitle(getString(R.string.delete_title))
@@ -110,7 +113,16 @@ public class MainActivity extends AppCompatActivity
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                Cursor cursor = db.rawQuery("select * from " + mVeritabani.TABLE_NAME + " where " + mVeritabani.C_ID + "=" + pos, null);
+                                final String whereKontol = sharedpreferences.getString("deger",deger);
+                                Cursor c = db.rawQuery("select "+ mVeritabani.C_ID +" from " + mVeritabani.TABLE_NAME + " WHERE "+whereKontol+" ORDER BY " + orderBy ,
+                                        null);
+                                ArrayList<Integer> arrID = new ArrayList<Integer>();
+                                while (c.moveToNext()){
+                                    arrID.add(c.getInt(0));
+                                }
+
+                                final long id=arrID.get(position);
+                                Cursor cursor = db.rawQuery("select * from " + mVeritabani.TABLE_NAME + " where " + mVeritabani.C_ID + "=" + id, null);
                                 if (cursor != null){
                                     if (cursor.moveToFirst()) {
                                         final int ID=(int) cursor.getInt(cursor.getColumnIndex(mVeritabani.ALARMKON));
@@ -120,12 +132,11 @@ public class MainActivity extends AppCompatActivity
                                         }
                                         int renk=cursor.getInt(cursor.getColumnIndex(mVeritabani.RENKKODU));
                                         int arka=cursor.getInt(cursor.getColumnIndex(mVeritabani.ARKAPLAN));
-                                        Toast.makeText(getApplicationContext(),renk+" renk "+arka,Toast.LENGTH_LONG).show();
                                     }
                                     cursor.close();
                                 }
 
-                                db.delete(Veritabani.TABLE_NAME, Veritabani.C_ID + "=" + pos, null);
+                                db.delete(Veritabani.TABLE_NAME, Veritabani.C_ID + "=" + id, null);
                                 db.close();
                                 Intent openMainActivity = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(openMainActivity);
@@ -178,49 +189,29 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_notlar) {
-            String[] from = {mVeritabani.TITLE, mVeritabani.DETAIL, mVeritabani.TYPE, mVeritabani.TIME, mVeritabani.DATE};
-            final String[] column = {mVeritabani.C_ID, mVeritabani.TITLE, mVeritabani.DETAIL, mVeritabani.TYPE, mVeritabani.TIME,
-                    mVeritabani.DATE,mVeritabani.ALARMKON,mVeritabani.RENKKODU,mVeritabani.ARKAPLAN};
-            int[] to = {R.id.title, R.id.Detail, R.id.type, R.id.time, R.id.date};
+            editorNot = sharedpreferences.edit();
+            editorNot.putString("deger",deger);
+            editorNot.commit();
 
-            final Cursor cursor = db.query(mVeritabani.TABLE_NAME, column, null, null ,null, null, orderBy);
-            final SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.list_entry, cursor, from, to, 0);
-            list.setAdapter(adapter);
+           yukleListe(deger);
 
         } else if (id == R.id.nav_hatirlatmalar) {
-            hatirlatmalar();
+            editorNot = sharedpreferences.edit();
+            editorNot.putString("deger",alrmlar);
+            editorNot.commit();
+
+          yukleListe(alrmlar);
 
         } else if (id == R.id.nav_sesli) {
-            onemlinotlar();
-
+            editorNot = sharedpreferences.edit();
+            editorNot.putString("deger",onemli);
+            editorNot.commit();
+           yukleListe(onemli);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private void onemlinotlar() {
-        String[] from = {mVeritabani.TITLE, mVeritabani.DETAIL, mVeritabani.TYPE, mVeritabani.TIME, mVeritabani.DATE};
-        final String[] column = {mVeritabani.C_ID, mVeritabani.TITLE, mVeritabani.DETAIL, mVeritabani.TYPE, mVeritabani.TIME,
-                mVeritabani.DATE,mVeritabani.ALARMKON,mVeritabani.RENKKODU,mVeritabani.ARKAPLAN};
-        int[] to = {R.id.title, R.id.Detail, R.id.type, R.id.time, R.id.date};
-
-        final Cursor cursor = db.query(mVeritabani.TABLE_NAME, column, onemli, null ,null, null, orderBy);
-        final SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.list_entry, cursor, from, to, 0);
-        list.setAdapter(adapter);
-    }
-
-    private void hatirlatmalar() {
-
-        String[] from = {mVeritabani.TITLE, mVeritabani.DETAIL, mVeritabani.TYPE, mVeritabani.TIME, mVeritabani.DATE};
-        final String[] column = {mVeritabani.C_ID, mVeritabani.TITLE, mVeritabani.DETAIL, mVeritabani.TYPE, mVeritabani.TIME,
-                mVeritabani.DATE,mVeritabani.ALARMKON,mVeritabani.RENKKODU,mVeritabani.ARKAPLAN};
-        int[] to = {R.id.title, R.id.Detail, R.id.type, R.id.time, R.id.date};
-
-        final Cursor cursor = db.query(mVeritabani.TABLE_NAME, column, alrmlar, null ,null, null, orderBy);
-        final SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.list_entry, cursor, from, to, 0);
-        list.setAdapter(adapter);
     }
 
     private void alarmIptal(final int ID){
@@ -232,6 +223,30 @@ public class MainActivity extends AppCompatActivity
                 0);
 
         alarmManager.cancel(pendingIntent);
+    }
+
+    private void yukleListe(String degerim){
+        String[] from = {mVeritabani.TITLE, mVeritabani.DETAIL, mVeritabani.TYPE, mVeritabani.TIME, mVeritabani.DATE};
+        final String[] column = {mVeritabani.C_ID, mVeritabani.TITLE, mVeritabani.DETAIL, mVeritabani.TYPE, mVeritabani.TIME,
+                mVeritabani.DATE,mVeritabani.ALARMKON,mVeritabani.RENKKODU,mVeritabani.ARKAPLAN};
+        //int[] to = {R.id.title, R.id.Detail, R.id.type, R.id.time, R.id.date};
+
+        final Cursor cursor = db.query(mVeritabani.TABLE_NAME, column, degerim, null ,null, null, orderBy);
+        listItem.clear();
+        while (cursor.moveToNext()) {
+            Items items = new Items();
+            items.setTitleNot(cursor.getString(cursor.getColumnIndex(mVeritabani.TITLE)));
+            items.setDetailNot(cursor.getString(cursor.getColumnIndex(mVeritabani.DETAIL)));
+            items.setTypeNot(cursor.getString(cursor.getColumnIndex(mVeritabani.TYPE)));
+            items.setDateNot(cursor.getString(cursor.getColumnIndex(mVeritabani.DATE)));
+            items.setTimeNot(cursor.getString(cursor.getColumnIndex(mVeritabani.TIME)));
+            items.setIdArkapaln(cursor.getInt(cursor.getColumnIndex(mVeritabani.ARKAPLAN)));
+            items.setIdRenk(cursor.getInt(cursor.getColumnIndex(mVeritabani.RENKKODU)));
+
+            listItem.add(items);
+        }
+        customAdapter = new CustomAdapter(getApplicationContext(),listItem);
+        list.setAdapter(customAdapter);
     }
 
 }

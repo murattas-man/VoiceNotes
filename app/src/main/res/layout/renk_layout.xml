@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/img1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/renk1"
+                android:onClick="onCheckboxClicked"
+                app:srcCompat="@color/renk1" />
+
+            <ImageView
+                android:id="@+id/img2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/renk2"
+                android:onClick="onCheckboxClicked"
+                app:srcCompat="@color/renk2" />
+
+            <ImageView
+                android:id="@+id/img3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/renk3"
+                android:onClick="onCheckboxClicked"
+                app:srcCompat="@color/renk3" />
+
+            <ImageView
+                android:id="@+id/img4"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/renk4"
+                android:onClick="onCheckboxClicked"
+                app:srcCompat="@color/renk4" />
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/img5"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/renk5"
+                android:onClick="onCheckboxClicked"
+                app:srcCompat="@color/renk5" />
+
+            <ImageView
+                android:id="@+id/img6"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/renk6"
+                android:onClick="onCheckboxClicked"
+                app:srcCompat="@color/renk6" />
+
+            <ImageView
+                android:id="@+id/img7"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/renk7"
+                android:onClick="onCheckboxClicked"
+                app:srcCompat="@color/renk7" />
+
+            <ImageView
+                android:id="@+id/img8"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/renk8"
+                android:onClick="onCheckboxClicked"
+                app:srcCompat="@color/renk8" />
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/img9"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/renk9"
+                android:onClick="onCheckboxClicked"
+                app:srcCompat="@color/renk9" />
+
+            <ImageView
+                android:id="@+id/img10"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/renk10"
+                android:onClick="onCheckboxClicked"
+                app:srcCompat="@color/renk10" />
+
+            <ImageView
+                android:id="@+id/img11"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/renk11"
+                android:onClick="onCheckboxClicked"
+                app:srcCompat="@color/renk11" />
+
+            <ImageView
+                android:id="@+id/img12"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/renk12"
+                android:onClick="onCheckboxClicked"
+                app:srcCompat="@color/renk12" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/btnTamam"
+        android:layout_width="76dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/btnNo"
+        android:layout_marginEnd="11dp"
+        android:text="Tamam"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="11dp" />
+
+    <Button
+        android:id="@+id/btnNo"
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="152dp"
+        android:text="İptal"
+        tools:ignore="RtlCompat" />
+
+
+
+</RelativeLayout>

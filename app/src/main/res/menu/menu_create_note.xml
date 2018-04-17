@@ -6,7 +6,11 @@
     tools:context=".NotAl">
 
     <item android:id="@+id/action_settings_note"
-        android:title="@string/action_settings"
+    android:title="@string/action_settings"
+    android:orderInCategory="100"
+    app:showAsAction="never" />
+    <item android:id="@+id/action_renk"
+        android:title="Yazı Rengi"
         android:orderInCategory="100"
         app:showAsAction="never" />
     <item android:id="@+id/action_back"
