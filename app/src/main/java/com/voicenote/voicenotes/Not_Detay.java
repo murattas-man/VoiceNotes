@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,8 +30,7 @@ public class Not_Detay extends AppCompatActivity {
     private int shepArka;
     private int shepYazi;
 
-    TextView txt_title;
-    TextView txt_detail;
+    EditText txt_detail;
     TextView txt_type;
     ImageView ımageView;
     TextView txt_Time;
@@ -53,8 +53,7 @@ public class Not_Detay extends AppCompatActivity {
         db = mVeritabani.getWritableDatabase();
 
         Cursor cursor = db.rawQuery("select * from " + mVeritabani.TABLE_NAME + " where " + mVeritabani.C_ID + "=" + id, null);
-         txt_title = (TextView) findViewById(R.id.title);
-         txt_detail = (TextView) findViewById(R.id.detail);
+         txt_detail = (EditText) findViewById(R.id.detail);
          txt_type = (TextView) findViewById(R.id.note_type_ans);
          txt_Time = (TextView) findViewById(R.id.alertvalue);
          txt_Date = (TextView) findViewById(R.id.datevalue);
@@ -62,7 +61,6 @@ public class Not_Detay extends AppCompatActivity {
 
         if (cursor != null) {
             if (cursor.moveToFirst()) {
-                txt_title.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.TITLE)));
                 txt_detail.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.DETAIL)));
                 txt_type.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.TYPE)));
                 txt_Time.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.TIME)));
@@ -82,88 +80,76 @@ public class Not_Detay extends AppCompatActivity {
         switch (shepYazi){
 
             case 0:
-                txt_detail.setTextColor(Color.WHITE);
-                txt_type.setTextColor(Color.WHITE);
-                txt_Time.setTextColor(Color.WHITE);
-                txt_Date.setTextColor(Color.WHITE);
-                txt_title.setTextColor(Color.WHITE);
+                txt_detail.setTextColor(getResources().getColor(R.color.renk1txt));
+                txt_type.setTextColor(getResources().getColor(R.color.renk1txt));
+                txt_Time.setTextColor(getResources().getColor(R.color.renk1txt));
+                txt_Date.setTextColor(getResources().getColor(R.color.renk1txt));
                 break;
             case 1:
-                txt_detail.setTextColor(Color.parseColor("#FFEB3B"));
-                txt_title.setTextColor(Color.parseColor("#FFEB3B"));
-                txt_Date.setTextColor(Color.parseColor("#FFEB3B"));
-                txt_Time.setTextColor(Color.parseColor("#FFEB3B"));
-                txt_type.setTextColor(Color.parseColor("#FFEB3B"));
+                txt_detail.setTextColor(getResources().getColor(R.color.renk2txt));
+                txt_Date.setTextColor(getResources().getColor(R.color.renk2txt));
+                txt_Time.setTextColor(getResources().getColor(R.color.renk2txt));
+                txt_type.setTextColor(getResources().getColor(R.color.renk2txt));
                 break;
             case 2:
-                txt_detail.setTextColor(Color.parseColor("#FF5722"));
-                txt_Time.setTextColor(Color.parseColor("#FF5722"));
-                txt_type.setTextColor(Color.parseColor("#FF5722"));
-                txt_Date.setTextColor(Color.parseColor("#FF5722"));
-                txt_title.setTextColor(Color.parseColor("#FF5722"));
+                txt_detail.setTextColor(getResources().getColor(R.color.renk3txt));
+                txt_Time.setTextColor(getResources().getColor(R.color.renk3txt));
+                txt_type.setTextColor(getResources().getColor(R.color.renk3txt));
+                txt_Date.setTextColor(getResources().getColor(R.color.renk3txt));
                 break;
             case 3:
-                txt_detail.setTextColor(Color.parseColor("#FF3D00"));
-                txt_Date.setTextColor(Color.parseColor("#FF3D00"));
-                txt_title.setTextColor(Color.parseColor("#FF3D00"));
-                txt_type.setTextColor(Color.parseColor("#FF3D00"));
-                txt_Time.setTextColor(Color.parseColor("#FF3D00"));
+                txt_detail.setTextColor(getResources().getColor(R.color.renk4txt));
+                txt_Time.setTextColor(getResources().getColor(R.color.renk4txt));
+                txt_type.setTextColor(getResources().getColor(R.color.renk4txt));
+                txt_Date.setTextColor(getResources().getColor(R.color.renk4txt));
                 break;
             case 4:
-                txt_detail.setTextColor(Color.parseColor("#DD2C00"));
-                txt_type.setTextColor(Color.parseColor("#DD2C00"));
-                txt_Time.setTextColor(Color.parseColor("#DD2C00"));
-                txt_title.setTextColor(Color.parseColor("#DD2C00"));
-                txt_Date.setTextColor(Color.parseColor("#DD2C00"));
+                txt_detail.setTextColor(getResources().getColor(R.color.renk5txt));
+                txt_Time.setTextColor(getResources().getColor(R.color.renk5txt));
+                txt_type.setTextColor(getResources().getColor(R.color.renk5txt));
+                txt_Date.setTextColor(getResources().getColor(R.color.renk5txt));
                 break;
             case 5:
-                txt_detail.setTextColor(Color.parseColor("#7C4DFF"));
-                txt_title.setTextColor(Color.parseColor("#7C4DFF"));
-                txt_Date.setTextColor(Color.parseColor("#7C4DFF"));
-                txt_Time.setTextColor(Color.parseColor("#7C4DFF"));
-                txt_type.setTextColor(Color.parseColor("#7C4DFF"));
+                txt_detail.setTextColor(getResources().getColor(R.color.renk6txt));
+                txt_Time.setTextColor(getResources().getColor(R.color.renk6txt));
+                txt_type.setTextColor(getResources().getColor(R.color.renk6txt));
+                txt_Date.setTextColor(getResources().getColor(R.color.renk6txt));
                 break;
             case 6:
-                txt_detail.setTextColor(Color.parseColor("#3F51B5"));
-                txt_Time.setTextColor(Color.parseColor("#3F51B5"));
-                txt_type.setTextColor(Color.parseColor("#3F51B5"));
-                txt_Date.setTextColor(Color.parseColor("#3F51B5"));
-                txt_title.setTextColor(Color.parseColor("#3F51B5"));
+                txt_detail.setTextColor(getResources().getColor(R.color.renk7txt));
+                txt_Time.setTextColor(getResources().getColor(R.color.renk7txt));
+                txt_type.setTextColor(getResources().getColor(R.color.renk7txt));
+                txt_Date.setTextColor(getResources().getColor(R.color.renk7txt));
                 break;
             case 7:
-                txt_detail.setTextColor(Color.parseColor("#2196F3"));
-                txt_Date.setTextColor(Color.parseColor("#2196F3"));
-                txt_title.setTextColor(Color.parseColor("#2196F3"));
-                txt_Time.setTextColor(Color.parseColor("#2196F3"));
-                txt_type.setTextColor(Color.parseColor("#2196F3"));
+                txt_detail.setTextColor(getResources().getColor(R.color.renk8txt));
+                txt_Time.setTextColor(getResources().getColor(R.color.renk8txt));
+                txt_type.setTextColor(getResources().getColor(R.color.renk8txt));
+                txt_Date.setTextColor(getResources().getColor(R.color.renk8txt));
                 break;
             case 8:
-                txt_detail.setTextColor(Color.parseColor("#000000"));
-                txt_type.setTextColor(Color.parseColor("#000000"));
-                txt_Time.setTextColor(Color.parseColor("#000000"));
-                txt_title.setTextColor(Color.parseColor("#000000"));
-                txt_Date.setTextColor(Color.parseColor("#000000"));
+                txt_detail.setTextColor(getResources().getColor(R.color.renk9txt));
+                txt_Time.setTextColor(getResources().getColor(R.color.renk9txt));
+                txt_type.setTextColor(getResources().getColor(R.color.renk9txt));
+                txt_Date.setTextColor(getResources().getColor(R.color.renk9txt));
                 break;
             case 9:
-                txt_detail.setTextColor(Color.parseColor("#4E342E"));
-                txt_Time.setTextColor(Color.parseColor("#4E342E"));
-                txt_Date.setTextColor(Color.parseColor("#4E342E"));
-                txt_title.setTextColor(Color.parseColor("#4E342E"));
-                txt_type.setTextColor(Color.parseColor("#4E342E"));
+                txt_detail.setTextColor(getResources().getColor(R.color.renk10txt));
+                txt_Time.setTextColor(getResources().getColor(R.color.renk10txt));
+                txt_type.setTextColor(getResources().getColor(R.color.renk10txt));
+                txt_Date.setTextColor(getResources().getColor(R.color.renk10txt));
                 break;
             case 10:
-                txt_detail.setTextColor(Color.parseColor("#616161"));
-                txt_type.setTextColor(Color.parseColor("#616161"));
-                txt_Time.setTextColor(Color.parseColor("#616161"));
-                txt_title.setTextColor(Color.parseColor("#616161"));
-                txt_Date.setTextColor(Color.parseColor("#616161"));
+                txt_detail.setTextColor(getResources().getColor(R.color.renk11txt));
+                txt_Time.setTextColor(getResources().getColor(R.color.renk11txt));
+                txt_type.setTextColor(getResources().getColor(R.color.renk11txt));
+                txt_Date.setTextColor(getResources().getColor(R.color.renk11txt));
                 break;
             case 11:
-                txt_detail.setTextColor(Color.parseColor("#C6FF00"));
-                txt_Time.setTextColor(Color.parseColor("#C6FF00"));
-                txt_Date.setTextColor(Color.parseColor("#C6FF00"));
-                txt_title.setTextColor(Color.parseColor("#C6FF00"));
-                txt_type.setTextColor(Color.parseColor("#C6FF00"));
+                txt_detail.setTextColor(getResources().getColor(R.color.renk12txt));
+                txt_Time.setTextColor(getResources().getColor(R.color.renk12txt));
+                txt_type.setTextColor(getResources().getColor(R.color.renk12txt));
+                txt_Date.setTextColor(getResources().getColor(R.color.renk12txt));
                 break;
 
         }
@@ -173,40 +159,41 @@ public class Not_Detay extends AppCompatActivity {
         switch (shepArka)
         {
             case 0:
-                relativeLayout.setBackgroundColor(Color.WHITE);
+                // view.setBackgroundColor(Color.parseColor("#FFF9C4"));
+                relativeLayout.setBackgroundResource(R.color.renk1);
                 break;
             case 1:
-                relativeLayout.setBackgroundColor(Color.parseColor("#FFEB3B"));
+                relativeLayout.setBackgroundResource(R.color.renk2);
                 break;
             case 2:
-                relativeLayout.setBackgroundColor(Color.parseColor("#FF5722"));
+                relativeLayout.setBackgroundResource(R.color.renk3);
                 break;
             case 3:
-                relativeLayout.setBackgroundColor(Color.parseColor("#FF3D00"));
+                relativeLayout.setBackgroundResource(R.color.renk4);
                 break;
             case 4:
-                relativeLayout.setBackgroundColor(Color.parseColor("#DD2C00"));
+                relativeLayout.setBackgroundResource(R.color.renk5);
                 break;
             case 5:
-                relativeLayout.setBackgroundColor(Color.parseColor("#7C4DFF"));
+                relativeLayout.setBackgroundResource(R.color.renk6);
                 break;
             case 6:
-                relativeLayout.setBackgroundColor(Color.parseColor("#3F51B5"));
+                relativeLayout.setBackgroundResource(R.color.renk7);
                 break;
             case 7:
-                relativeLayout.setBackgroundColor(Color.parseColor("#2196F3"));
+                relativeLayout.setBackgroundResource(R.color.renk8);
                 break;
             case 8:
-                relativeLayout.setBackgroundColor(Color.parseColor("#000000"));
+                relativeLayout.setBackgroundResource(R.color.renk9);
                 break;
             case 9:
-                relativeLayout.setBackgroundColor(Color.parseColor("#4E342E"));
+                relativeLayout.setBackgroundResource(R.color.renk10);
                 break;
             case 10:
-                relativeLayout.setBackgroundColor(Color.parseColor("#616161"));
+                relativeLayout.setBackgroundResource(R.color.renk11);
                 break;
             case 11:
-                relativeLayout.setBackgroundColor(Color.parseColor("#C6FF00"));
+                relativeLayout.setBackgroundResource(R.color.renk12);
                 break;
         }
 
@@ -278,12 +265,34 @@ public class Not_Detay extends AppCompatActivity {
                 return true;
 
             case R.id.action_settings:
+                //paylaşmak
+                Paylas();
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+    protected void Paylas() {
+
+
+        String txt = txt_detail.getText().toString();
+
+        if(txt.isEmpty())
+        {
+            Toast.makeText(getApplicationContext(), "Boş paylaşım yapılamaz!!", Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            Intent share_intent = new Intent(android.content.Intent.ACTION_SEND); // intenti oluşturuyoruz
+            share_intent.setType("text/plain");
+            share_intent.putExtra(android.content.Intent.EXTRA_SUBJECT,  getString(R.string.app_name));        // mesaj konusu
+            share_intent.putExtra(android.content.Intent.EXTRA_TEXT, txt_detail.getText().toString()); // mesaj içeriği
+            startActivity(Intent.createChooser(share_intent, ""+R.string.paylasSesim));  // paylaşmak istediğimiz platformu seçiyoruz
+        }
+
+    }
+
     private void alarmIptal(final int ID){
         //alarm notu silinirse alarmı iptal etme
 

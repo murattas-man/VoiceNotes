@@ -58,8 +58,6 @@ public class MainActivity extends AppCompatActivity
         sharedpreferences = getSharedPreferences("Mymain", Context.MODE_PRIVATE);
         ilkGiris = sharedpreferences.getString("deger",deger);
 
-
-
         list = (ListView)findViewById(R.id.commentslist);
 
         mVeritabani = new Veritabani(this);
@@ -105,7 +103,7 @@ public class MainActivity extends AppCompatActivity
         });
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, final long pos) {
+            public boolean onItemLongClick(final AdapterView<?> adapterView, View view, final int position, final long pos) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder
                         .setTitle(getString(R.string.delete_title))

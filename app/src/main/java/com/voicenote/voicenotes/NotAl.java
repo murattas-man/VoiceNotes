@@ -31,6 +31,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -196,51 +197,51 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
     private void txtYaziRengi(int shepYazi) {
         switch (shepYazi){
             case 0:
-                mNotAciklamaText.setTextColor(Color.WHITE);
+                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk1txt));
                 yaziRengi=0;
                 break;
             case 1:
-                mNotAciklamaText.setTextColor(Color.parseColor("#FFEB3B"));
+                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk2txt));
                 yaziRengi=1;
                 break;
             case 2:
-                mNotAciklamaText.setTextColor(Color.parseColor("#FF5722"));
+                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk3txt));
                 yaziRengi=2;
                 break;
             case 3:
-                mNotAciklamaText.setTextColor(Color.parseColor("#FF3D00"));
+                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk4txt));
                 yaziRengi=3;
                 break;
             case 4:
-                mNotAciklamaText.setTextColor(Color.parseColor("#DD2C00"));
+                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk5txt));
                 yaziRengi=4;
                 break;
             case 5:
-                mNotAciklamaText.setTextColor(Color.parseColor("#7C4DFF"));
+                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk6txt));
                 yaziRengi=5;
                 break;
             case 6:
-                mNotAciklamaText.setTextColor(Color.parseColor("#3F51B5"));
+                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk7txt));
                 yaziRengi=6;
                 break;
             case 7:
-                mNotAciklamaText.setTextColor(Color.parseColor("#2196F3"));
+                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk8txt));
                 yaziRengi=7;
                 break;
             case 8:
-                mNotAciklamaText.setTextColor(Color.parseColor("#000000"));
+                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk9txt));
                 yaziRengi=8;
                 break;
             case 9:
-                mNotAciklamaText.setTextColor(Color.parseColor("#4E342E"));
+                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk10txt));
                 yaziRengi=9;
                 break;
             case 10:
-                mNotAciklamaText.setTextColor(Color.parseColor("#616161"));
+                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk11txt));
                 yaziRengi=10;
                 break;
             case 11:
-                mNotAciklamaText.setTextColor(Color.parseColor("#C6FF00"));
+                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk12txt));
                 yaziRengi=11;
                 break;
         }
@@ -250,51 +251,51 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
 
         switch (shepArka){
             case 0:
-                mNotAciklamaText.setBackgroundColor(Color.WHITE);
+                mNotAciklamaText.setBackgroundResource(R.color.renk1);
                 arkaPlan=0;
                 break;
             case 1:
-                mNotAciklamaText.setBackgroundColor(Color.parseColor("#FFEB3B"));
+                mNotAciklamaText.setBackgroundResource(R.color.renk2);
                 arkaPlan=1;
                 break;
             case 2:
-                mNotAciklamaText.setBackgroundColor(Color.parseColor("#FF5722"));
+                mNotAciklamaText.setBackgroundResource(R.color.renk3);
                 arkaPlan=2;
                 break;
             case 3:
-                mNotAciklamaText.setBackgroundColor(Color.parseColor("#FF3D00"));
+                mNotAciklamaText.setBackgroundResource(R.color.renk4);
                 arkaPlan=3;
                 break;
             case 4:
-                mNotAciklamaText.setBackgroundColor(Color.parseColor("#DD2C00"));
+                mNotAciklamaText.setBackgroundResource(R.color.renk5);
                 arkaPlan=4;
                 break;
             case 5:
-                mNotAciklamaText.setBackgroundColor(Color.parseColor("#7C4DFF"));
+                mNotAciklamaText.setBackgroundResource(R.color.renk6);
                 arkaPlan=5;
                 break;
             case 6:
-                mNotAciklamaText.setBackgroundColor(Color.parseColor("#3F51B5"));
+                mNotAciklamaText.setBackgroundResource(R.color.renk7);
                 arkaPlan=6;
                 break;
             case 7:
-                mNotAciklamaText.setBackgroundColor(Color.parseColor("#2196F3"));
+                mNotAciklamaText.setBackgroundResource(R.color.renk8);
                 arkaPlan=7;
                 break;
             case 8:
-                mNotAciklamaText.setBackgroundColor(Color.parseColor("#000000"));
+                mNotAciklamaText.setBackgroundResource(R.color.renk9);
                 arkaPlan=8;
                 break;
             case 9:
-                mNotAciklamaText.setBackgroundColor(Color.parseColor("#4E342E"));
+                mNotAciklamaText.setBackgroundResource(R.color.renk10);
                 arkaPlan=9;
                 break;
             case 10:
-                mNotAciklamaText.setBackgroundColor(Color.parseColor("#616161"));
+                mNotAciklamaText.setBackgroundResource(R.color.renk11);
                 arkaPlan=10;
                 break;
             case 11:
-                mNotAciklamaText.setBackgroundColor(Color.parseColor("#C6FF00"));
+                mNotAciklamaText.setBackgroundResource(R.color.renk12);
                 arkaPlan=11;
                 break;
         }
@@ -385,6 +386,7 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
                         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, _id, intent, 0);
 
                         alarmMgr.set(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), pendingIntent);
+                       // Toast.makeText(getApplicationContext(), ""+calender.getTimeInMillis(), Toast.LENGTH_LONG).show();
                         cv.put(mVeritabani.TIME, timeString);
                         cv.put(mVeritabani.DATE, dateString);
                         cv.put(mVeritabani.ALARMKON,_id);
@@ -426,12 +428,12 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
 
     private void renkSec() {
         final Dialog dialog = new Dialog(NotAl.this);
-        dialog.setContentView(R.layout.renk_layout);
+        dialog.setContentView(R.layout.txt_renk_layout);
         dialog.setTitle(getString(R.string.arkaPlan));
         final int arkSecilen;
         editor = sharedpreferences.edit();
-        final Button btnIptal=(Button) dialog.findViewById(R.id.btnNo);
-        final Button btnTamam=(Button) dialog.findViewById(R.id.btnTamam);
+        final ImageButton btnIptal=(ImageButton) dialog.findViewById(R.id.btnNo);
+        final ImageButton btnTamam=(ImageButton) dialog.findViewById(R.id.btnTamam);
 
         img1=(ImageView) dialog.findViewById(R.id.img1);
         img2=(ImageView) dialog.findViewById(R.id.img2);
@@ -445,65 +447,63 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
         img10=(ImageView) dialog.findViewById(R.id.img10);
         img11=(ImageView) dialog.findViewById(R.id.img11);
         img12=(ImageView) dialog.findViewById(R.id.img12);
+
         int width = (int) (NotAl.this.getResources().getDisplayMetrics().widthPixels * 0.85);
         // set height for dialog
         int height = (int) (NotAl.this.getResources().getDisplayMetrics().heightPixels * 0.5);
         dialog.getWindow().setLayout(width, height);
         dialog.show();
-        int shepArka=sharedpreferences.getInt("arkaplan",0);
-
-        int  shepYazi=sharedpreferences.getInt("shepyazi",0);
 
         btnTamam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 switch (yaziRengi){
                     case 0:
-                        mNotAciklamaText.setTextColor(Color.WHITE);
+                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk1txt));
                         editor.putInt("shepyazi",0);
                         break;
                     case 1:
-                        mNotAciklamaText.setTextColor(Color.parseColor("#FFEB3B"));
+                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk2txt));
                         editor.putInt("shepyazi",1);
                         break;
                     case 2:
-                        mNotAciklamaText.setTextColor(Color.parseColor("#FF5722"));
+                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk3txt));
                         editor.putInt("shepyazi",2);
                         break;
                     case 3:
-                        mNotAciklamaText.setTextColor(Color.parseColor("#FF3D00"));
+                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk4txt));
                         editor.putInt("shepyazi",3);
                         break;
                     case 4:
-                        mNotAciklamaText.setTextColor(Color.parseColor("#DD2C00"));
+                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk5txt));
                         editor.putInt("shepyazi",4);
                         break;
                     case 5:
-                        mNotAciklamaText.setTextColor(Color.parseColor("#7C4DFF"));
+                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk6txt));
                         editor.putInt("shepyazi",5);
                         break;
                     case 6:
-                        mNotAciklamaText.setTextColor(Color.parseColor("#3F51B5"));
+                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk7txt));
                         editor.putInt("shepyazi",6);
                         break;
                     case 7:
-                        mNotAciklamaText.setTextColor(Color.parseColor("#2196F3"));
+                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk8txt));
                         editor.putInt("shepyazi",7);
                         break;
                     case 8:
-                        mNotAciklamaText.setTextColor(Color.parseColor("#000000"));
+                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk9txt));
                         editor.putInt("shepyazi",8);
                         break;
                     case 9:
-                        mNotAciklamaText.setTextColor(Color.parseColor("#4E342E"));
+                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk10txt));
                         editor.putInt("shepyazi",9);
                         break;
                     case 10:
-                        mNotAciklamaText.setTextColor(Color.parseColor("#616161"));
+                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk11txt));
                         editor.putInt("shepyazi",10);
                         break;
                     case 11:
-                        mNotAciklamaText.setTextColor(Color.parseColor("#C6FF00"));
+                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk12txt));
                         editor.putInt("shepyazi",11);
                         break;
                 }
@@ -519,7 +519,7 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
             @Override
             public void onClick(View view) {
                 yaziRengi=sharedpreferences.getInt("shepyazi",0);
-                arkaPlan=sharedpreferences.getInt("arkaplan",0);
+                arkaPlan=sharedpreferences.getInt("arkaplan",8);
                 dialog.dismiss();
             }
         });
@@ -533,8 +533,8 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
         dialog.setTitle(getString(R.string.arkaPlan));
         final int arkSecilen;
         editor = sharedpreferences.edit();
-        final Button btnIptal=(Button) dialog.findViewById(R.id.btnNo);
-        final Button btnTamam=(Button) dialog.findViewById(R.id.btnTamam);
+        final ImageButton btnIptal=(ImageButton) dialog.findViewById(R.id.btnNo);
+        final ImageButton btnTamam=(ImageButton) dialog.findViewById(R.id.btnTamam);
 
         img1=(ImageView) dialog.findViewById(R.id.img1);
         img2=(ImageView) dialog.findViewById(R.id.img2);
@@ -554,60 +554,57 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
         int height = (int) (NotAl.this.getResources().getDisplayMetrics().heightPixels * 0.5);
         dialog.getWindow().setLayout(width, height);
         dialog.show();
-        int shepArka=sharedpreferences.getInt("arkaplan",0);
-
-        int  shepYazi=sharedpreferences.getInt("shepyazi",0);
  //tamam
         btnTamam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 switch (arkaPlan){
                     case 0:
-                        mNotAciklamaText.setBackgroundColor(Color.WHITE);
+                        mNotAciklamaText.setBackgroundResource(R.color.renk1);
                         editor.putInt("arkaplan",0);
                         break;
                     case 1:
-                        mNotAciklamaText.setBackgroundColor(Color.parseColor("#FFEB3B"));
+                        mNotAciklamaText.setBackgroundResource(R.color.renk2);
                         editor.putInt("arkaplan",1);
                         break;
                     case 2:
-                        mNotAciklamaText.setBackgroundColor(Color.parseColor("#FF5722"));
+                        mNotAciklamaText.setBackgroundResource(R.color.renk3);
                         editor.putInt("arkaplan",2);
                         break;
                     case 3:
-                        mNotAciklamaText.setBackgroundColor(Color.parseColor("#FF3D00"));
+                        mNotAciklamaText.setBackgroundResource(R.color.renk4);
                         editor.putInt("arkaplan",3);
                         break;
                     case 4:
-                        mNotAciklamaText.setBackgroundColor(Color.parseColor("#DD2C00"));
+                        mNotAciklamaText.setBackgroundResource(R.color.renk5);
                         editor.putInt("arkaplan",4);
                         break;
                     case 5:
-                        mNotAciklamaText.setBackgroundColor(Color.parseColor("#7C4DFF"));
+                        mNotAciklamaText.setBackgroundResource(R.color.renk6);
                         editor.putInt("arkaplan",5);
                         break;
                     case 6:
-                        mNotAciklamaText.setBackgroundColor(Color.parseColor("#3F51B5"));
+                        mNotAciklamaText.setBackgroundResource(R.color.renk7);
                         editor.putInt("arkaplan",6);
                         break;
                     case 7:
-                        mNotAciklamaText.setBackgroundColor(Color.parseColor("#2196F3"));
+                        mNotAciklamaText.setBackgroundResource(R.color.renk8);
                         editor.putInt("arkaplan",7);
                         break;
                     case 8:
-                        mNotAciklamaText.setBackgroundColor(Color.parseColor("#000000"));
+                        mNotAciklamaText.setBackgroundResource(R.color.renk9);
                         editor.putInt("arkaplan",8);
                         break;
                     case 9:
-                        mNotAciklamaText.setBackgroundColor(Color.parseColor("#4E342E"));
+                        mNotAciklamaText.setBackgroundResource(R.color.renk10);
                         editor.putInt("arkaplan",9);
                         break;
                     case 10:
-                        mNotAciklamaText.setBackgroundColor(Color.parseColor("#616161"));
+                        mNotAciklamaText.setBackgroundResource(R.color.renk11);
                         editor.putInt("arkaplan",10);
                         break;
                     case 11:
-                        mNotAciklamaText.setBackgroundColor(Color.parseColor("#C6FF00"));
+                        mNotAciklamaText.setBackgroundResource(R.color.renk12);
                         editor.putInt("arkaplan",11);
                         break;
                 }
@@ -750,7 +747,6 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
                     img11.setImageResource(R.color.renk11);
                     img12.setImageResource(R.color.renk12);
                     arkaPlan=0;
-                    yaziRengi=0;
 
                 }
                 break;
@@ -771,7 +767,6 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
                     img12.setImageResource(R.color.renk12);
 
                     arkaPlan=1;
-                    yaziRengi=1;
 
                 }
                 break;
@@ -792,7 +787,6 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
                     img12.setImageResource(R.color.renk12);
 
                     arkaPlan=2;
-                    yaziRengi=2;
 
                 }
                 break;
@@ -813,7 +807,6 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
                     img12.setImageResource(R.color.renk12);
 
                     arkaPlan=3;
-                    yaziRengi=3;
 
                 }
                 break;
@@ -834,7 +827,6 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
                     img12.setImageResource(R.color.renk12);
 
                     arkaPlan=4;
-                    yaziRengi=4;
 
                 }
                 break;
@@ -855,7 +847,6 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
                     img12.setImageResource(R.color.renk12);
 
                     arkaPlan=5;
-                    yaziRengi=5;
 
                 }
                 break;
@@ -876,7 +867,6 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
                     img12.setImageResource(R.color.renk12);
 
                     arkaPlan=6;
-                    yaziRengi=6;
 
                 }
                 break;
@@ -897,8 +887,6 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
                     img12.setImageResource(R.color.renk12);
 
                     arkaPlan=7;
-                    yaziRengi=7;
-
                 }
                 break;
             case R.id.img9:
@@ -917,7 +905,6 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
                     img11.setImageResource(R.color.renk11);
                     img12.setImageResource(R.color.renk12);
                     arkaPlan=8;
-                    yaziRengi=8;
 
                 }
                 break;
@@ -938,7 +925,6 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
                     img12.setImageResource(R.color.renk12);
 
                     arkaPlan=9;
-                    yaziRengi=9;
 
                 }
                 break;
@@ -959,7 +945,6 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
                     img12.setImageResource(R.color.renk12);
 
                     arkaPlan=10;
-                    yaziRengi=10;
 
                 }
                 break;
@@ -979,6 +964,251 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
                     img11.setImageResource(R.color.renk11);
                     img1.setImageResource(R.color.renk1);
                     arkaPlan=11;
+
+                }
+                break;
+        }
+    }
+//yazı rekleri
+    public void onCheckboxClickedtxt(View view) {
+        // Is the view now checked?
+        boolean checked = ((ImageView) view).hasOnClickListeners();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.img1:
+                if (checked){
+
+                    img1.setImageResource(R.drawable.ic_action_checked);
+                    img2.setImageResource(R.color.renk2txt);
+                    img3.setImageResource(R.color.renk3txt);
+                    img4.setImageResource(R.color.renk4txt);
+                    img5.setImageResource(R.color.renk5txt);
+                    img6.setImageResource(R.color.renk6txt);
+                    img7.setImageResource(R.color.renk7txt);
+                    img8.setImageResource(R.color.renk8txt);
+                    img9.setImageResource(R.color.renk9txt);
+                    img10.setImageResource(R.color.renk10txt);
+                    img11.setImageResource(R.color.renk11txt);
+                    img12.setImageResource(R.color.renk12txt);
+
+                    yaziRengi=0;
+
+                }
+                break;
+            case R.id.img2:
+                if (checked){
+
+                    img2.setImageResource(R.drawable.ic_action_checked);
+                    img1.setImageResource(R.color.renk1txt);
+                    img3.setImageResource(R.color.renk3txt);
+                    img4.setImageResource(R.color.renk4txt);
+                    img5.setImageResource(R.color.renk5txt);
+                    img6.setImageResource(R.color.renk6txt);
+                    img7.setImageResource(R.color.renk7txt);
+                    img8.setImageResource(R.color.renk8txt);
+                    img9.setImageResource(R.color.renk9txt);
+                    img10.setImageResource(R.color.renk10txt);
+                    img11.setImageResource(R.color.renk11txt);
+                    img12.setImageResource(R.color.renk12txt);
+
+                    yaziRengi=1;
+
+                }
+                break;
+            case R.id.img3:
+                if (checked){
+
+                    img3.setImageResource(R.drawable.ic_action_checked);
+                    img2.setImageResource(R.color.renk2txt);
+                    img1.setImageResource(R.color.renk1txt);
+                    img4.setImageResource(R.color.renk4txt);
+                    img5.setImageResource(R.color.renk5txt);
+                    img6.setImageResource(R.color.renk6txt);
+                    img7.setImageResource(R.color.renk7txt);
+                    img8.setImageResource(R.color.renk8txt);
+                    img9.setImageResource(R.color.renk9txt);
+                    img10.setImageResource(R.color.renk10txt);
+                    img11.setImageResource(R.color.renk11txt);
+                    img12.setImageResource(R.color.renk12txt);
+
+                    yaziRengi=2;
+
+                }
+                break;
+            case R.id.img4:
+                if (checked){
+
+                    img4.setImageResource(R.drawable.ic_action_checked);
+                    img2.setImageResource(R.color.renk2txt);
+                    img3.setImageResource(R.color.renk3txt);
+                    img1.setImageResource(R.color.renk1txt);
+                    img5.setImageResource(R.color.renk5txt);
+                    img6.setImageResource(R.color.renk6txt);
+                    img7.setImageResource(R.color.renk7txt);
+                    img8.setImageResource(R.color.renk8txt);
+                    img9.setImageResource(R.color.renk9txt);
+                    img10.setImageResource(R.color.renk10txt);
+                    img11.setImageResource(R.color.renk11txt);
+                    img12.setImageResource(R.color.renk12txt);
+
+                    yaziRengi=3;
+
+                }
+                break;
+            case R.id.img5:
+                if (checked){
+
+                    img5.setImageResource(R.drawable.ic_action_checked);
+                    img2.setImageResource(R.color.renk2txt);
+                    img3.setImageResource(R.color.renk3txt);
+                    img4.setImageResource(R.color.renk4txt);
+                    img1.setImageResource(R.color.renk1txt);
+                    img6.setImageResource(R.color.renk6txt);
+                    img7.setImageResource(R.color.renk7txt);
+                    img8.setImageResource(R.color.renk8txt);
+                    img9.setImageResource(R.color.renk9txt);
+                    img10.setImageResource(R.color.renk10txt);
+                    img11.setImageResource(R.color.renk11txt);
+                    img12.setImageResource(R.color.renk12txt);
+
+                    yaziRengi=4;
+
+                }
+                break;
+            case R.id.img6:
+                if (checked){
+
+                    img6.setImageResource(R.drawable.ic_action_checked);
+                    img2.setImageResource(R.color.renk2txt);
+                    img3.setImageResource(R.color.renk3txt);
+                    img4.setImageResource(R.color.renk4txt);
+                    img5.setImageResource(R.color.renk5txt);
+                    img1.setImageResource(R.color.renk1txt);
+                    img7.setImageResource(R.color.renk7txt);
+                    img8.setImageResource(R.color.renk8txt);
+                    img9.setImageResource(R.color.renk9txt);
+                    img10.setImageResource(R.color.renk10txt);
+                    img11.setImageResource(R.color.renk11txt);
+                    img12.setImageResource(R.color.renk12txt);
+                    yaziRengi=5;
+
+                }
+                break;
+            case R.id.img7:
+                if (checked){
+
+                    img7.setImageResource(R.drawable.ic_action_checked);
+                    img2.setImageResource(R.color.renk2txt);
+                    img3.setImageResource(R.color.renk3txt);
+                    img4.setImageResource(R.color.renk4txt);
+                    img5.setImageResource(R.color.renk5txt);
+                    img6.setImageResource(R.color.renk6txt);
+                    img1.setImageResource(R.color.renk1txt);
+                    img8.setImageResource(R.color.renk8txt);
+                    img9.setImageResource(R.color.renk9txt);
+                    img10.setImageResource(R.color.renk10txt);
+                    img11.setImageResource(R.color.renk11txt);
+                    img12.setImageResource(R.color.renk12txt);
+
+                    yaziRengi=6;
+
+                }
+                break;
+            case R.id.img8:
+                if (checked){
+
+                    img8.setImageResource(R.drawable.ic_action_checked);
+                    img2.setImageResource(R.color.renk2txt);
+                    img3.setImageResource(R.color.renk3txt);
+                    img4.setImageResource(R.color.renk4txt);
+                    img5.setImageResource(R.color.renk5txt);
+                    img6.setImageResource(R.color.renk6txt);
+                    img7.setImageResource(R.color.renk7txt);
+                    img1.setImageResource(R.color.renk1txt);
+                    img9.setImageResource(R.color.renk9txt);
+                    img10.setImageResource(R.color.renk10txt);
+                    img11.setImageResource(R.color.renk11txt);
+                    img12.setImageResource(R.color.renk12txt);
+
+                    yaziRengi=7;
+
+                }
+                break;
+            case R.id.img9:
+                if (checked){
+
+                    img9.setImageResource(R.drawable.ic_action_checked);
+                    img2.setImageResource(R.color.renk2txt);
+                    img3.setImageResource(R.color.renk3txt);
+                    img4.setImageResource(R.color.renk4txt);
+                    img5.setImageResource(R.color.renk5txt);
+                    img6.setImageResource(R.color.renk6txt);
+                    img7.setImageResource(R.color.renk7txt);
+                    img8.setImageResource(R.color.renk8txt);
+                    img1.setImageResource(R.color.renk1txt);
+                    img10.setImageResource(R.color.renk10txt);
+                    img11.setImageResource(R.color.renk11txt);
+                    img12.setImageResource(R.color.renk12txt);
+                    yaziRengi=8;
+
+                }
+                break;
+            case R.id.img10:
+                if (checked){
+
+                    img10.setImageResource(R.drawable.ic_action_checked);
+                    img2.setImageResource(R.color.renk2txt);
+                    img3.setImageResource(R.color.renk3txt);
+                    img4.setImageResource(R.color.renk4txt);
+                    img5.setImageResource(R.color.renk5txt);
+                    img6.setImageResource(R.color.renk6txt);
+                    img7.setImageResource(R.color.renk7txt);
+                    img8.setImageResource(R.color.renk8txt);
+                    img9.setImageResource(R.color.renk9txt);
+                    img1.setImageResource(R.color.renk1txt);
+                    img11.setImageResource(R.color.renk11txt);
+                    img12.setImageResource(R.color.renk12txt);
+
+                    yaziRengi=9;
+
+                }
+                break;
+            case R.id.img11:
+                if (checked){
+
+                    img11.setImageResource(R.drawable.ic_action_checked);
+                    img2.setImageResource(R.color.renk2txt);
+                    img3.setImageResource(R.color.renk3txt);
+                    img4.setImageResource(R.color.renk4txt);
+                    img5.setImageResource(R.color.renk5txt);
+                    img6.setImageResource(R.color.renk6txt);
+                    img7.setImageResource(R.color.renk7txt);
+                    img8.setImageResource(R.color.renk8txt);
+                    img9.setImageResource(R.color.renk9txt);
+                    img10.setImageResource(R.color.renk10txt);
+                    img1.setImageResource(R.color.renk1txt);
+                    img12.setImageResource(R.color.renk12txt);
+
+                    yaziRengi=10;
+
+                }
+                break;
+            case R.id.img12:
+                if (checked){
+
+                    img12.setImageResource(R.drawable.ic_action_checked);
+                    img2.setImageResource(R.color.renk2txt);
+                    img3.setImageResource(R.color.renk3txt);
+                    img4.setImageResource(R.color.renk4txt);
+                    img5.setImageResource(R.color.renk5txt);
+                    img6.setImageResource(R.color.renk6txt);
+                    img7.setImageResource(R.color.renk7txt);
+                    img8.setImageResource(R.color.renk8txt);
+                    img9.setImageResource(R.color.renk9txt);
+                    img10.setImageResource(R.color.renk10txt);
+                    img11.setImageResource(R.color.renk11txt);
+                    img1.setImageResource(R.color.renk1txt);
                     yaziRengi=11;
 
                 }

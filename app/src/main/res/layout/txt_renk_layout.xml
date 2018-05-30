@@ -23,33 +23,33 @@
                 android:id="@+id/img1"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@color/renk1"
-                android:onClick="onCheckboxClicked"
-                app:srcCompat="@color/renk1" />
+                android:background="@color/renk1txt"
+                android:onClick="onCheckboxClickedtxt"
+                app:srcCompat="@color/renk1txt" />
 
             <ImageView
                 android:id="@+id/img2"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@color/renk2"
-                android:onClick="onCheckboxClicked"
-                app:srcCompat="@color/renk2" />
+                android:background="@color/renk2txt"
+                android:onClick="onCheckboxClickedtxt"
+                app:srcCompat="@color/renk2txt" />
 
             <ImageView
                 android:id="@+id/img3"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@color/renk3"
-                android:onClick="onCheckboxClicked"
-                app:srcCompat="@color/renk3" />
+                android:background="@color/renk3txt"
+                android:onClick="onCheckboxClickedtxt"
+                app:srcCompat="@color/renk3txt" />
 
             <ImageView
                 android:id="@+id/img4"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@color/renk4"
-                android:onClick="onCheckboxClicked"
-                app:srcCompat="@color/renk4" />
+                android:background="@color/renk4txt"
+                android:onClick="onCheckboxClickedtxt"
+                app:srcCompat="@color/renk4txt" />
         </TableRow>
 
 
@@ -61,33 +61,33 @@
                 android:id="@+id/img5"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@color/renk5"
-                android:onClick="onCheckboxClicked"
-                app:srcCompat="@color/renk5" />
+                android:background="@color/renk5txt"
+                android:onClick="onCheckboxClickedtxt"
+                app:srcCompat="@color/renk5txt" />
 
             <ImageView
                 android:id="@+id/img6"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@color/renk6"
-                android:onClick="onCheckboxClicked"
-                app:srcCompat="@color/renk6" />
+                android:background="@color/renk6txt"
+                android:onClick="onCheckboxClickedtxt"
+                app:srcCompat="@color/renk6txt" />
 
             <ImageView
                 android:id="@+id/img7"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@color/renk7"
-                android:onClick="onCheckboxClicked"
-                app:srcCompat="@color/renk7" />
+                android:background="@color/renk7txt"
+                android:onClick="onCheckboxClickedtxt"
+                app:srcCompat="@color/renk7txt" />
 
             <ImageView
                 android:id="@+id/img8"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@color/renk8"
-                android:onClick="onCheckboxClicked"
-                app:srcCompat="@color/renk8" />
+                android:background="@color/renk8txt"
+                android:onClick="onCheckboxClickedtxt"
+                app:srcCompat="@color/renk8txt" />
 
 
         </TableRow>
@@ -100,33 +100,33 @@
                 android:id="@+id/img9"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@color/renk9"
-                android:onClick="onCheckboxClicked"
-                app:srcCompat="@color/renk9" />
+                android:background="@color/renk9txt"
+                android:onClick="onCheckboxClickedtxt"
+                app:srcCompat="@color/renk9txt" />
 
             <ImageView
                 android:id="@+id/img10"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@color/renk10"
-                android:onClick="onCheckboxClicked"
-                app:srcCompat="@color/renk10" />
+                android:background="@color/renk10txt"
+                android:onClick="onCheckboxClickedtxt"
+                app:srcCompat="@color/renk10txt" />
 
             <ImageView
                 android:id="@+id/img11"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@color/renk11"
-                android:onClick="onCheckboxClicked"
-                app:srcCompat="@color/renk11" />
+                android:background="@color/renk11txt"
+                android:onClick="onCheckboxClickedtxt"
+                app:srcCompat="@color/renk11txt" />
 
             <ImageView
                 android:id="@+id/img12"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@color/renk12"
-                android:onClick="onCheckboxClicked"
-                app:srcCompat="@color/renk12" />
+                android:background="@color/renk12txt"
+                android:onClick="onCheckboxClickedtxt"
+                app:srcCompat="@color/renk12txt" />
         </TableRow>
 
         <TableRow
@@ -148,31 +148,30 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
-
             <ImageButton
                 android:id="@+id/btnNo"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_alignParentStart="true"
                 android:background="@android:color/holo_red_dark"
                 app:srcCompat="@drawable/ic_action_cancel"
                 tools:ignore="RtlCompat" />
             <TextView
-                android:layout_height="40dp"
+                android:layout_height="20dp"
                 android:layout_width="40dp"/>
             <TextView
-                android:layout_height="40dp"
+                android:layout_height="20dp"
                 android:layout_width="40dp"/>
             <ImageButton
                 android:id="@+id/btnTamam"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-
                 android:background="@android:color/holo_green_light"
                 app:srcCompat="@drawable/ic_action_yes"
-                />
+                 />
         </TableRow>
+
     </TableLayout>
+
 
 
 

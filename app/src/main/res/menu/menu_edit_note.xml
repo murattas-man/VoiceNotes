@@ -5,11 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Duzenle_Not">
     <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+        android:title="@string/arkaPlan"
         android:orderInCategory="100"
         app:showAsAction="never" />
     <item android:id="@+id/action_renk"
-        android:title="Yazı Rengi"
+        android:title="@string/textcolor"
         android:orderInCategory="100"
         app:showAsAction="never" />
     <item android:id="@+id/action_back"

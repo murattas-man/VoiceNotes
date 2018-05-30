@@ -57,49 +57,45 @@ public class CustomAdapter extends ArrayAdapter<Items> {
         viewHolder.txt_Date.setText(arrayList.get(position).getDateNot());
         viewHolder.txt_Time.setText(arrayList.get(position).getTimeNot());
 
-        viewHolder.txt_title.setTextColor(Color.parseColor("#000000"));
-        viewHolder.txt_type.setTextColor(Color.parseColor("#616161"));
-        viewHolder.txt_detail.setTextColor(Color.parseColor("#616161"));
-        viewHolder.txt_Date.setTextColor(Color.parseColor("#616161"));
-        viewHolder.txt_Time.setTextColor(Color.parseColor("#616161"));
         int arkaid=arrayList.get(position).getIdArkapaln();
      switch (arkaid)
      {
          case 0:
-             view.setBackgroundColor(Color.WHITE);
+            // view.setBackgroundColor(Color.parseColor("#FFF9C4"));
+             view.setBackgroundResource(R.color.renk1);
              break;
          case 1:
-             view.setBackgroundColor(Color.parseColor("#FFEB3B"));
+             view.setBackgroundResource(R.color.renk2);
             break;
          case 2:
-             view.setBackgroundColor(Color.parseColor("#FF5722"));
+             view.setBackgroundResource(R.color.renk3);
             break;
          case 3:
-             view.setBackgroundColor(Color.parseColor("#FF3D00"));
+             view.setBackgroundResource(R.color.renk4);
             break;
          case 4:
-             view.setBackgroundColor(Color.parseColor("#DD2C00"));
+             view.setBackgroundResource(R.color.renk5);
             break;
          case 5:
-             view.setBackgroundColor(Color.parseColor("#7C4DFF"));
+             view.setBackgroundResource(R.color.renk6);
              break;
          case 6:
-             view.setBackgroundColor(Color.parseColor("#3F51B5"));
+             view.setBackgroundResource(R.color.renk7);
             break;
          case 7:
-             view.setBackgroundColor(Color.parseColor("#2196F3"));
+             view.setBackgroundResource(R.color.renk8);
             break;
          case 8:
-             view.setBackgroundColor(Color.parseColor("#000000"));
+             view.setBackgroundResource(R.color.renk9);
             break;
          case 9:
-             view.setBackgroundColor(Color.parseColor("#4E342E"));
+             view.setBackgroundResource(R.color.renk10);
              break;
          case 10:
-             view.setBackgroundColor(Color.parseColor("#616161"));
+             view.setBackgroundResource(R.color.renk11);
              break;
          case 11:
-             view.setBackgroundColor(Color.parseColor("#C6FF00"));
+             view.setBackgroundResource(R.color.renk12);
              break;
      }
 
@@ -109,90 +105,92 @@ public class CustomAdapter extends ArrayAdapter<Items> {
         switch (renkId)
         {
             case 0:
-                viewHolder.txt_detail.setTextColor(Color.WHITE);
-                viewHolder.txt_type.setTextColor(Color.WHITE);
-                viewHolder.txt_Time.setTextColor(Color.WHITE);
-                viewHolder.txt_Date.setTextColor(Color.WHITE);
-                viewHolder.txt_title.setTextColor(Color.WHITE);
+                viewHolder.txt_detail.setTextColor(context.getResources().getColor(R.color.renk1txt));
+                viewHolder.txt_type.setTextColor(context.getResources().getColor(R.color.renk1txt));
+                viewHolder.txt_Time.setTextColor(context.getResources().getColor(R.color.renk1txt));
+                viewHolder.txt_Date.setTextColor(context.getResources().getColor(R.color.renk1txt));
+                viewHolder.txt_title.setTextColor(context.getResources().getColor(R.color.renk1txt));
                 break;
             case 1:
-                viewHolder.txt_detail.setTextColor(Color.parseColor("#FFEB3B"));
-                viewHolder.txt_title.setTextColor(Color.parseColor("#FFEB3B"));
-                viewHolder.txt_Date.setTextColor(Color.parseColor("#FFEB3B"));
-                viewHolder.txt_Time.setTextColor(Color.parseColor("#FFEB3B"));
-                viewHolder.txt_type.setTextColor(Color.parseColor("#FFEB3B"));
+                viewHolder.txt_detail.setTextColor(context.getResources().getColor(R.color.renk2txt));
+                viewHolder.txt_title.setTextColor(context.getResources().getColor(R.color.renk2txt));
+                viewHolder.txt_Date.setTextColor(context.getResources().getColor(R.color.renk2txt));
+                viewHolder.txt_Time.setTextColor(context.getResources().getColor(R.color.renk2txt));
+                viewHolder.txt_type.setTextColor(context.getResources().getColor(R.color.renk2txt));
                 break;
             case 2:
-                viewHolder.txt_detail.setTextColor(Color.parseColor("#FF5722"));
-                viewHolder.txt_Time.setTextColor(Color.parseColor("#FF5722"));
-                viewHolder.txt_type.setTextColor(Color.parseColor("#FF5722"));
-                viewHolder.txt_Date.setTextColor(Color.parseColor("#FF5722"));
-                viewHolder.txt_title.setTextColor(Color.parseColor("#FF5722"));
+                viewHolder.txt_detail.setTextColor(context.getResources().getColor(R.color.renk3txt));
+                viewHolder.txt_Time.setTextColor(context.getResources().getColor(R.color.renk3txt));
+                viewHolder.txt_type.setTextColor(context.getResources().getColor(R.color.renk3txt));
+                viewHolder.txt_Date.setTextColor(context.getResources().getColor(R.color.renk3txt));
+                viewHolder.txt_title.setTextColor(context.getResources().getColor(R.color.renk3txt));
                 break;
             case 3:
-                viewHolder.txt_detail.setTextColor(Color.parseColor("#FF3D00"));
-                viewHolder.txt_Date.setTextColor(Color.parseColor("#FF3D00"));
-                viewHolder.txt_title.setTextColor(Color.parseColor("#FF3D00"));
-                viewHolder.txt_type.setTextColor(Color.parseColor("#FF3D00"));
-                viewHolder.txt_Time.setTextColor(Color.parseColor("#FF3D00"));
+                viewHolder.txt_detail.setTextColor(context.getResources().getColor(R.color.renk4txt));
+                viewHolder.txt_Time.setTextColor(context.getResources().getColor(R.color.renk4txt));
+                viewHolder.txt_type.setTextColor(context.getResources().getColor(R.color.renk4txt));
+                viewHolder.txt_Date.setTextColor(context.getResources().getColor(R.color.renk4txt));
+                viewHolder.txt_title.setTextColor(context.getResources().getColor(R.color.renk4txt));
                 break;
             case 4:
-                viewHolder.txt_detail.setTextColor(Color.parseColor("#DD2C00"));
-                viewHolder.txt_type.setTextColor(Color.parseColor("#DD2C00"));
-                viewHolder.txt_Time.setTextColor(Color.parseColor("#DD2C00"));
-                viewHolder.txt_title.setTextColor(Color.parseColor("#DD2C00"));
-                viewHolder.txt_Date.setTextColor(Color.parseColor("#DD2C00"));
+                viewHolder.txt_detail.setTextColor(context.getResources().getColor(R.color.renk5txt));
+                viewHolder.txt_Time.setTextColor(context.getResources().getColor(R.color.renk5txt));
+                viewHolder.txt_type.setTextColor(context.getResources().getColor(R.color.renk5txt));
+                viewHolder.txt_Date.setTextColor(context.getResources().getColor(R.color.renk5txt));
+                viewHolder.txt_title.setTextColor(context.getResources().getColor(R.color.renk5txt));
                 break;
             case 5:
-                viewHolder.txt_detail.setTextColor(Color.parseColor("#7C4DFF"));
-                viewHolder.txt_title.setTextColor(Color.parseColor("#7C4DFF"));
-                viewHolder.txt_Date.setTextColor(Color.parseColor("#7C4DFF"));
-                viewHolder.txt_Time.setTextColor(Color.parseColor("#7C4DFF"));
-                viewHolder.txt_type.setTextColor(Color.parseColor("#7C4DFF"));
+                viewHolder.txt_detail.setTextColor(context.getResources().getColor(R.color.renk6txt));
+                viewHolder.txt_Time.setTextColor(context.getResources().getColor(R.color.renk6txt));
+                viewHolder.txt_type.setTextColor(context.getResources().getColor(R.color.renk6txt));
+                viewHolder.txt_Date.setTextColor(context.getResources().getColor(R.color.renk6txt));
+                viewHolder.txt_title.setTextColor(context.getResources().getColor(R.color.renk6txt));
                 break;
             case 6:
-                viewHolder.txt_detail.setTextColor(Color.parseColor("#3F51B5"));
-                viewHolder.txt_Time.setTextColor(Color.parseColor("#3F51B5"));
-                viewHolder.txt_type.setTextColor(Color.parseColor("#3F51B5"));
-                viewHolder.txt_Date.setTextColor(Color.parseColor("#3F51B5"));
-                viewHolder.txt_title.setTextColor(Color.parseColor("#3F51B5"));
+                viewHolder.txt_detail.setTextColor(context.getResources().getColor(R.color.renk7txt));
+                viewHolder.txt_Time.setTextColor(context.getResources().getColor(R.color.renk7txt));
+                viewHolder.txt_type.setTextColor(context.getResources().getColor(R.color.renk7txt));
+                viewHolder.txt_Date.setTextColor(context.getResources().getColor(R.color.renk7txt));
+                viewHolder.txt_title.setTextColor(context.getResources().getColor(R.color.renk7txt));
                 break;
             case 7:
-                viewHolder.txt_detail.setTextColor(Color.parseColor("#2196F3"));
-                viewHolder.txt_Date.setTextColor(Color.parseColor("#2196F3"));
-                viewHolder.txt_title.setTextColor(Color.parseColor("#2196F3"));
-                viewHolder.txt_Time.setTextColor(Color.parseColor("#2196F3"));
-                viewHolder.txt_type.setTextColor(Color.parseColor("#2196F3"));
+                viewHolder.txt_detail.setTextColor(context.getResources().getColor(R.color.renk8txt));
+                viewHolder.txt_Time.setTextColor(context.getResources().getColor(R.color.renk8txt));
+                viewHolder.txt_type.setTextColor(context.getResources().getColor(R.color.renk8txt));
+                viewHolder.txt_Date.setTextColor(context.getResources().getColor(R.color.renk8txt));
+                viewHolder.txt_title.setTextColor(context.getResources().getColor(R.color.renk8txt));
                 break;
             case 8:
-                viewHolder.txt_detail.setTextColor(Color.parseColor("#000000"));
-                viewHolder.txt_type.setTextColor(Color.parseColor("#000000"));
-                viewHolder.txt_Time.setTextColor(Color.parseColor("#000000"));
-                viewHolder.txt_title.setTextColor(Color.parseColor("#000000"));
-                viewHolder.txt_Date.setTextColor(Color.parseColor("#000000"));
+                viewHolder.txt_detail.setTextColor(context.getResources().getColor(R.color.renk9txt));
+                viewHolder.txt_Time.setTextColor(context.getResources().getColor(R.color.renk9txt));
+                viewHolder.txt_type.setTextColor(context.getResources().getColor(R.color.renk9txt));
+                viewHolder.txt_Date.setTextColor(context.getResources().getColor(R.color.renk9txt));
+                viewHolder.txt_title.setTextColor(context.getResources().getColor(R.color.renk9txt));
                 break;
             case 9:
-                viewHolder.txt_detail.setTextColor(Color.parseColor("#4E342E"));
-                viewHolder.txt_Time.setTextColor(Color.parseColor("#4E342E"));
-                viewHolder.txt_Date.setTextColor(Color.parseColor("#4E342E"));
-                viewHolder.txt_title.setTextColor(Color.parseColor("#4E342E"));
-                viewHolder.txt_type.setTextColor(Color.parseColor("#4E342E"));
+                viewHolder.txt_detail.setTextColor(context.getResources().getColor(R.color.renk10txt));
+                viewHolder.txt_Time.setTextColor(context.getResources().getColor(R.color.renk10txt));
+                viewHolder.txt_type.setTextColor(context.getResources().getColor(R.color.renk10txt));
+                viewHolder.txt_Date.setTextColor(context.getResources().getColor(R.color.renk10txt));
+                viewHolder.txt_title.setTextColor(context.getResources().getColor(R.color.renk10txt));
                 break;
             case 10:
-                viewHolder.txt_detail.setTextColor(Color.parseColor("#616161"));
-                viewHolder.txt_type.setTextColor(Color.parseColor("#616161"));
-                viewHolder.txt_Time.setTextColor(Color.parseColor("#616161"));
-                viewHolder.txt_title.setTextColor(Color.parseColor("#616161"));
-                viewHolder.txt_Date.setTextColor(Color.parseColor("#616161"));
+                viewHolder.txt_detail.setTextColor(context.getResources().getColor(R.color.renk11txt));
+                viewHolder.txt_Time.setTextColor(context.getResources().getColor(R.color.renk11txt));
+                viewHolder.txt_type.setTextColor(context.getResources().getColor(R.color.renk11txt));
+                viewHolder.txt_Date.setTextColor(context.getResources().getColor(R.color.renk11txt));
+                viewHolder.txt_title.setTextColor(context.getResources().getColor(R.color.renk11txt));
                 break;
             case 11:
-                viewHolder.txt_detail.setTextColor(Color.parseColor("#C6FF00"));
-                viewHolder.txt_Time.setTextColor(Color.parseColor("#C6FF00"));
-                viewHolder.txt_Date.setTextColor(Color.parseColor("#C6FF00"));
-                viewHolder.txt_title.setTextColor(Color.parseColor("#C6FF00"));
-                viewHolder.txt_type.setTextColor(Color.parseColor("#C6FF00"));
+                viewHolder.txt_detail.setTextColor(context.getResources().getColor(R.color.renk12txt));
+                viewHolder.txt_Time.setTextColor(context.getResources().getColor(R.color.renk12txt));
+                viewHolder.txt_type.setTextColor(context.getResources().getColor(R.color.renk12txt));
+                viewHolder.txt_Date.setTextColor(context.getResources().getColor(R.color.renk12txt));
+                viewHolder.txt_title.setTextColor(context.getResources().getColor(R.color.renk12txt));
                 break;
         }
+
+        /*
         if (arrayList.get(position).getTypeNot()=="Alert" ||arrayList.get(position).getTypeNot()=="Alarm" ){
             viewHolder.ımageView.setImageResource(R.drawable.ic_action_alarms);
             if (arkaid==11){
@@ -202,7 +200,7 @@ public class CustomAdapter extends ArrayAdapter<Items> {
                 viewHolder.ımageView.setBackgroundColor(Color.parseColor("#00E676"));
             }
 
-        }
+        }*/
 
 
         return view;

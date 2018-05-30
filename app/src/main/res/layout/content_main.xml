@@ -12,7 +12,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".MainActivity"
          android:id="@+id/listReletive"
-        android:background="@color/white_pressed"
+        android:background="#ECEFF1"
         tools:showIn="@layout/app_bar_main">
 
         <LinearLayout
