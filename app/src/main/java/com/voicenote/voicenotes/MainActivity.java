@@ -27,6 +27,9 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +48,10 @@ public class MainActivity extends AppCompatActivity
     private SharedPreferences.Editor editorNot;
     private String ilkGiris;
     ImageView imageNot;
+
+    private static final String TAG = "MainActivity";
+
+    private AdView mAdView;
 
     private List<Items> listItem = new ArrayList<Items>();
     private CustomAdapter customAdapter;
@@ -148,6 +155,10 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override

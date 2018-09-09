@@ -71,4 +71,9 @@
     <string name="notKaydet">Saved</string>
     <string name="arkaPlan">Background Color</string>
     <string name="textcolor">Font color</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3688388679356685/1964702419</string>
+    <string name="appwidget_text">VOICE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
+
 </resources>

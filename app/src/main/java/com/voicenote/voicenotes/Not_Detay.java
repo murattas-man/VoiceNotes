@@ -20,6 +20,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 
 
 public class Not_Detay extends AppCompatActivity {
@@ -37,6 +40,9 @@ public class Not_Detay extends AppCompatActivity {
     TextView txt_Date;
 
     RelativeLayout relativeLayout;
+    private static final String TAG = "Not_Detay";
+
+    private AdView mAdView;
 
 
     @Override
@@ -44,6 +50,9 @@ public class Not_Detay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detay_not);
          relativeLayout=findViewById(R.id.relativelayout);
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         Bundle bundle = getIntent().getExtras();
         final long id=bundle.getInt("idNot");

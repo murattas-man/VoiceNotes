@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.voicenote.voicenotes">
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
@@ -24,36 +25,40 @@
         </activity>
         <activity
             android:name=".NotAl"
-            android:label="@string/title_activity_create_note" >
+            android:label="@string/title_activity_create_note">
             <intent-filter>
                 <action android:name="com.voicenote.voicenotes.CreateNote" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Not_Detay"
-            android:label="@string/title_activity_information" >
-        </activity>
+            android:label="@string/title_activity_information" />
         <activity
             android:name=".Duzenle_Not"
-            android:label="@string/title_activity_edit__note" >
-        </activity>
-
-
-
+            android:label="@string/title_activity_edit__note" />
         <activity
             android:name=".Alarm"
-            android:theme="@style/mytheme">
-        </activity>
+            android:theme="@style/mytheme" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
         <service android:name=".Servis" />
 
         <receiver android:name=".AlarmReceiver" />
+        <receiver android:name=".AppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.voicenote.voicenotes.AppWidget.Tikla"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_info" />
+        </receiver>
     </application>
 
 </manifest>

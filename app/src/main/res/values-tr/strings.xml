@@ -72,5 +72,9 @@
     <string name="notKaydet">Kaydedildi</string>
     <string name="arkaPlan">Arkaplan Rengi</string>
     <string name="textcolor">Yazı Rengi</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3688388679356685/1964702419</string>
+    <string name="appwidget_text">VOICE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
 
 </resources>
