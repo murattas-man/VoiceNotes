@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "774832114184",
+    "firebase_url": "https://voicenotes-28711.firebaseio.com",
+    "project_id": "voicenotes-28711",
+    "storage_bucket": "voicenotes-28711.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:774832114184:android:62346e6c82154947",
+        "android_client_info": {
+          "package_name": "com.voicenote.voicenotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "774832114184-fqffd6b7v4boqj8n12uqhbd4fut714j5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.voicenote.voicenotes",
+            "certificate_hash": "a85842fd3be7ab66eec6bb4c242142b8dded26ec"
+          }
+        },
+        {
+          "client_id": "774832114184-aa8chsbe8avrbbd5cbcbc10es9se6gmv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_ZSdk8w3kJHv3E6dX25r81bOOV2Va6LM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "774832114184-aa8chsbe8avrbbd5cbcbc10es9se6gmv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      },
+      "admob_app_id": "ca-app-pub-3688388679356685~1649115443"
+    }
+  ],
+  "configuration_version": "1"
+}
