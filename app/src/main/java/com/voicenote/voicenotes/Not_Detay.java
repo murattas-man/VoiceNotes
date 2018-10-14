@@ -257,6 +257,8 @@ public class Not_Detay extends AppCompatActivity {
                                         if(ID!=1){
                                             //silinen not alarmlı not ise alarmı iptal et
                                            alarmIptal(ID);
+                                            db.delete(Veritabani.TABLE_ALARM, Veritabani.ALARM_KONTROL + "=" + ID, null);
+
                                         }
                                     }
                                     cursor.close();

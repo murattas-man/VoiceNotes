@@ -33,6 +33,7 @@ public class AppWidget extends AppWidgetProvider {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.app_widget);
             Intent intentnew = new Intent(context,NotAl.class);
             intentnew.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intentnew.putExtra("sesKontrol",true);
             context.startActivity(intentnew);
 
         }

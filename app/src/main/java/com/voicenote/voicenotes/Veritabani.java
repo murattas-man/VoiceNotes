@@ -11,7 +11,6 @@ public class Veritabani extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "data2";
     public static final String TABLE_NAME = "comments_table";
-    public static final String TABLE_ARCHIVE = "archive_table";
     public static final String C_ID = "_id";
     public static final String TITLE = "title";
     public static final String TYPE = "type";
@@ -34,6 +33,27 @@ public class Veritabani extends SQLiteOpenHelper {
             +RENKKODU + " integer,"
             +ARKAPLAN + " integer)";
 
+    public static final String TABLE_ALARM = "alarm_table";
+    public static final String A_ID = "_aid";
+    public static final String ALARM_TITLE = "atitle";
+    public static final String ALARM_YEAR = "yil";
+    public static final String ALARM_MONTH = "ay";
+    public static final String ALARM_DAY = "gun";
+    public static final String ALARM_HOUR = "saat";
+    public static final String ALARM_MINUTE = "dakika";
+    public static final String ALARM_KONTROL ="idkontrol";
+
+
+    private final String createDBTWO = "create table if not exists " + TABLE_ALARM + " ( "
+            + A_ID + " integer primary key autoincrement, "
+            + ALARM_TITLE + " text, "
+            + ALARM_KONTROL + " integer,"
+            + ALARM_YEAR + " integer,"
+            + ALARM_MONTH + " integer,"
+            + ALARM_DAY + " integer,"
+            + ALARM_HOUR + " integer,"
+            +ALARM_MINUTE + " integer)";
+
     public Veritabani(Context context){
         super(context, DATABASE_NAME, null, VERSION);
     }
@@ -41,10 +61,12 @@ public class Veritabani extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(createDB);
+        db.execSQL(createDBTWO);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table " + TABLE_NAME);
+        db.execSQL("drop table " + TABLE_ALARM);
     }
 }

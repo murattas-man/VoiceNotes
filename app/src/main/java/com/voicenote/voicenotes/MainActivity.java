@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity
     private SharedPreferences.Editor editorNot;
     private String ilkGiris;
     ImageView imageNot;
+    private boolean seskontrol=false;
+
 
     private static final String TAG = "MainActivity";
 
@@ -75,7 +77,9 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                seskontrol=false;
                 Intent openCreateNote = new Intent(MainActivity.this, NotAl.class);
+                openCreateNote.putExtra("sesKontrol",seskontrol);
                 startActivity(openCreateNote);
             }
         });
@@ -134,6 +138,8 @@ public class MainActivity extends AppCompatActivity
                                         if(ID!=1){
                                             //silinen not alarmlı not ise alarmı iptal et
                                             alarmIptal(ID);
+                                            db.delete(Veritabani.TABLE_ALARM, Veritabani.ALARM_KONTROL + "=" + ID, null);
+
                                         }
                                         int renk=cursor.getInt(cursor.getColumnIndex(mVeritabani.RENKKODU));
                                         int arka=cursor.getInt(cursor.getColumnIndex(mVeritabani.ARKAPLAN));
@@ -182,8 +188,17 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.action_new:
+                seskontrol=false;
                 Intent openCreateNote = new Intent(MainActivity.this, NotAl.class);
+                openCreateNote.putExtra("sesKontrol",seskontrol);
                 startActivity(openCreateNote);
+                return true;
+
+            case R.id.ses_direkt:
+                seskontrol=true;
+                Intent openSesNote = new Intent(MainActivity.this, NotAl.class);
+                openSesNote.putExtra("sesKontrol",seskontrol);
+                startActivity(openSesNote);
                 return true;
 
             default:

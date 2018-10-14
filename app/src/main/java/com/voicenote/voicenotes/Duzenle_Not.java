@@ -8,11 +8,13 @@ import android.app.Dialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -157,12 +159,11 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
                 }
                 else if (cursor.getString(cursor.getColumnIndex(mVeritabani.TYPE)).equals(mSpinner.getItemAtPosition(2))) {
                     mSpinner.setSelection(2);
-                    checkBoxAlarm.setChecked(true);
                     checkBoxAlarm.setEnabled(true);
                     final String eskiSaat=getIntent().getExtras().getString("saat");
                     final String eskiTarih=getIntent().getExtras().getString("tarih");
-                    txtSaat.setText(eskiSaat+"");
-                    txtTarih.setText(eskiTarih+"");
+                    //txtSaat.setText(eskiSaat+"");
+                    //txtTarih.setText(eskiTarih+"");
                     alarmVarmi=true;
                 }
                 if (cursor.getString(cursor.getColumnIndex(mVeritabani.TIME)).toString().equals(getString(R.string.Not_Set_Alert))) {
@@ -400,7 +401,9 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
 
                     String title = baslik;
                     String type = mSpinner.getSelectedItem().toString();
+
                     ContentValues cv = new ContentValues();
+                    ContentValues A_cv = new ContentValues();
                     cv.put(mVeritabani.TITLE, title);
                     cv.put(mVeritabani.DETAIL, detail);
                     cv.put(mVeritabani.TYPE, type);
@@ -431,6 +434,12 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
 
 
                         } else {
+
+                            ComponentName receiver =new ComponentName(getApplicationContext(),AlarmReceiver.class);
+                            PackageManager pm=getApplicationContext().getPackageManager();
+                            pm.setComponentEnabledSetting(receiver,PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                                    PackageManager.DONT_KILL_APP);
+
                             AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                             Intent intent = new Intent(this, AlarmReceiver.class);
                             String alertTitle = title;
@@ -449,9 +458,35 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
                             cv.put(mVeritabani.TIME, timeString);
                             cv.put(mVeritabani.DATE, dateString);
 
+                            Cursor cursortwo = db.rawQuery("select * from " + mVeritabani.TABLE_ALARM + " where " + mVeritabani.ALARM_KONTROL + "=" + ID, null);
+                            if (cursortwo != null) {
+                                if (cursortwo.moveToFirst()) {
+                                    A_cv.put(mVeritabani.ALARM_TITLE,detail);
+                                    A_cv.put(mVeritabani.ALARM_YEAR, year);
+                                    A_cv.put(mVeritabani.ALARM_MONTH, month);
+                                    A_cv.put(mVeritabani.ALARM_DAY, day);
+                                    A_cv.put(mVeritabani.ALARM_HOUR, saat);
+                                    A_cv.put(mVeritabani.ALARM_MINUTE, dakika);
+                                    db.update(mVeritabani.TABLE_ALARM, A_cv, mVeritabani.ALARM_KONTROL + "=" + ID, null);
+                                  //  Toast.makeText(getApplicationContext(), "Güncellendi", Toast.LENGTH_LONG).show();
+
+                                } else
+                                {
+                                    A_cv.put(mVeritabani.ALARM_TITLE,detail);
+                                    A_cv.put(mVeritabani.ALARM_YEAR, year);
+                                    A_cv.put(mVeritabani.ALARM_MONTH, month);
+                                    A_cv.put(mVeritabani.ALARM_DAY, day);
+                                    A_cv.put(mVeritabani.ALARM_HOUR, saat);
+                                    A_cv.put(mVeritabani.ALARM_MINUTE, dakika);
+                                    A_cv.put(mVeritabani.ALARM_KONTROL,ID);
+
+                                    db.insert(mVeritabani.TABLE_ALARM, null, A_cv);
+                                   // Toast.makeText(getApplicationContext(), "yeniden eklendi", Toast.LENGTH_LONG).show();
+
+                                }
+                                cursortwo.close();
+                            }
                         }
-
-
                     }
 
                     db.update(mVeritabani.TABLE_NAME, cv, mVeritabani.C_ID + "=" + id, null);

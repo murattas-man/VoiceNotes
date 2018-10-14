@@ -8,11 +8,13 @@ import android.app.Dialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -71,6 +73,7 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
     private String soylenen;
     private int shepArka;
     private int shepYazi;
+    private boolean seskontrol;
 
     private SharedPreferences sharedpreferences;
     private SharedPreferences.Editor editor;
@@ -104,6 +107,13 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
         yaziRengi1=shepYazi;
         txtArkaPlan(shepArka);
         txtYaziRengi(shepYazi);
+
+        Bundle bundle = getIntent().getExtras();
+        seskontrol=bundle.getBoolean("sesKontrol");
+        if(seskontrol){
+            seskontrol=false;
+            hopses();
+        }
 
 
 
@@ -151,28 +161,8 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intentses = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH); // intent i oluşturduk sesi tanıyabilmesi için
-                intentses.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                hopses();
 
-                try{
-                    startActivityForResult(intentses, request_code_voice);  // activityi başlattık belirlediğimiz sabit değer ile birlikte
-                }catch(ActivityNotFoundException e)
-                {
-                    // activity bulunamadığı zaman hatayı göstermek için alert dialog kullandım
-                    e.printStackTrace();
-                    AlertDialog.Builder builder = new AlertDialog.Builder(NotAl.this);
-                    builder.setMessage(R.string.sesKontrol)
-                            .setTitle(R.string.app_name)
-                            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            });
-                    AlertDialog alert = builder.create();
-                    alert.show();
-                }
 
             }
         });
@@ -301,7 +291,30 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
         }
 
     }
+ private void hopses(){
+     intentses = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH); // intent i oluşturduk sesi tanıyabilmesi için
+     intentses.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
 
+     try{
+         startActivityForResult(intentses, request_code_voice);  // activityi başlattık belirlediğimiz sabit değer ile birlikte
+     }catch(ActivityNotFoundException e)
+     {
+         // activity bulunamadığı zaman hatayı göstermek için alert dialog kullandım
+         e.printStackTrace();
+         AlertDialog.Builder builder = new AlertDialog.Builder(NotAl.this);
+         builder.setMessage(R.string.sesKontrol)
+                 .setTitle(R.string.app_name)
+                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+
+                     @Override
+                     public void onClick(DialogInterface dialog, int which) {
+
+                     }
+                 });
+         AlertDialog alert = builder.create();
+         alert.show();
+     }
+ }
 
     @Override
     public void onBackPressed() {
@@ -338,6 +351,7 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
                 String title=words[0];
                 String type =  mSpinner.getSelectedItem().toString();
                 ContentValues cv = new ContentValues();
+                ContentValues A_cv = new ContentValues();
                 cv.put(mVeritabani.TITLE, title);
                 cv.put(mVeritabani.DETAIL, detail);
                 cv.put(mVeritabani.TYPE, type);
@@ -375,6 +389,11 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
 
                     }else{
                         //geçerli bir tarih girildiyse alarm oluşturuluyor
+                        ComponentName receiver =new ComponentName(getApplicationContext(),AlarmReceiver.class);
+                        PackageManager pm=getApplicationContext().getPackageManager();
+                        pm.setComponentEnabledSetting(receiver,PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                                PackageManager.DONT_KILL_APP);
+
                         AlarmManager alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
                         Intent intent = new Intent(this, AlarmReceiver.class);
                         String alertTitle = detail;
@@ -390,6 +409,17 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
                         cv.put(mVeritabani.TIME, timeString);
                         cv.put(mVeritabani.DATE, dateString);
                         cv.put(mVeritabani.ALARMKON,_id);
+
+                        A_cv.put(mVeritabani.ALARM_TITLE,detail);
+                        A_cv.put(mVeritabani.ALARM_YEAR, year);
+                        A_cv.put(mVeritabani.ALARM_MONTH, month);
+                        A_cv.put(mVeritabani.ALARM_DAY, day);
+                        A_cv.put(mVeritabani.ALARM_HOUR, saat);
+                        A_cv.put(mVeritabani.ALARM_MINUTE, dakika);
+                        A_cv.put(mVeritabani.ALARM_KONTROL,_id);
+
+
+                        db.insert(mVeritabani.TABLE_ALARM, null, A_cv);
                     }
 
 
