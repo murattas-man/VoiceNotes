@@ -76,5 +76,6 @@
     <color name="renk10txt">#263238</color>
     <color name="renk11txt">#FFFF00</color>
     <color name="renk12txt">#BF360C</color>
+    <color name="eskise">#e0e0e0</color>
 
 </resources>

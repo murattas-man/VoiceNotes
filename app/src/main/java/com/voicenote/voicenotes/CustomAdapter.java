@@ -1,6 +1,8 @@
 package com.voicenote.voicenotes;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +10,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -19,6 +23,9 @@ import java.util.Locale;
 public class CustomAdapter extends ArrayAdapter<Items> {
     private Context context;
     private ViewHolder viewHolder;
+    Veritabani mVeritabani;
+    SQLiteDatabase db;
+    int YIL,AY,GUN,SAAT,DAKIKA,idAlarm;
     private List<Items> arrayList = new ArrayList<Items>();
     public CustomAdapter(Context context, List<Items> list_items) {
 
@@ -55,7 +62,10 @@ public class CustomAdapter extends ArrayAdapter<Items> {
         viewHolder.txt_type.setText(arrayList.get(position).getTypeNot());
         viewHolder.txt_detail.setText(arrayList.get(position).getDetailNot());
         viewHolder.txt_Date.setText(arrayList.get(position).getDateNot());
+
+        int alarmkon=arrayList.get(position).getAlarmKontrol();
         viewHolder.txt_Time.setText(arrayList.get(position).getTimeNot());
+
 
         int arkaid=arrayList.get(position).getIdArkapaln();
      switch (arkaid)
@@ -202,7 +212,7 @@ public class CustomAdapter extends ArrayAdapter<Items> {
 
         }*/
 
-
+        alarmKontrolEt(alarmkon);
         return view;
     }
 
@@ -216,5 +226,48 @@ public class CustomAdapter extends ArrayAdapter<Items> {
         TextView txt_Time;
         TextView txt_Date;
 
+    }
+
+    private void alarmKontrolEt(int alaramkon) {
+        int id=alaramkon;
+        try {
+        mVeritabani=new Veritabani(context);
+        db= mVeritabani.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from " + mVeritabani.TABLE_ALARM + " where " + mVeritabani.ALARM_KONTROL + "=" + id, null);
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                YIL = cursor.getInt(cursor.getColumnIndex(mVeritabani.ALARM_YEAR));
+                AY  = cursor.getInt(cursor.getColumnIndex(mVeritabani.ALARM_MONTH));
+                GUN = cursor.getInt(cursor.getColumnIndex(mVeritabani.ALARM_DAY));
+                SAAT = cursor.getInt(cursor.getColumnIndex(mVeritabani.ALARM_HOUR));
+                DAKIKA  = cursor.getInt(cursor.getColumnIndex(mVeritabani.ALARM_MINUTE));
+                idAlarm  = cursor.getInt(cursor.getColumnIndex(mVeritabani.ALARM_KONTROL));
+
+                Calendar calender = Calendar.getInstance();
+                calender.clear();
+                calender.set(Calendar.MONTH, AY);
+                calender.set(Calendar.DAY_OF_MONTH,GUN);
+                calender.set(Calendar.YEAR, YIL);
+                calender.set(Calendar.HOUR,SAAT);
+                calender.set(Calendar.MINUTE, DAKIKA);
+                calender.set(Calendar.SECOND, 00);
+                final Calendar takvim = Calendar.getInstance();
+                long farkZaman=Calendar.getInstance().getTimeInMillis()-calender.getTimeInMillis();
+                if(farkZaman>0){
+                    viewHolder.txt_Time.setText(""+context.getString(R.string.old));
+                    viewHolder.txt_detail.setTextColor(context.getResources().getColor(R.color.eskise));
+                    viewHolder.txt_Time.setTextColor(context.getResources().getColor(R.color.eskise));
+                    viewHolder.txt_type.setTextColor(context.getResources().getColor(R.color.eskise));
+                    viewHolder.txt_Date.setTextColor(context.getResources().getColor(R.color.eskise));
+                    viewHolder.txt_title.setTextColor(context.getResources().getColor(R.color.eskise));
+                }
+            }
+        } } catch (Exception ane) {
+            faceFace(ane.getLocalizedMessage());
+        }
+    }
+    void faceFace(String s) {
+        Toast.makeText(context.getApplicationContext(), s, Toast.LENGTH_LONG).show();
     }
 }

@@ -13,9 +13,14 @@
             android:icon="@drawable/ic_action_alarms"
             android:title="@string/alarmnotes" />
         <item
-            android:id="@+id/nav_sesli"
-            android:icon="@drawable/ic_action_imported"
-            android:title="@string/onemliNot" />
+        android:id="@+id/nav_sesli"
+        android:icon="@drawable/ic_action_imported"
+        android:title="@string/onemliNot" />
+
+        <item
+            android:id="@+id/nav_oyla"
+            android:icon="@android:drawable/ic_menu_share"
+            android:title="@string/oyla"/>
     </group>
 
 

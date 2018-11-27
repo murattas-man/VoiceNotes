@@ -46,6 +46,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+
 public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDateSetListener{
 
     SQLiteDatabase db;
@@ -82,6 +87,9 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
     ImageView img5,img6,img7,img8;
     ImageView img9,img10,img11,img12;
 
+    private InterstitialAd gecisReklam;
+    private AdRequest adRequest;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +115,46 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
         yaziRengi1=shepYazi;
         txtArkaPlan(shepArka);
         txtYaziRengi(shepYazi);
+
+        adRequest=new AdRequest.Builder().build();
+        gecisReklam = new InterstitialAd(this);
+        gecisReklam.setAdUnitId("ca-app-pub-3688388679356685/4684066498");
+        gecisReklam.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                //Toast.makeText(NotAl.this, "reklam yüklendi", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // Code to be executed when an ad request fails.
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when the ad is displayed.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+            }
+
+            @Override
+            public void onAdClosed() {
+                loadGecisReklam();
+                String detail = mNotAciklamaText.getText().toString().trim();
+                if (detail.isEmpty()){
+                    Intent setIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(setIntent);
+                }
+                else
+                {
+                    saveAllNotes();
+                }
+            }
+        });
+        loadGecisReklam();
 
         Bundle bundle = getIntent().getExtras();
         seskontrol=bundle.getBoolean("sesKontrol");
@@ -183,6 +231,8 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
         });
 
     }
+
+
 
     private void txtYaziRengi(int shepYazi) {
         switch (shepYazi){
@@ -300,7 +350,7 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
      }catch(ActivityNotFoundException e)
      {
          // activity bulunamadığı zaman hatayı göstermek için alert dialog kullandım
-         e.printStackTrace();
+       e.printStackTrace();
          AlertDialog.Builder builder = new AlertDialog.Builder(NotAl.this);
          builder.setMessage(R.string.sesKontrol)
                  .setTitle(R.string.app_name)
@@ -313,13 +363,36 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
                  });
          AlertDialog alert = builder.create();
          alert.show();
+
      }
  }
 
     @Override
     public void onBackPressed() {
-        Intent setIntent = new Intent(this, MainActivity.class);
-        startActivity(setIntent);
+        showGecisReklam();
+
+    }
+
+    private void loadGecisReklam() {
+        gecisReklam.loadAd(adRequest);
+
+    }
+    private void showGecisReklam() {
+        if (gecisReklam.isLoaded())
+        {
+            gecisReklam.show();
+        }else {
+
+            String detail = mNotAciklamaText.getText().toString().trim();
+            if (detail.isEmpty()){
+                Intent setIntent = new Intent(this, MainActivity.class);
+                startActivity(setIntent);
+            }
+            else
+            {
+                saveAllNotes();
+            }
+        }
     }
 
     void showToast(CharSequence msg) {
@@ -338,106 +411,11 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
 
         switch(item.getItemId()) {
             case R.id.action_save:
-                //String title = baslikText.getText().toString();
-                String detail = mNotAciklamaText.getText().toString().trim();
-                if (detail.isEmpty()){
-                    Toast.makeText(getApplicationContext(), R.string.aciklama, Toast.LENGTH_LONG).show();
-                    mNotAciklamaText.setText("");
-                }
-                else
-                {
-
-                String[] words = detail.split(" ");
-                String title=words[0];
-                String type =  mSpinner.getSelectedItem().toString();
-                ContentValues cv = new ContentValues();
-                ContentValues A_cv = new ContentValues();
-                cv.put(mVeritabani.TITLE, title);
-                cv.put(mVeritabani.DETAIL, detail);
-                cv.put(mVeritabani.TYPE, type);
-                cv.put(mVeritabani.TIME, getString(R.string.Not_Set));
-                cv.put(mVeritabani.ALARMKON,1);
-                cv.put(mVeritabani.RENKKODU,yaziRengi1);
-                cv.put(mVeritabani.ARKAPLAN,arkaPlan1);
-
-                if (checkBoxAlarm.isChecked()){
-                    Calendar calender = Calendar.getInstance();
-                    calender.clear();
-                    calender.set(Calendar.MONTH, month);
-                    calender.set(Calendar.DAY_OF_MONTH,day);
-                    calender.set(Calendar.YEAR, year);
-                    calender.set(Calendar.HOUR,saat);
-                    calender.set(Calendar.MINUTE, dakika);
-                    calender.set(Calendar.SECOND, 00);
-
-                   // Toast.makeText(getApplicationContext(),"tarih:"+gAy+"ay"+month,Toast.LENGTH_LONG).show();
-
-                    SimpleDateFormat formatter = new SimpleDateFormat(getString(R.string.hour_minutes));
-                    String timeString = formatter.format(new Date(calender.getTimeInMillis()));
-                    SimpleDateFormat dateformatter = new SimpleDateFormat(getString(R.string.dateformate));
-                    String dateString = dateformatter.format(new Date(calender.getTimeInMillis()));
-
-                    final int _id = (int) System.currentTimeMillis();
-
-                    final Calendar takvim = Calendar.getInstance();
-                    long farkZaman=Calendar.getInstance().getTimeInMillis()-calender.getTimeInMillis();
-
-                    if(farkZaman>0){
-                        Toast.makeText(getApplicationContext(),R.string.hangiTarih,Toast.LENGTH_LONG).show();
-
-
-
-                    }else{
-                        //geçerli bir tarih girildiyse alarm oluşturuluyor
-                        ComponentName receiver =new ComponentName(getApplicationContext(),AlarmReceiver.class);
-                        PackageManager pm=getApplicationContext().getPackageManager();
-                        pm.setComponentEnabledSetting(receiver,PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                                PackageManager.DONT_KILL_APP);
-
-                        AlarmManager alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-                        Intent intent = new Intent(this, AlarmReceiver.class);
-                        String alertTitle = detail;
-                        if(alertTitle.isEmpty()){
-                            intent.putExtra(getString(R.string.alert_title),getString(R.string.app_name));
-                        }else {
-                            intent.putExtra(getString(R.string.alert_title), alertTitle);
-                        }
-                        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, _id, intent, 0);
-
-                        alarmMgr.set(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), pendingIntent);
-                       // Toast.makeText(getApplicationContext(), ""+calender.getTimeInMillis(), Toast.LENGTH_LONG).show();
-                        cv.put(mVeritabani.TIME, timeString);
-                        cv.put(mVeritabani.DATE, dateString);
-                        cv.put(mVeritabani.ALARMKON,_id);
-
-                        A_cv.put(mVeritabani.ALARM_TITLE,detail);
-                        A_cv.put(mVeritabani.ALARM_YEAR, year);
-                        A_cv.put(mVeritabani.ALARM_MONTH, month);
-                        A_cv.put(mVeritabani.ALARM_DAY, day);
-                        A_cv.put(mVeritabani.ALARM_HOUR, saat);
-                        A_cv.put(mVeritabani.ALARM_MINUTE, dakika);
-                        A_cv.put(mVeritabani.ALARM_KONTROL,_id);
-
-
-                        db.insert(mVeritabani.TABLE_ALARM, null, A_cv);
-                    }
-
-
-                }
-
-                db.insert(mVeritabani.TABLE_NAME, null, cv);
-
-                Intent openMainScreen = new Intent(this, MainActivity.class);
-                openMainScreen.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(openMainScreen);
-
-                }
-
+                saveAllNotes();
                 return true;
 
             case R.id.action_back:
-                Intent openMainActivity = new Intent(this, MainActivity.class);
-                startActivity(openMainActivity);
+                showGecisReklam();
                 return true;
 
             case R.id.action_paylas:
@@ -454,6 +432,111 @@ public class NotAl extends AppCompatActivity  implements DatePickerDialog.OnDate
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+//notları kaydet fonksiyonu
+    private void saveAllNotes() {
+        //String title = baslikText.getText().toString();
+        String detail = mNotAciklamaText.getText().toString().trim();
+        if (detail.isEmpty()){
+            Toast.makeText(getApplicationContext(), R.string.aciklama, Toast.LENGTH_LONG).show();
+            mNotAciklamaText.setText("");
+        }
+        else
+        {
+            String str=detail;
+            char c=Character.toUpperCase(str.charAt(0));
+            str=c+str.substring(1);
+
+            String[] words = str.split(" ");
+            String title=words[0];
+
+            String type =  mSpinner.getSelectedItem().toString();
+            ContentValues cv = new ContentValues();
+            ContentValues A_cv = new ContentValues();
+            cv.put(mVeritabani.TITLE, title);
+            cv.put(mVeritabani.DETAIL, str);
+            cv.put(mVeritabani.TYPE, type);
+            cv.put(mVeritabani.TIME, getString(R.string.Not_Set));
+            SimpleDateFormat dateformatterone = new SimpleDateFormat(getString(R.string.dateformate));
+            String dateStringone = dateformatterone.format(new Date(Calendar.getInstance().getTimeInMillis()));
+            cv.put(mVeritabani.DATE, dateStringone);
+            cv.put(mVeritabani.ALARMKON,1);
+            cv.put(mVeritabani.RENKKODU,yaziRengi1);
+            cv.put(mVeritabani.ARKAPLAN,arkaPlan1);
+
+            if (checkBoxAlarm.isChecked()){
+                Calendar calender = Calendar.getInstance();
+                calender.clear();
+                calender.set(Calendar.MONTH, month);
+                calender.set(Calendar.DAY_OF_MONTH,day);
+                calender.set(Calendar.YEAR, year);
+                calender.set(Calendar.HOUR,saat);
+                calender.set(Calendar.MINUTE, dakika);
+                calender.set(Calendar.SECOND, 00);
+
+                // Toast.makeText(getApplicationContext(),"tarih:"+gAy+"ay"+month,Toast.LENGTH_LONG).show();
+
+                SimpleDateFormat formatter = new SimpleDateFormat(getString(R.string.hour_minutes));
+                String timeString = formatter.format(new Date(calender.getTimeInMillis()));
+                SimpleDateFormat dateformatter = new SimpleDateFormat(getString(R.string.dateformate));
+                String dateString = dateformatter.format(new Date(calender.getTimeInMillis()));
+
+                final int _id = (int) System.currentTimeMillis();
+
+                final Calendar takvim = Calendar.getInstance();
+                long farkZaman=Calendar.getInstance().getTimeInMillis()-calender.getTimeInMillis();
+
+                if(farkZaman>0){
+                    Toast.makeText(getApplicationContext(),R.string.hangiTarih,Toast.LENGTH_LONG).show();
+
+
+                }else{
+                    //geçerli bir tarih girildiyse alarm oluşturuluyor
+                    ComponentName receiver =new ComponentName(getApplicationContext(),AlarmReceiver.class);
+                    PackageManager pm=getApplicationContext().getPackageManager();
+                    pm.setComponentEnabledSetting(receiver,PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                            PackageManager.DONT_KILL_APP);
+
+                    AlarmManager alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                    Intent intent = new Intent(this, AlarmReceiver.class);
+                    String alertTitle = detail;
+                    if(alertTitle.isEmpty()){
+                        intent.putExtra(getString(R.string.alert_title),getString(R.string.app_name));
+                    }else {
+                        intent.putExtra(getString(R.string.alert_title), alertTitle);
+                    }
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(this, _id, intent, 0);
+
+                    alarmMgr.set(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), pendingIntent);
+                    // Toast.makeText(getApplicationContext(), ""+calender.getTimeInMillis(), Toast.LENGTH_LONG).show();
+                    cv.put(mVeritabani.TIME, timeString);
+                    cv.put(mVeritabani.DATE, dateString);
+                    cv.put(mVeritabani.ALARMKON,_id);
+
+                    A_cv.put(mVeritabani.ALARM_TITLE,detail);
+                    A_cv.put(mVeritabani.ALARM_YEAR, year);
+                    A_cv.put(mVeritabani.ALARM_MONTH, month);
+                    A_cv.put(mVeritabani.ALARM_DAY, day);
+                    A_cv.put(mVeritabani.ALARM_HOUR, saat);
+                    A_cv.put(mVeritabani.ALARM_MINUTE, dakika);
+                    A_cv.put(mVeritabani.ALARM_KONTROL,_id);
+
+
+                    db.insert(mVeritabani.TABLE_ALARM, null, A_cv);
+                }
+
+
+            }
+
+            db.insert(mVeritabani.TABLE_NAME, null, cv);
+
+            Intent openMainScreen = new Intent(this, MainActivity.class);
+            openMainScreen.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(openMainScreen);
+
+        }
+
     }
 
     private void renkSec() {

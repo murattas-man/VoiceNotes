@@ -3,6 +3,7 @@ package com.voicenote.voicenotes;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -40,6 +41,8 @@ public class Alarm extends AppCompatActivity {
                         dialog.cancel();
                        alarmController.stopSound();
                         Alarm.this.finish();
+                        Intent yeniIntent=new Intent(getApplicationContext(),MainActivity.class);
+                        startActivity(yeniIntent);
                     }
                 });
         AlertDialog alert = builder.create();

@@ -396,19 +396,26 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
                     mNotAciklamaText.setText("");
                 }
                 else {
-                        String[] words = detail.split(" ");
-                        baslik=words[0];
 
+                //ilk harf büyük
+                    String str=detail;
+                    char c=Character.toUpperCase(str.charAt(0));
+                    str=c+str.substring(1);
+
+                    String[] words = str.split(" ");
+                    baslik=words[0];
                     String title = baslik;
                     String type = mSpinner.getSelectedItem().toString();
 
                     ContentValues cv = new ContentValues();
                     ContentValues A_cv = new ContentValues();
                     cv.put(mVeritabani.TITLE, title);
-                    cv.put(mVeritabani.DETAIL, detail);
+                    cv.put(mVeritabani.DETAIL, str);
                     cv.put(mVeritabani.TYPE, type);
                     cv.put(mVeritabani.TIME, getString(R.string.Not_Set));
-                    cv.putNull(mVeritabani.DATE);
+                    SimpleDateFormat dateformatterone = new SimpleDateFormat(getString(R.string.dateformate));
+                    String dateStringone = dateformatterone.format(new Date(Calendar.getInstance().getTimeInMillis()));
+                    cv.put(mVeritabani.DATE, dateStringone);
                     cv.put(mVeritabani.RENKKODU,yaziRengi1);
                     cv.put(mVeritabani.ARKAPLAN,arkaPlan1);
 
@@ -488,6 +495,22 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
                             }
                         }
                     }
+                    else{
+                       //alarm varmıydı varsa iptal et..
+                        Cursor cursor = db.rawQuery("select * from " + mVeritabani.TABLE_NAME + " where " + mVeritabani.C_ID + "=" + id, null);
+                        if (cursor != null) {
+                            if (cursor.moveToFirst()) {
+                                ID = (int) cursor.getInt(cursor.getColumnIndex(mVeritabani.ALARMKON));
+                            }
+                            cursor.close();
+                        }
+                                if(ID!=1){
+                                    //silinen not alarmlı not ise alarmı iptal et
+                                    alarmIptal(ID);
+                                    db.delete(Veritabani.TABLE_ALARM, Veritabani.ALARM_KONTROL + "=" + ID, null);
+
+                                }
+                    }
 
                     db.update(mVeritabani.TABLE_NAME, cv, mVeritabani.C_ID + "=" + id, null);
                     Intent openMainScreen = new Intent(Duzenle_Not.this, MainActivity.class);
@@ -507,6 +530,18 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    private void alarmIptal(int ıd) {
+        //alarm notu silinirse alarmı iptal etme
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent myIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                getApplicationContext(), ID, myIntent,
+                0);
+
+        alarmManager.cancel(pendingIntent);
+    }
+
 
     private void renkSec() {
         final Dialog dialog = new Dialog(Duzenle_Not.this);

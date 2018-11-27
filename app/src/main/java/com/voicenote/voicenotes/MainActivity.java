@@ -3,11 +3,17 @@ package com.voicenote.voicenotes;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -24,7 +30,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
+import android.Manifest;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
@@ -57,6 +63,7 @@ public class MainActivity extends AppCompatActivity
 
     private List<Items> listItem = new ArrayList<Items>();
     private CustomAdapter customAdapter;
+    public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 21;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +71,11 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if (!checkAndRequestPermissions()) {
+            return;
+        }
+
         sharedpreferences = getSharedPreferences("Mymain", Context.MODE_PRIVATE);
         ilkGiris = sharedpreferences.getString("deger",deger);
 
@@ -99,6 +111,9 @@ public class MainActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> listView, View view, int position,
                                     long id){
                 final String whereKontol = sharedpreferences.getString("deger",deger);
+                try {
+
+
                 Cursor c = db.rawQuery("select "+ mVeritabani.C_ID +" from " + mVeritabani.TABLE_NAME + " WHERE "+whereKontol+" ORDER BY " + orderBy ,
                         null);
                 ArrayList<Integer> arrID = new ArrayList<Integer>();
@@ -109,6 +124,10 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent(MainActivity.this, Not_Detay.class);
                 intent.putExtra("idNot", arrID.get(position));
                 startActivity(intent);
+                }catch (Exception eo){
+                    faceFace(eo.getLocalizedMessage());
+                }
+
             }
 
         });
@@ -122,27 +141,30 @@ public class MainActivity extends AppCompatActivity
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                final String whereKontol = sharedpreferences.getString("deger",deger);
-                                Cursor c = db.rawQuery("select "+ mVeritabani.C_ID +" from " + mVeritabani.TABLE_NAME + " WHERE "+whereKontol+" ORDER BY " + orderBy ,
+                                final String whereKontol = sharedpreferences.getString("deger", deger);
+                                try {
+
+
+                                Cursor c = db.rawQuery("select " + mVeritabani.C_ID + " from " + mVeritabani.TABLE_NAME + " WHERE " + whereKontol + " ORDER BY " + orderBy,
                                         null);
                                 ArrayList<Integer> arrID = new ArrayList<Integer>();
-                                while (c.moveToNext()){
+                                while (c.moveToNext()) {
                                     arrID.add(c.getInt(0));
                                 }
 
-                                final long id=arrID.get(position);
+                                final long id = arrID.get(position);
                                 Cursor cursor = db.rawQuery("select * from " + mVeritabani.TABLE_NAME + " where " + mVeritabani.C_ID + "=" + id, null);
-                                if (cursor != null){
+                                if (cursor != null) {
                                     if (cursor.moveToFirst()) {
-                                        final int ID=(int) cursor.getInt(cursor.getColumnIndex(mVeritabani.ALARMKON));
-                                        if(ID!=1){
+                                        final int ID = (int) cursor.getInt(cursor.getColumnIndex(mVeritabani.ALARMKON));
+                                        if (ID != 1) {
                                             //silinen not alarmlı not ise alarmı iptal et
                                             alarmIptal(ID);
                                             db.delete(Veritabani.TABLE_ALARM, Veritabani.ALARM_KONTROL + "=" + ID, null);
 
                                         }
-                                        int renk=cursor.getInt(cursor.getColumnIndex(mVeritabani.RENKKODU));
-                                        int arka=cursor.getInt(cursor.getColumnIndex(mVeritabani.ARKAPLAN));
+                                        int renk = cursor.getInt(cursor.getColumnIndex(mVeritabani.RENKKODU));
+                                        int arka = cursor.getInt(cursor.getColumnIndex(mVeritabani.ARKAPLAN));
                                     }
                                     cursor.close();
                                 }
@@ -151,6 +173,9 @@ public class MainActivity extends AppCompatActivity
                                 db.close();
                                 Intent openMainActivity = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(openMainActivity);
+                            } catch (Exception eo){
+                                    faceFace(eo.getLocalizedMessage());
+                                }
 
                             }
                         })
@@ -200,6 +225,12 @@ public class MainActivity extends AppCompatActivity
                 openSesNote.putExtra("sesKontrol",seskontrol);
                 startActivity(openSesNote);
                 return true;
+           /* case R.id.action_dil:
+                seskontrol=true;
+                Intent dilintent = new Intent(MainActivity.this, DilChange.class);
+                dilintent.putExtra("sesKontrol",seskontrol);
+                startActivity(dilintent);
+                return true;*/
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -231,13 +262,33 @@ public class MainActivity extends AppCompatActivity
             editorNot.putString("deger",onemli);
             editorNot.commit();
            yukleListe(onemli);
+        }else if (id == R.id.nav_oyla) {
+            uygulamayiOyla();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
+    private void uygulamayiOyla() {
+        Uri uri = Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
+        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        try {
+            startActivity(goToMarket);
+        } catch (ActivityNotFoundException e) {
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://play.google.com/store/apps/details?id=" + getApplicationContext().getPackageName())));
+            } catch (Exception ane) {
+                faceFace(e.getLocalizedMessage());
+            }
+        }
+    }
+    void faceFace(String s) {
+        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+    }
     private void alarmIptal(final int ID){
         //alarm notu silinirse alarmı iptal etme
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -254,6 +305,8 @@ public class MainActivity extends AppCompatActivity
         final String[] column = {mVeritabani.C_ID, mVeritabani.TITLE, mVeritabani.DETAIL, mVeritabani.TYPE, mVeritabani.TIME,
                 mVeritabani.DATE,mVeritabani.ALARMKON,mVeritabani.RENKKODU,mVeritabani.ARKAPLAN};
         //int[] to = {R.id.title, R.id.Detail, R.id.type, R.id.time, R.id.date};
+        try {
+
 
         final Cursor cursor = db.query(mVeritabani.TABLE_NAME, column, degerim, null ,null, null, orderBy);
         listItem.clear();
@@ -266,11 +319,36 @@ public class MainActivity extends AppCompatActivity
             items.setTimeNot(cursor.getString(cursor.getColumnIndex(mVeritabani.TIME)));
             items.setIdArkapaln(cursor.getInt(cursor.getColumnIndex(mVeritabani.ARKAPLAN)));
             items.setIdRenk(cursor.getInt(cursor.getColumnIndex(mVeritabani.RENKKODU)));
+            items.setAlarmKontrol(cursor.getInt(cursor.getColumnIndex(mVeritabani.ALARMKON)));
 
             listItem.add(items);
         }
         customAdapter = new CustomAdapter(getApplicationContext(),listItem);
         list.setAdapter(customAdapter);
+        }catch (Exception eo){
+            faceFace(eo.getLocalizedMessage());
+        }
     }
+    private boolean checkAndRequestPermissions() {
+        int permissionINTERNET = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WAKE_LOCK);
+        int permissionACCESS_NETWORK_STATE = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE);
+        int permissionRECEIVE_BOOT_COMPLETED = ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECEIVE_BOOT_COMPLETED);
 
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (permissionINTERNET != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.WAKE_LOCK);
+           // Toast.makeText(this,   "WAKE_LOCK", Toast.LENGTH_LONG).show();
+        }
+        if (permissionACCESS_NETWORK_STATE != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(android.Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        if (permissionRECEIVE_BOOT_COMPLETED != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.RECEIVE_BOOT_COMPLETED);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), REQUEST_ID_MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
+    }
 }

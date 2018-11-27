@@ -75,5 +75,9 @@
     <string name="appwidget_text">VOICE</string>
     <string name="configure">Configure</string>
     <string name="add_widget">Add widget</string>
+    <string name="runtime_permissions_txt">Please enable ALL permissions from app settings.</string>
+    <string name="oyla">Rate This App</string>
+    <string name="old">Old</string>
+    <string name="tarih">Date</string>
 
 </resources>

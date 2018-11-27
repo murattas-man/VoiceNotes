@@ -95,6 +95,20 @@
                         android:id="@+id/alertvalue"
                         android:paddingLeft="10dp" />
 
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="100dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/tarih"
+                        android:id="@+id/data_text" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

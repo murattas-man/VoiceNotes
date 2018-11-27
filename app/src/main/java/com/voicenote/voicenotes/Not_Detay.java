@@ -68,6 +68,9 @@ public class Not_Detay extends AppCompatActivity {
          txt_Date = (TextView) findViewById(R.id.datevalue);
 
 
+         try {
+
+
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 txt_detail.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.DETAIL)));
@@ -83,6 +86,13 @@ public class Not_Detay extends AppCompatActivity {
             }
             cursor.close();
         }
+         }catch (Exception eo){
+             faceFace(eo.getLocalizedMessage());
+         }
+    }
+
+    void faceFace(String s) {
+        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
     }
 
     private void renkYazi(int shepYazi) {
@@ -250,24 +260,28 @@ public class Not_Detay extends AppCompatActivity {
                         .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
 
-                                Cursor cursor = db.rawQuery("select * from " + mVeritabani.TABLE_NAME + " where " + mVeritabani.C_ID + "=" + id, null);
-                                if (cursor != null){
-                                    if (cursor.moveToFirst()) {
-                                        final int ID=(int) cursor.getInt(cursor.getColumnIndex(mVeritabani.ALARMKON));
-                                        if(ID!=1){
-                                            //silinen not alarmlı not ise alarmı iptal et
-                                           alarmIptal(ID);
-                                            db.delete(Veritabani.TABLE_ALARM, Veritabani.ALARM_KONTROL + "=" + ID, null);
+                                try {
+                                    Cursor cursor = db.rawQuery("select * from " + mVeritabani.TABLE_NAME + " where " + mVeritabani.C_ID + "=" + id, null);
+                                    if (cursor != null){
+                                        if (cursor.moveToFirst()) {
+                                            final int ID=(int) cursor.getInt(cursor.getColumnIndex(mVeritabani.ALARMKON));
+                                            if(ID!=1){
+                                                //silinen not alarmlı not ise alarmı iptal et
+                                               alarmIptal(ID);
+                                                db.delete(Veritabani.TABLE_ALARM, Veritabani.ALARM_KONTROL + "=" + ID, null);
 
+                                            }
                                         }
+                                        cursor.close();
                                     }
-                                    cursor.close();
-                                }
 
-                                db.delete(Veritabani.TABLE_NAME, Veritabani.C_ID + "=" + id, null);
-                                db.close();
-                                Intent openMainActivity = new Intent(Not_Detay.this, MainActivity.class);
-                                startActivity(openMainActivity);
+                                    db.delete(Veritabani.TABLE_NAME, Veritabani.C_ID + "=" + id, null);
+                                    db.close();
+                                    Intent openMainActivity = new Intent(Not_Detay.this, MainActivity.class);
+                                    startActivity(openMainActivity);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
 
                             }
                         })
