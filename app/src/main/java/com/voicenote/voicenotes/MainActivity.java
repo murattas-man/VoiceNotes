@@ -43,26 +43,24 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    SQLiteDatabase db;
-    Veritabani mVeritabani;
+
     ListView list;
-    String orderBy = "_id DESC";
     String alrmlar="type='Alert' or type='Alarm'";
     String onemli="type='Important' or type='Önemli'";
     String deger=" type is not null ";
     private SharedPreferences sharedpreferences;
     private SharedPreferences.Editor editorNot;
     private String ilkGiris;
-    ImageView imageNot;
     private boolean seskontrol=false;
 
 
-    private static final String TAG = "MainActivity";
+    private List<Note> listNote = new ArrayList<>();
+    private Context context;
+    private Veritabani db;
 
     private AdView mAdView;
-
-    private List<Items> listItem = new ArrayList<Items>();
     private CustomAdapter customAdapter;
+
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 21;
 
     @Override
@@ -70,9 +68,11 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        context = this;
+        db = new Veritabani(context);
         setSupportActionBar(toolbar);
 
-        if (!checkAndRequestPermissions()) {
+        if (!checkAndRequestPermissions()) {//izin kontrolleri
             return;
         }
 
@@ -81,8 +81,6 @@ public class MainActivity extends AppCompatActivity
 
         list = (ListView)findViewById(R.id.commentslist);
 
-        mVeritabani = new Veritabani(this);
-        db= mVeritabani.getWritableDatabase();
         final ImageView alarmImage = (ImageView) findViewById(R.id.alarmImage);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -110,19 +108,9 @@ public class MainActivity extends AppCompatActivity
         list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> listView, View view, int position,
                                     long id){
-                final String whereKontol = sharedpreferences.getString("deger",deger);
-                try {
-
-
-                Cursor c = db.rawQuery("select "+ mVeritabani.C_ID +" from " + mVeritabani.TABLE_NAME + " WHERE "+whereKontol+" ORDER BY " + orderBy ,
-                        null);
-                ArrayList<Integer> arrID = new ArrayList<Integer>();
-                while (c.moveToNext()){
-                    arrID.add(c.getInt(0));
-                }
-
+                    try {
                 Intent intent = new Intent(MainActivity.this, Not_Detay.class);
-                intent.putExtra("idNot", arrID.get(position));
+                intent.putExtra("idNot", listNote.get(position).getId());
                 startActivity(intent);
                 }catch (Exception eo){
                     faceFace(eo.getLocalizedMessage());
@@ -141,36 +129,16 @@ public class MainActivity extends AppCompatActivity
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                final String whereKontol = sharedpreferences.getString("deger", deger);
                                 try {
 
-
-                                Cursor c = db.rawQuery("select " + mVeritabani.C_ID + " from " + mVeritabani.TABLE_NAME + " WHERE " + whereKontol + " ORDER BY " + orderBy,
-                                        null);
-                                ArrayList<Integer> arrID = new ArrayList<Integer>();
-                                while (c.moveToNext()) {
-                                    arrID.add(c.getInt(0));
-                                }
-
-                                final long id = arrID.get(position);
-                                Cursor cursor = db.rawQuery("select * from " + mVeritabani.TABLE_NAME + " where " + mVeritabani.C_ID + "=" + id, null);
-                                if (cursor != null) {
-                                    if (cursor.moveToFirst()) {
-                                        final int ID = (int) cursor.getInt(cursor.getColumnIndex(mVeritabani.ALARMKON));
-                                        if (ID != 1) {
-                                            //silinen not alarmlı not ise alarmı iptal et
-                                            alarmIptal(ID);
-                                            db.delete(Veritabani.TABLE_ALARM, Veritabani.ALARM_KONTROL + "=" + ID, null);
-
-                                        }
-                                        int renk = cursor.getInt(cursor.getColumnIndex(mVeritabani.RENKKODU));
-                                        int arka = cursor.getInt(cursor.getColumnIndex(mVeritabani.ARKAPLAN));
+                                final int id =  listNote.get(position).getId();
+                                    final int ID=listNote.get(position).getAlarmKon();
+                                    if (ID != 1) {
+                                        //silinen not alarmlı not ise alarmı iptal et
+                                        alarmIptal(ID);
+                                        db.delete(Veritabani.TABLE_ALARM,db.ALARM_KONTROL + "=" + ID);
                                     }
-                                    cursor.close();
-                                }
-
-                                db.delete(Veritabani.TABLE_NAME, Veritabani.C_ID + "=" + id, null);
-                                db.close();
+                                db.delete(db.TABLE_NAME, db.C_ID + "=" + id);
                                 Intent openMainActivity = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(openMainActivity);
                             } catch (Exception eo){
@@ -179,7 +147,7 @@ public class MainActivity extends AppCompatActivity
 
                             }
                         })
-                        .setNegativeButton(getString(R.string.no), null)                        //Do nothing on no
+                        .setNegativeButton(getString(R.string.no), null)
                         .show();
                 return true;
 
@@ -301,29 +269,17 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void yukleListe(String degerim){
-        String[] from = {mVeritabani.TITLE, mVeritabani.DETAIL, mVeritabani.TYPE, mVeritabani.TIME, mVeritabani.DATE};
-        final String[] column = {mVeritabani.C_ID, mVeritabani.TITLE, mVeritabani.DETAIL, mVeritabani.TYPE, mVeritabani.TIME,
-                mVeritabani.DATE,mVeritabani.ALARMKON,mVeritabani.RENKKODU,mVeritabani.ARKAPLAN};
+
         //int[] to = {R.id.title, R.id.Detail, R.id.type, R.id.time, R.id.date};
         try {
 
-
-        final Cursor cursor = db.query(mVeritabani.TABLE_NAME, column, degerim, null ,null, null, orderBy);
-        listItem.clear();
-        while (cursor.moveToNext()) {
-            Items items = new Items();
-            items.setTitleNot(cursor.getString(cursor.getColumnIndex(mVeritabani.TITLE)));
-            items.setDetailNot(cursor.getString(cursor.getColumnIndex(mVeritabani.DETAIL)));
-            items.setTypeNot(cursor.getString(cursor.getColumnIndex(mVeritabani.TYPE)));
-            items.setDateNot(cursor.getString(cursor.getColumnIndex(mVeritabani.DATE)));
-            items.setTimeNot(cursor.getString(cursor.getColumnIndex(mVeritabani.TIME)));
-            items.setIdArkapaln(cursor.getInt(cursor.getColumnIndex(mVeritabani.ARKAPLAN)));
-            items.setIdRenk(cursor.getInt(cursor.getColumnIndex(mVeritabani.RENKKODU)));
-            items.setAlarmKontrol(cursor.getInt(cursor.getColumnIndex(mVeritabani.ALARMKON)));
-
-            listItem.add(items);
-        }
-        customAdapter = new CustomAdapter(getApplicationContext(),listItem);
+            listNote.clear();
+            // add all notes from database, reverse list
+            ArrayList<Note> ls = db.getListNote("SELECT * FROM " + db.TABLE_NAME+" where "+degerim);
+            for (int i = ls.size() - 1; i >= 0; i--) {
+                listNote.add(ls.get(i));
+            }
+        customAdapter = new CustomAdapter(getApplicationContext(),listNote);
         list.setAdapter(customAdapter);
         }catch (Exception eo){
             faceFace(eo.getLocalizedMessage());

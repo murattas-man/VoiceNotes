@@ -4,14 +4,20 @@ package com.voicenote.voicenotes;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,16 +26,18 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import java.util.TimeZone;
 
 
 public class Not_Detay extends AppCompatActivity {
 
     SQLiteDatabase db;
     Veritabani mVeritabani;
-    String saat,tarih;
+    String saat, tarih;
     private int shepArka;
     private int shepYazi;
 
@@ -49,46 +57,46 @@ public class Not_Detay extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detay_not);
-         relativeLayout=findViewById(R.id.relativelayout);
+        relativeLayout = findViewById(R.id.relativelayout);
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
         Bundle bundle = getIntent().getExtras();
-        final long id=bundle.getInt("idNot");
-       // final long id = getIntent().getExtras().getLong(getString(R.string.row_id));
+        final long id = bundle.getInt("idNot");
+        // final long id = getIntent().getExtras().getLong(getString(R.string.row_id));
 
         mVeritabani = new Veritabani(this);
         db = mVeritabani.getWritableDatabase();
 
         Cursor cursor = db.rawQuery("select * from " + mVeritabani.TABLE_NAME + " where " + mVeritabani.C_ID + "=" + id, null);
-         txt_detail = (EditText) findViewById(R.id.detail);
-         txt_type = (TextView) findViewById(R.id.note_type_ans);
-         txt_Time = (TextView) findViewById(R.id.alertvalue);
-         txt_Date = (TextView) findViewById(R.id.datevalue);
+        txt_detail = (EditText) findViewById(R.id.detail);
+        txt_type = (TextView) findViewById(R.id.note_type_ans);
+        txt_Time = (TextView) findViewById(R.id.alertvalue);
+        txt_Date = (TextView) findViewById(R.id.datevalue);
 
 
-         try {
+        try {
 
 
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                txt_detail.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.DETAIL)));
-                txt_type.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.TYPE)));
-                txt_Time.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.TIME)));
-                txt_Date.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.DATE)));
-                saat=cursor.getString(cursor.getColumnIndex(mVeritabani.TIME));
-                tarih=cursor.getString(cursor.getColumnIndex(mVeritabani.DATE));
-                shepArka=cursor.getInt(cursor.getColumnIndex(mVeritabani.ARKAPLAN));
-                shepYazi=cursor.getInt(cursor.getColumnIndex(mVeritabani.RENKKODU));
-                arkaPlan(shepArka);
-                renkYazi(shepYazi);
+            if (cursor != null) {
+                if (cursor.moveToFirst()) {
+                    txt_detail.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.DETAIL)));
+                    txt_type.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.TYPE)));
+                    txt_Time.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.TIME)));
+                    txt_Date.setText(cursor.getString(cursor.getColumnIndex(mVeritabani.DATE)));
+                    saat = cursor.getString(cursor.getColumnIndex(mVeritabani.TIME));
+                    tarih = cursor.getString(cursor.getColumnIndex(mVeritabani.DATE));
+                    shepArka = cursor.getInt(cursor.getColumnIndex(mVeritabani.ARKAPLAN));
+                    shepYazi = cursor.getInt(cursor.getColumnIndex(mVeritabani.RENKKODU));
+                    arkaPlan(shepArka);
+                    renkYazi(shepYazi);
+                }
+                cursor.close();
             }
-            cursor.close();
+        } catch (Exception eo) {
+            faceFace(eo.getLocalizedMessage());
         }
-         }catch (Exception eo){
-             faceFace(eo.getLocalizedMessage());
-         }
     }
 
     void faceFace(String s) {
@@ -96,7 +104,7 @@ public class Not_Detay extends AppCompatActivity {
     }
 
     private void renkYazi(int shepYazi) {
-        switch (shepYazi){
+        switch (shepYazi) {
 
             case 0:
                 txt_detail.setTextColor(getResources().getColor(R.color.renk1txt));
@@ -175,10 +183,9 @@ public class Not_Detay extends AppCompatActivity {
     }
 
     private void arkaPlan(int shepArka) {
-        switch (shepArka)
-        {
+        switch (shepArka) {
             case 0:
-                // view.setBackgroundColor(Color.parseColor("#FFF9C4"));
+                // view.setBackgroundColor(Renkler.parseColor("#FFF9C4"));
                 relativeLayout.setBackgroundResource(R.color.renk1);
                 break;
             case 1:
@@ -235,7 +242,7 @@ public class Not_Detay extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         Bundle bundle = getIntent().getExtras();
-        final long id=bundle.getInt("idNot");
+        final long id = bundle.getInt("idNot");
 
         switch (item.getItemId()) {
             case R.id.action_back:
@@ -246,8 +253,8 @@ public class Not_Detay extends AppCompatActivity {
 
                 Intent openEditNote = new Intent(Not_Detay.this, Duzenle_Not.class);
                 openEditNote.putExtra(getString(R.string.intent_row_id), id);
-                openEditNote.putExtra("saat",saat);
-                openEditNote.putExtra("tarih",tarih);
+                openEditNote.putExtra("saat", saat);
+                openEditNote.putExtra("tarih", tarih);
                 startActivity(openEditNote);
                 return true;
 
@@ -262,12 +269,12 @@ public class Not_Detay extends AppCompatActivity {
 
                                 try {
                                     Cursor cursor = db.rawQuery("select * from " + mVeritabani.TABLE_NAME + " where " + mVeritabani.C_ID + "=" + id, null);
-                                    if (cursor != null){
+                                    if (cursor != null) {
                                         if (cursor.moveToFirst()) {
-                                            final int ID=(int) cursor.getInt(cursor.getColumnIndex(mVeritabani.ALARMKON));
-                                            if(ID!=1){
+                                            final int ID = (int) cursor.getInt(cursor.getColumnIndex(mVeritabani.ALARMKON));
+                                            if (ID != 1) {
                                                 //silinen not alarmlı not ise alarmı iptal et
-                                               alarmIptal(ID);
+                                                alarmIptal(ID);
                                                 db.delete(Veritabani.TABLE_ALARM, Veritabani.ALARM_KONTROL + "=" + ID, null);
 
                                             }
@@ -298,27 +305,25 @@ public class Not_Detay extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
     protected void Paylas() {
 
 
         String txt = txt_detail.getText().toString();
 
-        if(txt.isEmpty())
-        {
+        if (txt.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Boş paylaşım yapılamaz!!", Toast.LENGTH_LONG).show();
-        }
-        else
-        {
+        } else {
             Intent share_intent = new Intent(android.content.Intent.ACTION_SEND); // intenti oluşturuyoruz
             share_intent.setType("text/plain");
-            share_intent.putExtra(android.content.Intent.EXTRA_SUBJECT,  getString(R.string.app_name));        // mesaj konusu
+            share_intent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.app_name));        // mesaj konusu
             share_intent.putExtra(android.content.Intent.EXTRA_TEXT, txt_detail.getText().toString()); // mesaj içeriği
-            startActivity(Intent.createChooser(share_intent, ""+R.string.paylasSesim));  // paylaşmak istediğimiz platformu seçiyoruz
+            startActivity(Intent.createChooser(share_intent, "" + R.string.paylasSesim));  // paylaşmak istediğimiz platformu seçiyoruz
         }
 
     }
 
-    private void alarmIptal(final int ID){
+    private void alarmIptal(final int ID) {
         //alarm notu silinirse alarmı iptal etme
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -329,5 +334,7 @@ public class Not_Detay extends AppCompatActivity {
 
         alarmManager.cancel(pendingIntent);
     }
+
+
 
 }

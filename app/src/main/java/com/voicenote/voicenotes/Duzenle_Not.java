@@ -45,6 +45,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import Colours.Renkler;
+import ImageButtons.RenkButon;
+
 
 public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
@@ -58,7 +61,6 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
     public Intent intentses;
     public static final int request_code_voice = 1;
 
-
     int year;
     int month;
     int day;
@@ -66,7 +68,7 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
     int dakika;
     boolean alarmVarmi=false;
 
-     int ID;
+     int ID=1;
      String baslik;
 
     private SharedPreferences sharedpreferences;
@@ -79,11 +81,7 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
     int arkaPlan1=0;
     int yaziRengi1=8;
 
-
-    ImageView img1,img2,img3,img4;
-    ImageView img5,img6,img7,img8;
-    ImageView img9,img10,img11,img12;
-
+    ImageView[] imageButonlar=RenkButon.imageButonlar();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,10 +158,6 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
                 else if (cursor.getString(cursor.getColumnIndex(mVeritabani.TYPE)).equals(mSpinner.getItemAtPosition(2))) {
                     mSpinner.setSelection(2);
                     checkBoxAlarm.setEnabled(true);
-                    final String eskiSaat=getIntent().getExtras().getString("saat");
-                    final String eskiTarih=getIntent().getExtras().getString("tarih");
-                    //txtSaat.setText(eskiSaat+"");
-                    //txtTarih.setText(eskiTarih+"");
                     alarmVarmi=true;
                 }
                 if (cursor.getString(cursor.getColumnIndex(mVeritabani.TIME)).toString().equals(getString(R.string.Not_Set_Alert))) {
@@ -255,110 +249,12 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
     }
 
     private void txtYaziRengi(int shepYazi) {
-        switch (shepYazi){
-            case 0:
-                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk1txt));
-                yaziRengi=0;
-                break;
-            case 1:
-                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk2txt));
-                yaziRengi=1;
-                break;
-            case 2:
-                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk3txt));
-                yaziRengi=2;
-                break;
-            case 3:
-                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk4txt));
-                yaziRengi=3;
-                break;
-            case 4:
-                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk5txt));
-                yaziRengi=4;
-                break;
-            case 5:
-                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk6txt));
-                yaziRengi=5;
-                break;
-            case 6:
-                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk7txt));
-                yaziRengi=6;
-                break;
-            case 7:
-                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk8txt));
-                yaziRengi=7;
-                break;
-            case 8:
-                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk9txt));
-                yaziRengi=8;
-                break;
-            case 9:
-                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk10txt));
-                yaziRengi=9;
-                break;
-            case 10:
-                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk11txt));
-                yaziRengi=10;
-                break;
-            case 11:
-                mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk12txt));
-                yaziRengi=11;
-                break;
-        }
+        mNotAciklamaText.setTextColor(getResources().getColor(Renkler.textColor[shepYazi]));
+        yaziRengi=shepYazi;
     }
-
     private void txtArkaPlan(int shepArka) {
-
-        switch (shepArka){
-            case 0:
-                mNotAciklamaText.setBackgroundResource(R.color.renk1);
-                arkaPlan=0;
-                break;
-            case 1:
-                mNotAciklamaText.setBackgroundResource(R.color.renk2);
-                arkaPlan=1;
-                break;
-            case 2:
-                mNotAciklamaText.setBackgroundResource(R.color.renk3);
-                arkaPlan=2;
-                break;
-            case 3:
-                mNotAciklamaText.setBackgroundResource(R.color.renk4);
-                arkaPlan=3;
-                break;
-            case 4:
-                mNotAciklamaText.setBackgroundResource(R.color.renk5);
-                arkaPlan=4;
-                break;
-            case 5:
-                mNotAciklamaText.setBackgroundResource(R.color.renk6);
-                arkaPlan=5;
-                break;
-            case 6:
-                mNotAciklamaText.setBackgroundResource(R.color.renk7);
-                arkaPlan=6;
-                break;
-            case 7:
-                mNotAciklamaText.setBackgroundResource(R.color.renk8);
-                arkaPlan=7;
-                break;
-            case 8:
-                mNotAciklamaText.setBackgroundResource(R.color.renk9);
-                arkaPlan=8;
-                break;
-            case 9:
-                mNotAciklamaText.setBackgroundResource(R.color.renk10);
-                arkaPlan=9;
-                break;
-            case 10:
-                mNotAciklamaText.setBackgroundResource(R.color.renk11);
-                arkaPlan=10;
-                break;
-            case 11:
-                mNotAciklamaText.setBackgroundResource(R.color.renk12);
-                arkaPlan=11;
-                break;
-        }
+        mNotAciklamaText.setBackgroundResource(Renkler.renkArkaplan[shepArka]);
+        arkaPlan=shepArka;
     }
 
     @Override
@@ -455,10 +351,13 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
                             Cursor cursor = db.rawQuery("select * from " + mVeritabani.TABLE_NAME + " where " + mVeritabani.C_ID + "=" + id, null);
                             if (cursor != null) {
                                 if (cursor.moveToFirst()) {
+
                                     ID = (int) cursor.getInt(cursor.getColumnIndex(mVeritabani.ALARMKON));
+                                    if(ID==1) ID=_id;
                                 }
                                 cursor.close();
                             }
+
                             PendingIntent pendingIntent = PendingIntent.getBroadcast(this, ID, intent, 0);
                             alarmMgr.set(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), pendingIntent);
 
@@ -511,7 +410,7 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
 
                                 }
                     }
-
+                    cv.put(mVeritabani.ALARMKON,ID);
                     db.update(mVeritabani.TABLE_NAME, cv, mVeritabani.C_ID + "=" + id, null);
                     Intent openMainScreen = new Intent(Duzenle_Not.this, MainActivity.class);
                     openMainScreen.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -552,18 +451,8 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
         final ImageButton btnIptal=(ImageButton) dialog.findViewById(R.id.btnNo);
         final ImageButton btnTamam=(ImageButton) dialog.findViewById(R.id.btnTamam);
 
-        img1=(ImageView) dialog.findViewById(R.id.img1);
-        img2=(ImageView) dialog.findViewById(R.id.img2);
-        img3=(ImageView) dialog.findViewById(R.id.img3);
-        img4=(ImageView) dialog.findViewById(R.id.img4);
-        img5=(ImageView) dialog.findViewById(R.id.img5);
-        img6=(ImageView) dialog.findViewById(R.id.img6);
-        img7=(ImageView) dialog.findViewById(R.id.img7);
-        img8=(ImageView) dialog.findViewById(R.id.img8);
-        img9=(ImageView) dialog.findViewById(R.id.img9);
-        img10=(ImageView) dialog.findViewById(R.id.img10);
-        img11=(ImageView) dialog.findViewById(R.id.img11);
-        img12=(ImageView) dialog.findViewById(R.id.img12);
+        for (int i=0;i<12;i++)
+            imageButonlar[i]=(ImageView) dialog.findViewById(RenkButon.btnRenkler[i]);
         int width = (int) (Duzenle_Not.this.getResources().getDisplayMetrics().widthPixels * 0.85);
         // set height for dialog
         int height = (int) (Duzenle_Not.this.getResources().getDisplayMetrics().heightPixels * 0.5);
@@ -573,58 +462,9 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
         btnTamam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (yaziRengi){
-                    case 0:
-                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk1txt));
-                        editor.putInt("shepyazi",0);
-                        break;
-                    case 1:
-                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk2txt));
-                        editor.putInt("shepyazi",1);
-                        break;
-                    case 2:
-                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk3txt));
-                        editor.putInt("shepyazi",2);
-                        break;
-                    case 3:
-                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk4txt));
-                        editor.putInt("shepyazi",3);
-                        break;
-                    case 4:
-                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk5txt));
-                        editor.putInt("shepyazi",4);
-                        break;
-                    case 5:
-                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk6txt));
-                        editor.putInt("shepyazi",5);
-                        break;
-                    case 6:
-                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk7txt));
-                        editor.putInt("shepyazi",6);
-                        break;
-                    case 7:
-                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk8txt));
-                        editor.putInt("shepyazi",7);
-                        break;
-                    case 8:
-                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk9txt));
-                        editor.putInt("shepyazi",8);
-                        break;
-                    case 9:
-                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk10txt));
-                        editor.putInt("shepyazi",9);
-                        break;
-                    case 10:
-                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk11txt));
-                        editor.putInt("shepyazi",10);
-                        break;
-                    case 11:
-                        mNotAciklamaText.setTextColor(getResources().getColor(R.color.renk12txt));
-                        editor.putInt("shepyazi",11);
-                        break;
-                }
+                mNotAciklamaText.setTextColor(getResources().getColor(Renkler.textColor[yaziRengi]));
+                editor.putInt("shepyazi",yaziRengi);
                 yaziRengi1=yaziRengi;
-
                 editor.commit();
                 dialog.dismiss();
             }
@@ -651,18 +491,8 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
         final ImageButton btnIptal=(ImageButton) dialog.findViewById(R.id.btnNo);
         final ImageButton btnTamam=(ImageButton) dialog.findViewById(R.id.btnTamam);
 
-        img1=(ImageView) dialog.findViewById(R.id.img1);
-        img2=(ImageView) dialog.findViewById(R.id.img2);
-        img3=(ImageView) dialog.findViewById(R.id.img3);
-        img4=(ImageView) dialog.findViewById(R.id.img4);
-        img5=(ImageView) dialog.findViewById(R.id.img5);
-        img6=(ImageView) dialog.findViewById(R.id.img6);
-        img7=(ImageView) dialog.findViewById(R.id.img7);
-        img8=(ImageView) dialog.findViewById(R.id.img8);
-        img9=(ImageView) dialog.findViewById(R.id.img9);
-        img10=(ImageView) dialog.findViewById(R.id.img10);
-        img11=(ImageView) dialog.findViewById(R.id.img11);
-        img12=(ImageView) dialog.findViewById(R.id.img12);
+        for (int i=0;i<12;i++)
+            imageButonlar[i]=(ImageView) dialog.findViewById(RenkButon.btnRenkler[i]);
 
         int width = (int) (Duzenle_Not.this.getResources().getDisplayMetrics().widthPixels * 0.85);
         // set height for dialog
@@ -676,58 +506,9 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
         btnTamam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (arkaPlan){
-                    case 0:
-                        mNotAciklamaText.setBackgroundResource(R.color.renk1);
-                        editor.putInt("arkaplan",0);
-                        break;
-                    case 1:
-                        mNotAciklamaText.setBackgroundResource(R.color.renk2);
-                        editor.putInt("arkaplan",1);
-                        break;
-                    case 2:
-                        mNotAciklamaText.setBackgroundResource(R.color.renk3);
-                        editor.putInt("arkaplan",2);
-                        break;
-                    case 3:
-                        mNotAciklamaText.setBackgroundResource(R.color.renk4);
-                        editor.putInt("arkaplan",3);
-                        break;
-                    case 4:
-                        mNotAciklamaText.setBackgroundResource(R.color.renk5);
-                        editor.putInt("arkaplan",4);
-                        break;
-                    case 5:
-                        mNotAciklamaText.setBackgroundResource(R.color.renk6);
-                        editor.putInt("arkaplan",5);
-                        break;
-                    case 6:
-                        mNotAciklamaText.setBackgroundResource(R.color.renk7);
-                        editor.putInt("arkaplan",6);
-                        break;
-                    case 7:
-                        mNotAciklamaText.setBackgroundResource(R.color.renk8);
-                        editor.putInt("arkaplan",7);
-                        break;
-                    case 8:
-                        mNotAciklamaText.setBackgroundResource(R.color.renk9);
-                        editor.putInt("arkaplan",8);
-                        break;
-                    case 9:
-                        mNotAciklamaText.setBackgroundResource(R.color.renk10);
-                        editor.putInt("arkaplan",9);
-                        break;
-                    case 10:
-                        mNotAciklamaText.setBackgroundResource(R.color.renk11);
-                        editor.putInt("arkaplan",10);
-                        break;
-                    case 11:
-                        mNotAciklamaText.setBackgroundResource(R.color.renk12);
-                        editor.putInt("arkaplan",11);
-                        break;
-                }
+                mNotAciklamaText.setBackgroundResource(Renkler.renkArkaplan[arkaPlan]);
+                editor.putInt("arkaplan",arkaPlan);
                 arkaPlan1=arkaPlan;
-
                 editor.commit();
                 dialog.dismiss();
             }
@@ -745,10 +526,6 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
 
 
     }
-
-
-
-
 
     @Override
     public void onDateSet(DatePicker view, int yil, int ay, int gun) {
@@ -828,492 +605,31 @@ public class Duzenle_Not extends AppCompatActivity implements DatePickerDialog.O
     public void onCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((ImageView) view).hasOnClickListeners();
-
-        // Check which checkbox was clicked
-        switch(view.getId()) {
-            case R.id.img1:
-                if (checked){
-
-                    img1.setImageResource(R.drawable.ic_action_checked);
-                    img2.setImageResource(R.color.renk2);
-                    img3.setImageResource(R.color.renk3);
-                    img4.setImageResource(R.color.renk4);
-                    img5.setImageResource(R.color.renk5);
-                    img6.setImageResource(R.color.renk6);
-                    img7.setImageResource(R.color.renk7);
-                    img8.setImageResource(R.color.renk8);
-                    img9.setImageResource(R.color.renk9);
-                    img10.setImageResource(R.color.renk10);
-                    img11.setImageResource(R.color.renk11);
-                    img12.setImageResource(R.color.renk12);
-                    arkaPlan=0;
-
-                }
-                break;
-            case R.id.img2:
-                if (checked){
-
-                    img2.setImageResource(R.drawable.ic_action_checked);
-                    img1.setImageResource(R.color.renk1);
-                    img3.setImageResource(R.color.renk3);
-                    img4.setImageResource(R.color.renk4);
-                    img5.setImageResource(R.color.renk5);
-                    img6.setImageResource(R.color.renk6);
-                    img7.setImageResource(R.color.renk7);
-                    img8.setImageResource(R.color.renk8);
-                    img9.setImageResource(R.color.renk9);
-                    img10.setImageResource(R.color.renk10);
-                    img11.setImageResource(R.color.renk11);
-                    img12.setImageResource(R.color.renk12);
-
-                    arkaPlan=1;
-
-                }
-                break;
-            case R.id.img3:
-                if (checked){
-
-                    img3.setImageResource(R.drawable.ic_action_checked);
-                    img2.setImageResource(R.color.renk2);
-                    img1.setImageResource(R.color.renk1);
-                    img4.setImageResource(R.color.renk4);
-                    img5.setImageResource(R.color.renk5);
-                    img6.setImageResource(R.color.renk6);
-                    img7.setImageResource(R.color.renk7);
-                    img8.setImageResource(R.color.renk8);
-                    img9.setImageResource(R.color.renk9);
-                    img10.setImageResource(R.color.renk10);
-                    img11.setImageResource(R.color.renk11);
-                    img12.setImageResource(R.color.renk12);
-
-                    arkaPlan=2;
-
-                }
-                break;
-            case R.id.img4:
-                if (checked){
-
-                    img4.setImageResource(R.drawable.ic_action_checked);
-                    img2.setImageResource(R.color.renk2);
-                    img3.setImageResource(R.color.renk3);
-                    img1.setImageResource(R.color.renk1);
-                    img5.setImageResource(R.color.renk5);
-                    img6.setImageResource(R.color.renk6);
-                    img7.setImageResource(R.color.renk7);
-                    img8.setImageResource(R.color.renk8);
-                    img9.setImageResource(R.color.renk9);
-                    img10.setImageResource(R.color.renk10);
-                    img11.setImageResource(R.color.renk11);
-                    img12.setImageResource(R.color.renk12);
-
-                    arkaPlan=3;
-
-                }
-                break;
-            case R.id.img5:
-                if (checked){
-
-                    img5.setImageResource(R.drawable.ic_action_checked);
-                    img2.setImageResource(R.color.renk2);
-                    img3.setImageResource(R.color.renk3);
-                    img4.setImageResource(R.color.renk4);
-                    img1.setImageResource(R.color.renk1);
-                    img6.setImageResource(R.color.renk6);
-                    img7.setImageResource(R.color.renk7);
-                    img8.setImageResource(R.color.renk8);
-                    img9.setImageResource(R.color.renk9);
-                    img10.setImageResource(R.color.renk10);
-                    img11.setImageResource(R.color.renk11);
-                    img12.setImageResource(R.color.renk12);
-
-                    arkaPlan=4;
-
-                }
-                break;
-            case R.id.img6:
-                if (checked){
-
-                    img6.setImageResource(R.drawable.ic_action_checked);
-                    img2.setImageResource(R.color.renk2);
-                    img3.setImageResource(R.color.renk3);
-                    img4.setImageResource(R.color.renk4);
-                    img5.setImageResource(R.color.renk5);
-                    img1.setImageResource(R.color.renk1);
-                    img7.setImageResource(R.color.renk7);
-                    img8.setImageResource(R.color.renk8);
-                    img9.setImageResource(R.color.renk9);
-                    img10.setImageResource(R.color.renk10);
-                    img11.setImageResource(R.color.renk11);
-                    img12.setImageResource(R.color.renk12);
-
-                    arkaPlan=5;
-
-                }
-                break;
-            case R.id.img7:
-                if (checked){
-
-                    img7.setImageResource(R.drawable.ic_action_checked);
-                    img2.setImageResource(R.color.renk2);
-                    img3.setImageResource(R.color.renk3);
-                    img4.setImageResource(R.color.renk4);
-                    img5.setImageResource(R.color.renk5);
-                    img6.setImageResource(R.color.renk6);
-                    img1.setImageResource(R.color.renk1);
-                    img8.setImageResource(R.color.renk8);
-                    img9.setImageResource(R.color.renk9);
-                    img10.setImageResource(R.color.renk10);
-                    img11.setImageResource(R.color.renk11);
-                    img12.setImageResource(R.color.renk12);
-
-                    arkaPlan=6;
-
-                }
-                break;
-            case R.id.img8:
-                if (checked){
-
-                    img8.setImageResource(R.drawable.ic_action_checked);
-                    img2.setImageResource(R.color.renk2);
-                    img3.setImageResource(R.color.renk3);
-                    img4.setImageResource(R.color.renk4);
-                    img5.setImageResource(R.color.renk5);
-                    img6.setImageResource(R.color.renk6);
-                    img7.setImageResource(R.color.renk7);
-                    img1.setImageResource(R.color.renk1);
-                    img9.setImageResource(R.color.renk9);
-                    img10.setImageResource(R.color.renk10);
-                    img11.setImageResource(R.color.renk11);
-                    img12.setImageResource(R.color.renk12);
-
-                    arkaPlan=7;
-                }
-                break;
-            case R.id.img9:
-                if (checked){
-
-                    img9.setImageResource(R.drawable.ic_action_checked);
-                    img2.setImageResource(R.color.renk2);
-                    img3.setImageResource(R.color.renk3);
-                    img4.setImageResource(R.color.renk4);
-                    img5.setImageResource(R.color.renk5);
-                    img6.setImageResource(R.color.renk6);
-                    img7.setImageResource(R.color.renk7);
-                    img8.setImageResource(R.color.renk8);
-                    img1.setImageResource(R.color.renk1);
-                    img10.setImageResource(R.color.renk10);
-                    img11.setImageResource(R.color.renk11);
-                    img12.setImageResource(R.color.renk12);
-                    arkaPlan=8;
-
-                }
-                break;
-            case R.id.img10:
-                if (checked){
-
-                    img10.setImageResource(R.drawable.ic_action_checked);
-                    img2.setImageResource(R.color.renk2);
-                    img3.setImageResource(R.color.renk3);
-                    img4.setImageResource(R.color.renk4);
-                    img5.setImageResource(R.color.renk5);
-                    img6.setImageResource(R.color.renk6);
-                    img7.setImageResource(R.color.renk7);
-                    img8.setImageResource(R.color.renk8);
-                    img9.setImageResource(R.color.renk9);
-                    img1.setImageResource(R.color.renk1);
-                    img11.setImageResource(R.color.renk11);
-                    img12.setImageResource(R.color.renk12);
-
-                    arkaPlan=9;
-
-                }
-                break;
-            case R.id.img11:
-                if (checked){
-
-                    img11.setImageResource(R.drawable.ic_action_checked);
-                    img2.setImageResource(R.color.renk2);
-                    img3.setImageResource(R.color.renk3);
-                    img4.setImageResource(R.color.renk4);
-                    img5.setImageResource(R.color.renk5);
-                    img6.setImageResource(R.color.renk6);
-                    img7.setImageResource(R.color.renk7);
-                    img8.setImageResource(R.color.renk8);
-                    img9.setImageResource(R.color.renk9);
-                    img10.setImageResource(R.color.renk10);
-                    img1.setImageResource(R.color.renk1);
-                    img12.setImageResource(R.color.renk12);
-
-                    arkaPlan=10;
-
-                }
-                break;
-            case R.id.img12:
-                if (checked){
-
-                    img12.setImageResource(R.drawable.ic_action_checked);
-                    img2.setImageResource(R.color.renk2);
-                    img3.setImageResource(R.color.renk3);
-                    img4.setImageResource(R.color.renk4);
-                    img5.setImageResource(R.color.renk5);
-                    img6.setImageResource(R.color.renk6);
-                    img7.setImageResource(R.color.renk7);
-                    img8.setImageResource(R.color.renk8);
-                    img9.setImageResource(R.color.renk9);
-                    img10.setImageResource(R.color.renk10);
-                    img11.setImageResource(R.color.renk11);
-                    img1.setImageResource(R.color.renk1);
-                    arkaPlan=11;
-
-                }
-                break;
+        if (checked)
+        for(int i=0;i<12;i++){
+            if(view.getId()==RenkButon.btnRenkler[i])
+            {
+                imageButonlar[i].setImageResource(R.drawable.ic_action_checked);
+                arkaPlan=i;
+            }
+            else
+                imageButonlar[i].setImageResource(Renkler.renkArkaplan[i]);
         }
     }
     //yazı rekleri
     public void onCheckboxClickedtxt(View view) {
         // Is the view now checked?
         boolean checked = ((ImageView) view).hasOnClickListeners();
-
-        // Check which checkbox was clicked
-        switch(view.getId()) {
-            case R.id.img1:
-                if (checked){
-
-                    img1.setImageResource(R.drawable.ic_action_checked);
-                    img2.setImageResource(R.color.renk2txt);
-                    img3.setImageResource(R.color.renk3txt);
-                    img4.setImageResource(R.color.renk4txt);
-                    img5.setImageResource(R.color.renk5txt);
-                    img6.setImageResource(R.color.renk6txt);
-                    img7.setImageResource(R.color.renk7txt);
-                    img8.setImageResource(R.color.renk8txt);
-                    img9.setImageResource(R.color.renk9txt);
-                    img10.setImageResource(R.color.renk10txt);
-                    img11.setImageResource(R.color.renk11txt);
-                    img12.setImageResource(R.color.renk12txt);
-
-                    yaziRengi=0;
-
+        if (checked)
+            for(int i=0;i<12;i++){
+                if(view.getId()==RenkButon.btnRenkler[i])
+                {
+                    imageButonlar[i].setImageResource(R.drawable.ic_action_checked);
+                    yaziRengi=i;
                 }
-                break;
-            case R.id.img2:
-                if (checked){
-
-                    img2.setImageResource(R.drawable.ic_action_checked);
-                    img1.setImageResource(R.color.renk1txt);
-                    img3.setImageResource(R.color.renk3txt);
-                    img4.setImageResource(R.color.renk4txt);
-                    img5.setImageResource(R.color.renk5txt);
-                    img6.setImageResource(R.color.renk6txt);
-                    img7.setImageResource(R.color.renk7txt);
-                    img8.setImageResource(R.color.renk8txt);
-                    img9.setImageResource(R.color.renk9txt);
-                    img10.setImageResource(R.color.renk10txt);
-                    img11.setImageResource(R.color.renk11txt);
-                    img12.setImageResource(R.color.renk12txt);
-
-                    yaziRengi=1;
-
-                }
-                break;
-            case R.id.img3:
-                if (checked){
-
-                    img3.setImageResource(R.drawable.ic_action_checked);
-                    img2.setImageResource(R.color.renk2txt);
-                    img1.setImageResource(R.color.renk1txt);
-                    img4.setImageResource(R.color.renk4txt);
-                    img5.setImageResource(R.color.renk5txt);
-                    img6.setImageResource(R.color.renk6txt);
-                    img7.setImageResource(R.color.renk7txt);
-                    img8.setImageResource(R.color.renk8txt);
-                    img9.setImageResource(R.color.renk9txt);
-                    img10.setImageResource(R.color.renk10txt);
-                    img11.setImageResource(R.color.renk11txt);
-                    img12.setImageResource(R.color.renk12txt);
-
-                    yaziRengi=2;
-
-                }
-                break;
-            case R.id.img4:
-                if (checked){
-
-                    img4.setImageResource(R.drawable.ic_action_checked);
-                    img2.setImageResource(R.color.renk2txt);
-                    img3.setImageResource(R.color.renk3txt);
-                    img1.setImageResource(R.color.renk1txt);
-                    img5.setImageResource(R.color.renk5txt);
-                    img6.setImageResource(R.color.renk6txt);
-                    img7.setImageResource(R.color.renk7txt);
-                    img8.setImageResource(R.color.renk8txt);
-                    img9.setImageResource(R.color.renk9txt);
-                    img10.setImageResource(R.color.renk10txt);
-                    img11.setImageResource(R.color.renk11txt);
-                    img12.setImageResource(R.color.renk12txt);
-
-                    yaziRengi=3;
-
-                }
-                break;
-            case R.id.img5:
-                if (checked){
-
-                    img5.setImageResource(R.drawable.ic_action_checked);
-                    img2.setImageResource(R.color.renk2txt);
-                    img3.setImageResource(R.color.renk3txt);
-                    img4.setImageResource(R.color.renk4txt);
-                    img1.setImageResource(R.color.renk1txt);
-                    img6.setImageResource(R.color.renk6txt);
-                    img7.setImageResource(R.color.renk7txt);
-                    img8.setImageResource(R.color.renk8txt);
-                    img9.setImageResource(R.color.renk9txt);
-                    img10.setImageResource(R.color.renk10txt);
-                    img11.setImageResource(R.color.renk11txt);
-                    img12.setImageResource(R.color.renk12txt);
-
-                    yaziRengi=4;
-
-                }
-                break;
-            case R.id.img6:
-                if (checked){
-
-                    img6.setImageResource(R.drawable.ic_action_checked);
-                    img2.setImageResource(R.color.renk2txt);
-                    img3.setImageResource(R.color.renk3txt);
-                    img4.setImageResource(R.color.renk4txt);
-                    img5.setImageResource(R.color.renk5txt);
-                    img1.setImageResource(R.color.renk1txt);
-                    img7.setImageResource(R.color.renk7txt);
-                    img8.setImageResource(R.color.renk8txt);
-                    img9.setImageResource(R.color.renk9txt);
-                    img10.setImageResource(R.color.renk10txt);
-                    img11.setImageResource(R.color.renk11txt);
-                    img12.setImageResource(R.color.renk12txt);
-                    yaziRengi=5;
-
-                }
-                break;
-            case R.id.img7:
-                if (checked){
-
-                    img7.setImageResource(R.drawable.ic_action_checked);
-                    img2.setImageResource(R.color.renk2txt);
-                    img3.setImageResource(R.color.renk3txt);
-                    img4.setImageResource(R.color.renk4txt);
-                    img5.setImageResource(R.color.renk5txt);
-                    img6.setImageResource(R.color.renk6txt);
-                    img1.setImageResource(R.color.renk1txt);
-                    img8.setImageResource(R.color.renk8txt);
-                    img9.setImageResource(R.color.renk9txt);
-                    img10.setImageResource(R.color.renk10txt);
-                    img11.setImageResource(R.color.renk11txt);
-                    img12.setImageResource(R.color.renk12txt);
-
-                    yaziRengi=6;
-
-                }
-                break;
-            case R.id.img8:
-                if (checked){
-
-                    img8.setImageResource(R.drawable.ic_action_checked);
-                    img2.setImageResource(R.color.renk2txt);
-                    img3.setImageResource(R.color.renk3txt);
-                    img4.setImageResource(R.color.renk4txt);
-                    img5.setImageResource(R.color.renk5txt);
-                    img6.setImageResource(R.color.renk6txt);
-                    img7.setImageResource(R.color.renk7txt);
-                    img1.setImageResource(R.color.renk1txt);
-                    img9.setImageResource(R.color.renk9txt);
-                    img10.setImageResource(R.color.renk10txt);
-                    img11.setImageResource(R.color.renk11txt);
-                    img12.setImageResource(R.color.renk12txt);
-
-                    yaziRengi=7;
-
-                }
-                break;
-            case R.id.img9:
-                if (checked){
-
-                    img9.setImageResource(R.drawable.ic_action_checked);
-                    img2.setImageResource(R.color.renk2txt);
-                    img3.setImageResource(R.color.renk3txt);
-                    img4.setImageResource(R.color.renk4txt);
-                    img5.setImageResource(R.color.renk5txt);
-                    img6.setImageResource(R.color.renk6txt);
-                    img7.setImageResource(R.color.renk7txt);
-                    img8.setImageResource(R.color.renk8txt);
-                    img1.setImageResource(R.color.renk1txt);
-                    img10.setImageResource(R.color.renk10txt);
-                    img11.setImageResource(R.color.renk11txt);
-                    img12.setImageResource(R.color.renk12txt);
-                    yaziRengi=8;
-
-                }
-                break;
-            case R.id.img10:
-                if (checked){
-
-                    img10.setImageResource(R.drawable.ic_action_checked);
-                    img2.setImageResource(R.color.renk2txt);
-                    img3.setImageResource(R.color.renk3txt);
-                    img4.setImageResource(R.color.renk4txt);
-                    img5.setImageResource(R.color.renk5txt);
-                    img6.setImageResource(R.color.renk6txt);
-                    img7.setImageResource(R.color.renk7txt);
-                    img8.setImageResource(R.color.renk8txt);
-                    img9.setImageResource(R.color.renk9txt);
-                    img1.setImageResource(R.color.renk1txt);
-                    img11.setImageResource(R.color.renk11txt);
-                    img12.setImageResource(R.color.renk12txt);
-
-                    yaziRengi=9;
-
-                }
-                break;
-            case R.id.img11:
-                if (checked){
-
-                    img11.setImageResource(R.drawable.ic_action_checked);
-                    img2.setImageResource(R.color.renk2txt);
-                    img3.setImageResource(R.color.renk3txt);
-                    img4.setImageResource(R.color.renk4txt);
-                    img5.setImageResource(R.color.renk5txt);
-                    img6.setImageResource(R.color.renk6txt);
-                    img7.setImageResource(R.color.renk7txt);
-                    img8.setImageResource(R.color.renk8txt);
-                    img9.setImageResource(R.color.renk9txt);
-                    img10.setImageResource(R.color.renk10txt);
-                    img1.setImageResource(R.color.renk1txt);
-                    img12.setImageResource(R.color.renk12txt);
-
-                    yaziRengi=10;
-
-                }
-                break;
-            case R.id.img12:
-                if (checked){
-
-                    img12.setImageResource(R.drawable.ic_action_checked);
-                    img2.setImageResource(R.color.renk2txt);
-                    img3.setImageResource(R.color.renk3txt);
-                    img4.setImageResource(R.color.renk4txt);
-                    img5.setImageResource(R.color.renk5txt);
-                    img6.setImageResource(R.color.renk6txt);
-                    img7.setImageResource(R.color.renk7txt);
-                    img8.setImageResource(R.color.renk8txt);
-                    img9.setImageResource(R.color.renk9txt);
-                    img10.setImageResource(R.color.renk10txt);
-                    img11.setImageResource(R.color.renk11txt);
-                    img1.setImageResource(R.color.renk1txt);
-                    yaziRengi=11;
-
-                }
-                break;
-        }
+                else
+                    imageButonlar[i].setImageResource(Renkler.textColor[i]);
+            }
     }
 
 }

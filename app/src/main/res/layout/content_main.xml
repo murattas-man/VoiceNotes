@@ -12,7 +12,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
     android:id="@+id/listReletive"
-    android:background="#ECEFF1"
+    android:background="@color/white"
     tools:showIn="@layout/app_bar_main">
 
 
@@ -26,7 +26,8 @@
                 android:layout_width="match_parent"
                 android:id="@+id/commentslist"
                 android:layout_height="wrap_content"
-                android:divider="@color/white_pressed"
+                android:divider="@color/black_overlay"
+                android:listSelector="@color/listselector"
                 android:dividerHeight="5dp"
                 android:nextFocusLeft="@color/renk6"
                 />
